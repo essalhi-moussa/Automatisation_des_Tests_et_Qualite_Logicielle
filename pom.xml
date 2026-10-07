@@ -107,6 +107,10 @@
             <properties><suite.file>src/test/resources/testng/api.xml</suite.file></properties>
         </profile>
         <profile>
+            <id>external</id>
+            <properties><suite.file>src/test/resources/testng/external.xml</suite.file></properties>
+        </profile>
+        <profile>
             <id>all</id>
             <properties><suite.file>src/test/resources/testng/all.xml</suite.file></properties>
         </profile>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Tests sur sites tiers (the-internet)" verbose="1">
+    <test name="UI - the-internet nested_frames">
+        <groups>
+            <run>
+                <include name="external"/>
+            </run>
+        </groups>
+        <packages>
+            <package name="ma.fsac.qa.tests.ui"/>
+        </packages>
+    </test>
+</suite>
