@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Reponse a la creation d un utilisateur (POST)",
+  "type": "object",
+  "required": ["name", "job", "id", "createdAt"],
+  "properties": {
+    "name": {"type": "string"},
+    "job": {"type": "string"},
+    "id": {"type": ["string", "integer"]},
+    "createdAt": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}"}
+  }
+}

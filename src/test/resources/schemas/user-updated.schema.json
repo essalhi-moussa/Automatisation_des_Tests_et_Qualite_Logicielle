@@ -1,0 +1,11 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Reponse a la mise a jour d un utilisateur (PUT)",
+  "type": "object",
+  "required": ["name", "job", "updatedAt"],
+  "properties": {
+    "name": {"type": "string"},
+    "job": {"type": "string"},
+    "updatedAt": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}"}
+  }
+}
