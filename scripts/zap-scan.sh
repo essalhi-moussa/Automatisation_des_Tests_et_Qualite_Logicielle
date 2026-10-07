@@ -22,7 +22,10 @@ chmod 777 "$OUT" 2>/dev/null || true
 if [ -n "${ZAP_HOME:-}" ]; then
   echo "ZAP local ($ZAP_HOME) -> plan d'automatisation scripts/zap-baseline-plan.yaml"
   PLAN_TMP="$OUT/.plan.yaml"
-  sed -e "s#__TARGET__#${TARGET}#g" -e "s#__OUT__#${OUT}#g" "$ROOT/scripts/zap-baseline-plan.yaml" > "$PLAN_TMP"
+  # Sous Git Bash / Windows, Java attend un chemin de type C:/... et non /c/...
+  OUT_JAVA="$OUT"
+  if command -v cygpath >/dev/null 2>&1; then OUT_JAVA="$(cygpath -m "$OUT")"; fi
+  sed -e "s#__TARGET__#${TARGET}#g" -e "s#__OUT__#${OUT_JAVA}#g" "$ROOT/scripts/zap-baseline-plan.yaml" > "$PLAN_TMP"
   "$ZAP_HOME/zap.sh" -cmd -silent -autorun "$PLAN_TMP"
   rc=$?
   rm -f "$PLAN_TMP"
