@@ -1,0 +1,28 @@
+# Build
+target/
+*.class
+*.log
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.settings/
+.project
+.classpath
+
+# Rapports temporaires (les rapports de référence sont dans reports/)
+allure-results/
+allure-report/
+newman/
+node_modules/
+tmp/
+
+# Configuration locale
+.claude/
+.env
+*.local.properties
+
+# Système
+Thumbs.db
+.DS_Store
