@@ -1,5 +1,7 @@
 package ma.fsac.qa.base;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.time.Duration;
 import ma.fsac.qa.config.Config;
 import org.openqa.selenium.PageLoadStrategy;
@@ -10,6 +12,7 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 /**
  * Cree le WebDriver. Aucun chemin de driver n'est code en dur : Selenium Manager
@@ -49,13 +52,15 @@ public final class DriverFactory {
             }
             default -> {
                 ChromeOptions o = new ChromeOptions();
+                String remote = Config.get("remote.url");
                 if (headless) {
                     o.addArguments("--headless=new");
                 }
                 o.setPageLoadStrategy(strategy);
                 o.addArguments("--window-size=" + sizeArg, "--no-sandbox",
                         "--disable-dev-shm-usage", "--disable-search-engine-choice-screen");
-                driver = new ChromeDriver(o);
+                // Navigateur distant (ex. service selenium/standalone-chrome en CI) si remote.url est renseignee
+                driver = (remote == null || remote.isBlank()) ? new ChromeDriver(o) : remoteDriver(remote, o);
             }
         }
         driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(Config.getInt("timeout.page.load")));
@@ -63,5 +68,13 @@ public final class DriverFactory {
             driver.manage().window().maximize();
         }
         return driver;
+    }
+
+    private static WebDriver remoteDriver(String url, ChromeOptions options) {
+        try {
+            return new RemoteWebDriver(new URL(url), options);
+        } catch (MalformedURLException e) {
+            throw new IllegalArgumentException("remote.url invalide : " + url, e);
+        }
     }
 }
