@@ -1,0 +1,200 @@
+# Pipeline CI/CD du projet M11 : build -> api-tests -> ui-tests -> performance -> security -> report
+#
+# Variables CI a definir dans Settings > CI/CD > Variables (toutes optionnelles) :
+#   REQRES_API_KEY       cle API Reqres (defaut : reqres-free-v1 dans config.properties)
+#   API_BASE_URL         URL de l API (defaut : https://reqres.in ; mettre l URL du mock pour eviter les 429)
+#   SLACK_WEBHOOK_URL    webhook Slack (masquee)    -> notification en fin de pipeline
+#   DISCORD_WEBHOOK_URL  webhook Discord (masquee)
+# Notifications e-mail : Settings > Integrations > Pipeline status emails (voir README).
+
+stages:
+  - build
+  - api-tests
+  - ui-tests
+  - performance
+  - security
+  - report
+
+default:
+  image: maven:3.9-eclipse-temurin-17
+  interruptible: true
+
+variables:
+  MAVEN_OPTS: "-Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository"
+  MAVEN_CLI_OPTS: "-B -ntp"
+  API_BASE_URL: "https://reqres.in"
+
+cache:
+  key:
+    files:
+      - pom.xml
+  paths:
+    - .m2/repository
+
+# ---------------------------------------------------------------- build
+compile:
+  stage: build
+  script:
+    - mvn $MAVEN_CLI_OPTS -DskipTests test-compile
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - target/test-classes
+
+# ---------------------------------------------------------------- api-tests
+api-restassured:
+  stage: api-tests
+  script:
+    - mvn $MAVEN_CLI_OPTS -P api test -Dapi.base.url=$API_BASE_URL
+  artifacts:
+    when: always
+    expire_in: 30 days
+    paths:
+      - target/allure-results
+      - target/surefire-reports
+    reports:
+      junit: target/surefire-reports/TEST-*.xml
+
+api-newman:
+  stage: api-tests
+  image:
+    name: node:20
+  before_script:
+    - npm install -g newman newman-reporter-htmlextra
+  script:
+    - mkdir -p reports/api/newman
+    - >
+      newman run postman/Reqres.postman_collection.json
+      -e postman/reqres-public.postman_environment.json
+      --env-var "baseUrl=$API_BASE_URL"
+      ${REQRES_API_KEY:+--env-var "apiKey=$REQRES_API_KEY"}
+      -r cli,htmlextra,junit
+      --reporter-htmlextra-export reports/api/newman/rapport-newman.html
+      --reporter-junit-export reports/api/newman/newman-junit.xml
+  artifacts:
+    when: always
+    expire_in: 30 days
+    paths:
+      - reports/api/newman
+    reports:
+      junit: reports/api/newman/newman-junit.xml
+
+# ---------------------------------------------------------------- ui-tests
+ui-selenium:
+  stage: ui-tests
+  services:
+    - name: selenium/standalone-chrome:latest
+      alias: selenium
+  variables:
+    REMOTE_URL: "http://selenium:4444/wd/hub"
+    HEADLESS: "true"
+  script:
+    - mvn $MAVEN_CLI_OPTS -P ui test -Dremote.url=$REMOTE_URL -Dheadless=true
+  artifacts:
+    when: always
+    expire_in: 30 days
+    paths:
+      - target/allure-results
+      - target/surefire-reports
+    reports:
+      junit: target/surefire-reports/TEST-*.xml
+
+# ---------------------------------------------------------------- performance (manuel ou planifie)
+perf-jmeter:
+  stage: performance
+  image:
+    name: justb4/jmeter:5.5
+    entrypoint: [""]
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+    - when: manual
+      allow_failure: true
+  variables:
+    JMETER_BIN: "/opt/apache-jmeter-5.5/bin/jmeter"
+  script:
+    - |
+      export PROTOCOL=$(echo "$API_BASE_URL" | sed -E 's#^(https?)://.*#\1#')
+      export HOST=$(echo "$API_BASE_URL" | sed -E 's#^https?://([^:/]+).*#\1#')
+      export PORT=$(echo "$API_BASE_URL" | sed -nE 's#^https?://[^:/]+:([0-9]+).*#\1#p')
+      export PORT=${PORT:-$([ "$PROTOCOL" = "https" ] && echo 443 || echo 80)}
+      bash scripts/run-jmeter.sh ci
+  artifacts:
+    when: always
+    expire_in: 30 days
+    paths:
+      - reports/perf/ci
+
+# ---------------------------------------------------------------- security
+security-zap:
+  stage: security
+  image:
+    name: ghcr.io/zaproxy/zaproxy:stable
+    entrypoint: [""]
+  allow_failure: true
+  script:
+    - mkdir -p /zap/wrk reports/security
+    - zap-baseline.py -t https://formy-project.herokuapp.com -r zap-baseline.html -J zap-baseline.json -w zap-baseline.md -I || true
+    - cp /zap/wrk/zap-baseline.* reports/security/
+  artifacts:
+    when: always
+    expire_in: 30 days
+    paths:
+      - reports/security
+
+# ---------------------------------------------------------------- report
+allure-report:
+  stage: report
+  when: always
+  needs:
+    - job: api-restassured
+      artifacts: true
+      optional: true
+    - job: ui-selenium
+      artifacts: true
+      optional: true
+  variables:
+    ALLURE_VERSION: "2.29.0"
+  script:
+    - curl -sSL -o allure.tgz "https://github.com/allure-framework/allure2/releases/download/${ALLURE_VERSION}/allure-${ALLURE_VERSION}.tgz"
+    - tar -xzf allure.tgz
+    - ./allure-${ALLURE_VERSION}/bin/allure generate target/allure-results --clean -o allure-report
+  artifacts:
+    when: always
+    expire_in: 30 days
+    paths:
+      - allure-report
+
+# GitLab Pages : publie le rapport Allure sur la branche par defaut
+pages:
+  stage: report
+  needs:
+    - job: allure-report
+      artifacts: true
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+  script:
+    - mkdir -p public
+    - cp -r allure-report/. public/
+  artifacts:
+    paths:
+      - public
+    expire_in: 30 days
+
+# Notification webhook (optionnelle) : executee dans le stage .post, quel que soit le resultat
+notify-success:
+  stage: .post
+  image: curlimages/curl:latest
+  rules:
+    - if: $SLACK_WEBHOOK_URL || $DISCORD_WEBHOOK_URL
+      when: on_success
+  script:
+    - sh scripts/notify-webhook.sh success
+
+notify-failure:
+  stage: .post
+  image: curlimages/curl:latest
+  rules:
+    - if: $SLACK_WEBHOOK_URL || $DISCORD_WEBHOOK_URL
+      when: on_failure
+  script:
+    - sh scripts/notify-webhook.sh failed
