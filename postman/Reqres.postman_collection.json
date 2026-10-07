@@ -1,0 +1,502 @@
+{
+  "info": {
+    "_postman_id": "6cd35598-189b-55b5-93ce-e12ebbbd4f26",
+    "name": "Reqres - Tests API (M11)",
+    "description": "Collection v2.1 : GET/POST/PUT/DELETE sur /api/users et /api/login. Variables d'environnement : baseUrl, apiKey, maxResponseTime.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "API-01 GET liste des utilisateurs (page 2)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Statut HTTP 200', function () { pm.response.to.have.status(200); });",
+              "pm.test('Temps de reponse < ' + pm.environment.get('maxResponseTime') + ' ms', function () {",
+              "    pm.expect(pm.response.responseTime).to.be.below(Number(pm.environment.get('maxResponseTime')));",
+              "});",
+              "pm.test('Content-Type JSON', function () { pm.expect(pm.response.headers.get('Content-Type')).to.include('json'); });",
+              "const schema = {\"type\": \"object\", \"required\": [\"page\", \"per_page\", \"total\", \"total_pages\", \"data\"], \"properties\": {\"page\": {\"type\": \"integer\"}, \"per_page\": {\"type\": \"integer\"}, \"total\": {\"type\": \"integer\"}, \"total_pages\": {\"type\": \"integer\"}, \"data\": {\"type\": \"array\", \"items\": {\"type\": \"object\", \"required\": [\"id\", \"email\", \"first_name\", \"last_name\", \"avatar\"], \"properties\": {\"id\": {\"type\": \"integer\"}, \"email\": {\"type\": \"string\"}, \"first_name\": {\"type\": \"string\"}, \"last_name\": {\"type\": \"string\"}, \"avatar\": {\"type\": \"string\"}}}}}};",
+              "pm.test('Schema JSON valide', function () { pm.response.to.have.jsonSchema(schema); });",
+              "const body = pm.response.json();",
+              "pm.test('Pagination coherente (page 2, 6 par page)', function () {",
+              "    pm.expect(body.page).to.eql(2);",
+              "    pm.expect(body.per_page).to.eql(6);",
+              "    pm.expect(body.data).to.have.lengthOf(6);",
+              "});",
+              "pm.test('Chaque email contient @', function () {",
+              "    body.data.forEach(function (u) { pm.expect(u.email).to.include('@'); });",
+              "});",
+              "pm.collectionVariables.set('firstUserId', body.data[0].id);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "{{apiKey}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/users?page=2",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "users"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "2"
+            }
+          ]
+        },
+        "description": "Liste paginee : 6 utilisateurs sur la page 2."
+      },
+      "response": []
+    },
+    {
+      "name": "API-02 GET un utilisateur (id 2)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Statut HTTP 200', function () { pm.response.to.have.status(200); });",
+              "pm.test('Temps de reponse < ' + pm.environment.get('maxResponseTime') + ' ms', function () {",
+              "    pm.expect(pm.response.responseTime).to.be.below(Number(pm.environment.get('maxResponseTime')));",
+              "});",
+              "pm.test('Content-Type JSON', function () { pm.expect(pm.response.headers.get('Content-Type')).to.include('json'); });",
+              "const schema = {\"type\": \"object\", \"required\": [\"data\"], \"properties\": {\"data\": {\"type\": \"object\", \"required\": [\"id\", \"email\", \"first_name\", \"last_name\", \"avatar\"]}}};",
+              "pm.test('Schema JSON valide', function () { pm.response.to.have.jsonSchema(schema); });",
+              "const u = pm.response.json().data;",
+              "pm.test('Utilisateur Janet Weaver', function () {",
+              "    pm.expect(u.id).to.eql(2);",
+              "    pm.expect(u.first_name).to.eql('Janet');",
+              "    pm.expect(u.last_name).to.eql('Weaver');",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "{{apiKey}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/users/2",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "users",
+            "2"
+          ]
+        },
+        "description": ""
+      },
+      "response": []
+    },
+    {
+      "name": "API-03 GET utilisateur inexistant (id 23)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Statut HTTP 404', function () { pm.response.to.have.status(404); });",
+              "pm.test('Corps vide {}', function () { pm.expect(pm.response.json()).to.eql({}); });",
+              "pm.test('Temps de reponse < seuil', function () {",
+              "    pm.expect(pm.response.responseTime).to.be.below(Number(pm.environment.get('maxResponseTime')));",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "{{apiKey}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/users/23",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "users",
+            "23"
+          ]
+        },
+        "description": "Cas negatif : 404 et corps JSON vide."
+      },
+      "response": []
+    },
+    {
+      "name": "API-04 POST creation d'un utilisateur",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "// Jeu de donnees dynamique : nom unique a chaque execution",
+              "const suffix = Math.floor(Math.random() * 100000);",
+              "pm.variables.set('userName', 'testeur-' + suffix);",
+              "pm.variables.set('userJob', 'QA automation');"
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Statut HTTP 201', function () { pm.response.to.have.status(201); });",
+              "pm.test('Temps de reponse < ' + pm.environment.get('maxResponseTime') + ' ms', function () {",
+              "    pm.expect(pm.response.responseTime).to.be.below(Number(pm.environment.get('maxResponseTime')));",
+              "});",
+              "pm.test('Content-Type JSON', function () { pm.expect(pm.response.headers.get('Content-Type')).to.include('json'); });",
+              "const schema = {\"type\": \"object\", \"required\": [\"name\", \"job\", \"id\", \"createdAt\"], \"properties\": {\"name\": {\"type\": \"string\"}, \"job\": {\"type\": \"string\"}, \"id\": {\"type\": [\"string\", \"integer\"]}, \"createdAt\": {\"type\": \"string\"}}};",
+              "pm.test('Schema JSON valide', function () { pm.response.to.have.jsonSchema(schema); });",
+              "const b = pm.response.json();",
+              "pm.test('Les donnees envoyees sont renvoyees', function () {",
+              "    pm.expect(b.name).to.eql(pm.variables.get('userName'));",
+              "    pm.expect(b.job).to.eql('QA automation');",
+              "});",
+              "pm.collectionVariables.set('createdUserId', b.id);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "{{apiKey}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/users",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "users"
+          ]
+        },
+        "description": "Les donnees ne sont pas persistees par Reqres : seul l'echo est verifiable.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"{{userName}}\",\n  \"job\": \"{{userJob}}\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "API-05 PUT mise a jour d'un utilisateur",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Statut HTTP 200', function () { pm.response.to.have.status(200); });",
+              "pm.test('Temps de reponse < ' + pm.environment.get('maxResponseTime') + ' ms', function () {",
+              "    pm.expect(pm.response.responseTime).to.be.below(Number(pm.environment.get('maxResponseTime')));",
+              "});",
+              "pm.test('Content-Type JSON', function () { pm.expect(pm.response.headers.get('Content-Type')).to.include('json'); });",
+              "const schema = {\"type\": \"object\", \"required\": [\"name\", \"job\", \"updatedAt\"], \"properties\": {\"name\": {\"type\": \"string\"}, \"job\": {\"type\": \"string\"}, \"updatedAt\": {\"type\": \"string\"}}};",
+              "pm.test('Schema JSON valide', function () { pm.response.to.have.jsonSchema(schema); });",
+              "const b = pm.response.json();",
+              "pm.test('Valeurs mises a jour', function () {",
+              "    pm.expect(b.name).to.eql('morpheus');",
+              "    pm.expect(b.job).to.eql('zion resident');",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "{{apiKey}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/users/2",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "users",
+            "2"
+          ]
+        },
+        "description": "",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"morpheus\",\n  \"job\": \"zion resident\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "API-06 DELETE suppression d'un utilisateur",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Statut HTTP 204', function () { pm.response.to.have.status(204); });",
+              "pm.test('Temps de reponse < ' + pm.environment.get('maxResponseTime') + ' ms', function () {",
+              "    pm.expect(pm.response.responseTime).to.be.below(Number(pm.environment.get('maxResponseTime')));",
+              "});",
+              "pm.test('Corps vide', function () { pm.expect(pm.response.text()).to.eql(''); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "{{apiKey}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/users/2",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "users",
+            "2"
+          ]
+        },
+        "description": ""
+      },
+      "response": []
+    },
+    {
+      "name": "API-07 POST connexion valide",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Statut HTTP 200', function () { pm.response.to.have.status(200); });",
+              "pm.test('Temps de reponse < ' + pm.environment.get('maxResponseTime') + ' ms', function () {",
+              "    pm.expect(pm.response.responseTime).to.be.below(Number(pm.environment.get('maxResponseTime')));",
+              "});",
+              "pm.test('Content-Type JSON', function () { pm.expect(pm.response.headers.get('Content-Type')).to.include('json'); });",
+              "const schema = {\"type\": \"object\", \"required\": [\"token\"], \"properties\": {\"token\": {\"type\": \"string\"}}};",
+              "pm.test('Schema JSON valide', function () { pm.response.to.have.jsonSchema(schema); });",
+              "pm.collectionVariables.set('token', pm.response.json().token);",
+              "pm.test('Token non vide', function () { pm.expect(pm.collectionVariables.get('token')).to.be.a('string').and.not.empty; });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "{{apiKey}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/login",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "login"
+          ]
+        },
+        "description": "",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"eve.holt@reqres.in\",\n  \"password\": \"cityslicka\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "API-08 POST connexion sans mot de passe",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Statut HTTP 400', function () { pm.response.to.have.status(400); });",
+              "pm.test('Temps de reponse < ' + pm.environment.get('maxResponseTime') + ' ms', function () {",
+              "    pm.expect(pm.response.responseTime).to.be.below(Number(pm.environment.get('maxResponseTime')));",
+              "});",
+              "pm.test('Content-Type JSON', function () { pm.expect(pm.response.headers.get('Content-Type')).to.include('json'); });",
+              "const schema = {\"type\": \"object\", \"required\": [\"error\"], \"properties\": {\"error\": {\"type\": \"string\"}}};",
+              "pm.test('Schema JSON valide', function () { pm.response.to.have.jsonSchema(schema); });",
+              "pm.test('Message d erreur attendu', function () {",
+              "    pm.expect(pm.response.json().error).to.eql('Missing password');",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "{{apiKey}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/login",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "login"
+          ]
+        },
+        "description": "Cas negatif : 400 'Missing password'.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"peter@klaven\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "token",
+      "value": ""
+    },
+    {
+      "key": "createdUserId",
+      "value": ""
+    },
+    {
+      "key": "firstUserId",
+      "value": ""
+    }
+  ]
+}
