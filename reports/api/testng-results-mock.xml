@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="9" passed="9" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2026-10-07T23:38:58 WEST" name="Tests API Reqres" finished-at="2026-10-07T23:39:08 WEST" duration-ms="9417">
+    <groups>
+      <group name="smoke">
+        <method signature="UsersApiTests.creerUnUtilisateur(java.lang.String,java.lang.String)[pri:0, instance:ma.fsac.qa.tests.api.UsersApiTests@4455f57d]" name="creerUnUtilisateur" class="ma.fsac.qa.tests.api.UsersApiTests"/>
+        <method signature="UsersApiTests.listerLesUtilisateurs()[pri:0, instance:ma.fsac.qa.tests.api.UsersApiTests@4455f57d]" name="listerLesUtilisateurs" class="ma.fsac.qa.tests.api.UsersApiTests"/>
+      </group> <!-- smoke -->
+      <group name="api">
+        <method signature="UsersApiTests.connexionSansMotDePasse()[pri:0, instance:ma.fsac.qa.tests.api.UsersApiTests@4455f57d]" name="connexionSansMotDePasse" class="ma.fsac.qa.tests.api.UsersApiTests"/>
+        <method signature="UsersApiTests.connexionValide()[pri:0, instance:ma.fsac.qa.tests.api.UsersApiTests@4455f57d]" name="connexionValide" class="ma.fsac.qa.tests.api.UsersApiTests"/>
+        <method signature="UsersApiTests.consulterUnUtilisateur()[pri:0, instance:ma.fsac.qa.tests.api.UsersApiTests@4455f57d]" name="consulterUnUtilisateur" class="ma.fsac.qa.tests.api.UsersApiTests"/>
+        <method signature="UsersApiTests.creerUnUtilisateur(java.lang.String,java.lang.String)[pri:0, instance:ma.fsac.qa.tests.api.UsersApiTests@4455f57d]" name="creerUnUtilisateur" class="ma.fsac.qa.tests.api.UsersApiTests"/>
+        <method signature="UsersApiTests.listerLesUtilisateurs()[pri:0, instance:ma.fsac.qa.tests.api.UsersApiTests@4455f57d]" name="listerLesUtilisateurs" class="ma.fsac.qa.tests.api.UsersApiTests"/>
+        <method signature="UsersApiTests.modifierUnUtilisateur()[pri:0, instance:ma.fsac.qa.tests.api.UsersApiTests@4455f57d]" name="modifierUnUtilisateur" class="ma.fsac.qa.tests.api.UsersApiTests"/>
+        <method signature="UsersApiTests.supprimerUnUtilisateur()[pri:0, instance:ma.fsac.qa.tests.api.UsersApiTests@4455f57d]" name="supprimerUnUtilisateur" class="ma.fsac.qa.tests.api.UsersApiTests"/>
+        <method signature="UsersApiTests.utilisateurInexistant()[pri:0, instance:ma.fsac.qa.tests.api.UsersApiTests@4455f57d]" name="utilisateurInexistant" class="ma.fsac.qa.tests.api.UsersApiTests"/>
+      </group> <!-- api -->
+    </groups>
+    <test started-at="2026-10-07T23:38:58 WEST" name="API - Reqres" finished-at="2026-10-07T23:39:08 WEST" duration-ms="9417">
+      <class name="ma.fsac.qa.tests.api.UsersApiTests">
+        <test-method signature="connexionSansMotDePasse()[pri:0, instance:ma.fsac.qa.tests.api.UsersApiTests@4455f57d]" started-at="2026-10-07T23:38:58 WEST" name="connexionSansMotDePasse" description="API-08 : POST /api/login sans mot de passe" finished-at="2026-10-07T23:39:05 WEST" duration-ms="7091" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- connexionSansMotDePasse -->
+        <test-method signature="connexionValide()[pri:0, instance:ma.fsac.qa.tests.api.UsersApiTests@4455f57d]" started-at="2026-10-07T23:39:06 WEST" name="connexionValide" description="API-07 : POST /api/login valide" finished-at="2026-10-07T23:39:06 WEST" duration-ms="96" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- connexionValide -->
+        <test-method signature="consulterUnUtilisateur()[pri:0, instance:ma.fsac.qa.tests.api.UsersApiTests@4455f57d]" started-at="2026-10-07T23:39:06 WEST" name="consulterUnUtilisateur" description="API-02 : GET /api/users/2" finished-at="2026-10-07T23:39:06 WEST" duration-ms="201" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- consulterUnUtilisateur -->
+        <test-method signature="creerUnUtilisateur(java.lang.String,java.lang.String)[pri:0, instance:ma.fsac.qa.tests.api.UsersApiTests@4455f57d]" started-at="2026-10-07T23:39:06 WEST" name="creerUnUtilisateur" description="API-04 : POST /api/users" data-provider="nouveauxUtilisateurs" finished-at="2026-10-07T23:39:06 WEST" duration-ms="498" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[morpheus]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[leader]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- creerUnUtilisateur -->
+        <test-method signature="creerUnUtilisateur(java.lang.String,java.lang.String)[pri:0, instance:ma.fsac.qa.tests.api.UsersApiTests@4455f57d]" started-at="2026-10-07T23:39:06 WEST" name="creerUnUtilisateur" description="API-04 : POST /api/users" data-provider="nouveauxUtilisateurs" finished-at="2026-10-07T23:39:07 WEST" duration-ms="176" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Yassine Essalhi]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[Ingenieur QA]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- creerUnUtilisateur -->
+        <test-method signature="listerLesUtilisateurs()[pri:0, instance:ma.fsac.qa.tests.api.UsersApiTests@4455f57d]" started-at="2026-10-07T23:39:07 WEST" name="listerLesUtilisateurs" description="API-01 : GET /api/users?page=2" finished-at="2026-10-07T23:39:07 WEST" duration-ms="410" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- listerLesUtilisateurs -->
+        <test-method signature="modifierUnUtilisateur()[pri:0, instance:ma.fsac.qa.tests.api.UsersApiTests@4455f57d]" started-at="2026-10-07T23:39:07 WEST" name="modifierUnUtilisateur" description="API-05 : PUT /api/users/2" finished-at="2026-10-07T23:39:07 WEST" duration-ms="88" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- modifierUnUtilisateur -->
+        <test-method signature="supprimerUnUtilisateur()[pri:0, instance:ma.fsac.qa.tests.api.UsersApiTests@4455f57d]" started-at="2026-10-07T23:39:07 WEST" name="supprimerUnUtilisateur" description="API-06 : DELETE /api/users/2" finished-at="2026-10-07T23:39:08 WEST" duration-ms="428" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- supprimerUnUtilisateur -->
+        <test-method signature="utilisateurInexistant()[pri:0, instance:ma.fsac.qa.tests.api.UsersApiTests@4455f57d]" started-at="2026-10-07T23:39:08 WEST" name="utilisateurInexistant" description="API-03 : GET /api/users/23 (utilisateur inexistant)" finished-at="2026-10-07T23:39:08 WEST" duration-ms="138" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- utilisateurInexistant -->
+      </class> <!-- ma.fsac.qa.tests.api.UsersApiTests -->
+    </test> <!-- API - Reqres -->
+  </suite> <!-- Tests API Reqres -->
+</testng-results>

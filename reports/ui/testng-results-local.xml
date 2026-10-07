@@ -1,0 +1,482 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="21" passed="21" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2026-10-07T23:38:14 WEST" name="Tests UI Formy" finished-at="2026-10-07T23:38:47 WEST" duration-ms="32914">
+    <groups>
+      <group name="ui">
+        <method signature="ElementsTests.boutons()[pri:0, instance:ma.fsac.qa.tests.ui.ElementsTests@3e850122]" name="boutons" class="ma.fsac.qa.tests.ui.ElementsTests"/>
+        <method signature="ElementsTests.boutonsRadioExclusifs()[pri:0, instance:ma.fsac.qa.tests.ui.ElementsTests@3e850122]" name="boutonsRadioExclusifs" class="ma.fsac.qa.tests.ui.ElementsTests"/>
+        <method signature="ElementsTests.casesACocher()[pri:0, instance:ma.fsac.qa.tests.ui.ElementsTests@3e850122]" name="casesACocher" class="ma.fsac.qa.tests.ui.ElementsTests"/>
+        <method signature="ElementsTests.champsActifEtDesactive()[pri:0, instance:ma.fsac.qa.tests.ui.ElementsTests@3e850122]" name="champsActifEtDesactive" class="ma.fsac.qa.tests.ui.ElementsTests"/>
+        <method signature="ElementsTests.menuDeroulantNavigation(java.lang.String,java.lang.String)[pri:0, instance:ma.fsac.qa.tests.ui.ElementsTests@3e850122]" name="menuDeroulantNavigation" class="ma.fsac.qa.tests.ui.ElementsTests"/>
+        <method signature="FormTests.inscriptionValide(java.lang.String,java.lang.String,java.lang.String,int,int,java.lang.String,java.lang.String)[pri:0, instance:ma.fsac.qa.tests.ui.FormTests@13047d7d]" name="inscriptionValide" class="ma.fsac.qa.tests.ui.FormTests"/>
+        <method signature="FormTests.listeDeroulanteExperience(java.lang.String)[pri:0, instance:ma.fsac.qa.tests.ui.FormTests@13047d7d]" name="listeDeroulanteExperience" class="ma.fsac.qa.tests.ui.FormTests"/>
+        <method signature="FormTests.soumissionFormulaireVide()[pri:0, instance:ma.fsac.qa.tests.ui.FormTests@13047d7d]" name="soumissionFormulaireVide" class="ma.fsac.qa.tests.ui.FormTests"/>
+        <method signature="FramesTests.lireIframesLocaux()[pri:0, instance:ma.fsac.qa.tests.ui.FramesTests@3c7cfcbb]" name="lireIframesLocaux" class="ma.fsac.qa.tests.ui.FramesTests"/>
+        <method signature="ModalTests.boutonOkSansEffetDeFermeture()[pri:0, instance:ma.fsac.qa.tests.ui.ModalTests@65bb9029]" name="boutonOkSansEffetDeFermeture" class="ma.fsac.qa.tests.ui.ModalTests"/>
+        <method signature="ModalTests.ouvrirPuisFermerLeModal()[pri:0, instance:ma.fsac.qa.tests.ui.ModalTests@65bb9029]" name="ouvrirPuisFermerLeModal" class="ma.fsac.qa.tests.ui.ModalTests"/>
+        <method signature="SwitchWindowTests.alerteJavaScriptAcceptee()[pri:0, instance:ma.fsac.qa.tests.ui.SwitchWindowTests@1bfe3203]" name="alerteJavaScriptAcceptee" class="ma.fsac.qa.tests.ui.SwitchWindowTests"/>
+        <method signature="SwitchWindowTests.nouvelOnglet()[pri:0, instance:ma.fsac.qa.tests.ui.SwitchWindowTests@1bfe3203]" name="nouvelOnglet" class="ma.fsac.qa.tests.ui.SwitchWindowTests"/>
+      </group> <!-- ui -->
+      <group name="smoke">
+        <method signature="ElementsTests.boutonsRadioExclusifs()[pri:0, instance:ma.fsac.qa.tests.ui.ElementsTests@3e850122]" name="boutonsRadioExclusifs" class="ma.fsac.qa.tests.ui.ElementsTests"/>
+        <method signature="FormTests.inscriptionValide(java.lang.String,java.lang.String,java.lang.String,int,int,java.lang.String,java.lang.String)[pri:0, instance:ma.fsac.qa.tests.ui.FormTests@13047d7d]" name="inscriptionValide" class="ma.fsac.qa.tests.ui.FormTests"/>
+        <method signature="FramesTests.lireIframesLocaux()[pri:0, instance:ma.fsac.qa.tests.ui.FramesTests@3c7cfcbb]" name="lireIframesLocaux" class="ma.fsac.qa.tests.ui.FramesTests"/>
+        <method signature="ModalTests.ouvrirPuisFermerLeModal()[pri:0, instance:ma.fsac.qa.tests.ui.ModalTests@65bb9029]" name="ouvrirPuisFermerLeModal" class="ma.fsac.qa.tests.ui.ModalTests"/>
+        <method signature="SwitchWindowTests.alerteJavaScriptAcceptee()[pri:0, instance:ma.fsac.qa.tests.ui.SwitchWindowTests@1bfe3203]" name="alerteJavaScriptAcceptee" class="ma.fsac.qa.tests.ui.SwitchWindowTests"/>
+      </group> <!-- smoke -->
+    </groups>
+    <test started-at="2026-10-07T23:38:14 WEST" name="UI - Formy et iFrame local" finished-at="2026-10-07T23:38:47 WEST" duration-ms="32914">
+      <class name="ma.fsac.qa.tests.ui.SwitchWindowTests">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:ma.fsac.qa.tests.ui.SwitchWindowTests@1bfe3203]" started-at="2026-10-07T23:38:29 WEST" name="setUp" finished-at="2026-10-07T23:38:30 WEST" duration-ms="818" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method signature="alerteJavaScriptAcceptee()[pri:0, instance:ma.fsac.qa.tests.ui.SwitchWindowTests@1bfe3203]" started-at="2026-10-07T23:38:30 WEST" name="alerteJavaScriptAcceptee" description="UI-06 : alerte JavaScript acceptee" finished-at="2026-10-07T23:38:32 WEST" duration-ms="2316" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- alerteJavaScriptAcceptee -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:ma.fsac.qa.tests.ui.SwitchWindowTests@1bfe3203]" started-at="2026-10-07T23:38:32 WEST" name="tearDown" finished-at="2026-10-07T23:38:33 WEST" duration-ms="218" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method is-config="true" signature="setUp()[pri:0, instance:ma.fsac.qa.tests.ui.SwitchWindowTests@1bfe3203]" started-at="2026-10-07T23:38:33 WEST" name="setUp" finished-at="2026-10-07T23:38:33 WEST" duration-ms="905" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method signature="nouvelOnglet()[pri:0, instance:ma.fsac.qa.tests.ui.SwitchWindowTests@1bfe3203]" started-at="2026-10-07T23:38:33 WEST" name="nouvelOnglet" description="UI-07 : ouverture d&#039;un nouvel onglet et retour" finished-at="2026-10-07T23:38:35 WEST" duration-ms="1656" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- nouvelOnglet -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:ma.fsac.qa.tests.ui.SwitchWindowTests@1bfe3203]" started-at="2026-10-07T23:38:35 WEST" name="tearDown" finished-at="2026-10-07T23:38:35 WEST" duration-ms="241" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+      </class> <!-- ma.fsac.qa.tests.ui.SwitchWindowTests -->
+      <class name="ma.fsac.qa.tests.ui.ElementsTests">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:ma.fsac.qa.tests.ui.ElementsTests@3e850122]" started-at="2026-10-07T23:38:14 WEST" name="setUp" finished-at="2026-10-07T23:38:16 WEST" duration-ms="2338" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method signature="boutons()[pri:0, instance:ma.fsac.qa.tests.ui.ElementsTests@3e850122]" started-at="2026-10-07T23:38:17 WEST" name="boutons" description="UI-11 : boutons actifs et groupe de boutons avec menu" finished-at="2026-10-07T23:38:21 WEST" duration-ms="4871" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- boutons -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:ma.fsac.qa.tests.ui.ElementsTests@3e850122]" started-at="2026-10-07T23:38:21 WEST" name="tearDown" finished-at="2026-10-07T23:38:22 WEST" duration-ms="176" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method is-config="true" signature="setUp()[pri:0, instance:ma.fsac.qa.tests.ui.ElementsTests@3e850122]" started-at="2026-10-07T23:38:22 WEST" name="setUp" finished-at="2026-10-07T23:38:23 WEST" duration-ms="1056" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method signature="boutonsRadioExclusifs()[pri:0, instance:ma.fsac.qa.tests.ui.ElementsTests@3e850122]" started-at="2026-10-07T23:38:23 WEST" name="boutonsRadioExclusifs" description="UI-09 : boutons radio mutuellement exclusifs" finished-at="2026-10-07T23:38:24 WEST" duration-ms="1256" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- boutonsRadioExclusifs -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:ma.fsac.qa.tests.ui.ElementsTests@3e850122]" started-at="2026-10-07T23:38:24 WEST" name="tearDown" finished-at="2026-10-07T23:38:24 WEST" duration-ms="143" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method is-config="true" signature="setUp()[pri:0, instance:ma.fsac.qa.tests.ui.ElementsTests@3e850122]" started-at="2026-10-07T23:38:24 WEST" name="setUp" finished-at="2026-10-07T23:38:25 WEST" duration-ms="1062" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method signature="casesACocher()[pri:0, instance:ma.fsac.qa.tests.ui.ElementsTests@3e850122]" started-at="2026-10-07T23:38:25 WEST" name="casesACocher" description="UI-10 : cases a cocher independantes" finished-at="2026-10-07T23:38:27 WEST" duration-ms="2206" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- casesACocher -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:ma.fsac.qa.tests.ui.ElementsTests@3e850122]" started-at="2026-10-07T23:38:27 WEST" name="tearDown" finished-at="2026-10-07T23:38:28 WEST" duration-ms="186" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method is-config="true" signature="setUp()[pri:0, instance:ma.fsac.qa.tests.ui.ElementsTests@3e850122]" started-at="2026-10-07T23:38:28 WEST" name="setUp" finished-at="2026-10-07T23:38:28 WEST" duration-ms="890" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method signature="champsActifEtDesactive()[pri:0, instance:ma.fsac.qa.tests.ui.ElementsTests@3e850122]" started-at="2026-10-07T23:38:28 WEST" name="champsActifEtDesactive" description="UI-12 : champ actif et champ desactive" finished-at="2026-10-07T23:38:30 WEST" duration-ms="1916" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- champsActifEtDesactive -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:ma.fsac.qa.tests.ui.ElementsTests@3e850122]" started-at="2026-10-07T23:38:30 WEST" name="tearDown" finished-at="2026-10-07T23:38:31 WEST" duration-ms="179" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method is-config="true" signature="setUp()[pri:0, instance:ma.fsac.qa.tests.ui.ElementsTests@3e850122]" started-at="2026-10-07T23:38:31 WEST" name="setUp" finished-at="2026-10-07T23:38:31 WEST" duration-ms="826" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method signature="menuDeroulantNavigation(java.lang.String,java.lang.String)[pri:0, instance:ma.fsac.qa.tests.ui.ElementsTests@3e850122]" started-at="2026-10-07T23:38:31 WEST" name="menuDeroulantNavigation" description="UI-08 : navigation via le menu deroulant" data-provider="entreesMenu" finished-at="2026-10-07T23:38:33 WEST" duration-ms="2037" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Buttons]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[/buttons]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- menuDeroulantNavigation -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:ma.fsac.qa.tests.ui.ElementsTests@3e850122]" started-at="2026-10-07T23:38:33 WEST" name="tearDown" finished-at="2026-10-07T23:38:34 WEST" duration-ms="369" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method is-config="true" signature="setUp()[pri:0, instance:ma.fsac.qa.tests.ui.ElementsTests@3e850122]" started-at="2026-10-07T23:38:34 WEST" name="setUp" finished-at="2026-10-07T23:38:35 WEST" duration-ms="986" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method signature="menuDeroulantNavigation(java.lang.String,java.lang.String)[pri:0, instance:ma.fsac.qa.tests.ui.ElementsTests@3e850122]" started-at="2026-10-07T23:38:35 WEST" name="menuDeroulantNavigation" description="UI-08 : navigation via le menu deroulant" data-provider="entreesMenu" finished-at="2026-10-07T23:38:36 WEST" duration-ms="1599" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Checkbox]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[/checkbox]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- menuDeroulantNavigation -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:ma.fsac.qa.tests.ui.ElementsTests@3e850122]" started-at="2026-10-07T23:38:36 WEST" name="tearDown" finished-at="2026-10-07T23:38:37 WEST" duration-ms="581" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method is-config="true" signature="setUp()[pri:0, instance:ma.fsac.qa.tests.ui.ElementsTests@3e850122]" started-at="2026-10-07T23:38:37 WEST" name="setUp" finished-at="2026-10-07T23:38:38 WEST" duration-ms="956" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method signature="menuDeroulantNavigation(java.lang.String,java.lang.String)[pri:0, instance:ma.fsac.qa.tests.ui.ElementsTests@3e850122]" started-at="2026-10-07T23:38:38 WEST" name="menuDeroulantNavigation" description="UI-08 : navigation via le menu deroulant" data-provider="entreesMenu" finished-at="2026-10-07T23:38:39 WEST" duration-ms="1234" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Radio Button]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[/radiobutton]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- menuDeroulantNavigation -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:ma.fsac.qa.tests.ui.ElementsTests@3e850122]" started-at="2026-10-07T23:38:39 WEST" name="tearDown" finished-at="2026-10-07T23:38:39 WEST" duration-ms="326" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method is-config="true" signature="setUp()[pri:0, instance:ma.fsac.qa.tests.ui.ElementsTests@3e850122]" started-at="2026-10-07T23:38:39 WEST" name="setUp" finished-at="2026-10-07T23:38:40 WEST" duration-ms="935" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method signature="menuDeroulantNavigation(java.lang.String,java.lang.String)[pri:0, instance:ma.fsac.qa.tests.ui.ElementsTests@3e850122]" started-at="2026-10-07T23:38:40 WEST" name="menuDeroulantNavigation" description="UI-08 : navigation via le menu deroulant" data-provider="entreesMenu" finished-at="2026-10-07T23:38:42 WEST" duration-ms="1798" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Modal]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[/modal]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- menuDeroulantNavigation -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:ma.fsac.qa.tests.ui.ElementsTests@3e850122]" started-at="2026-10-07T23:38:42 WEST" name="tearDown" finished-at="2026-10-07T23:38:42 WEST" duration-ms="227" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+      </class> <!-- ma.fsac.qa.tests.ui.ElementsTests -->
+      <class name="ma.fsac.qa.tests.ui.FormTests">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:ma.fsac.qa.tests.ui.FormTests@13047d7d]" started-at="2026-10-07T23:38:14 WEST" name="setUp" finished-at="2026-10-07T23:38:16 WEST" duration-ms="2155" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method signature="inscriptionValide(java.lang.String,java.lang.String,java.lang.String,int,int,java.lang.String,java.lang.String)[pri:0, instance:ma.fsac.qa.tests.ui.FormTests@13047d7d]" started-at="2026-10-07T23:38:17 WEST" name="inscriptionValide" description="UI-01 : inscription valide" data-provider="inscriptionsValides" finished-at="2026-10-07T23:38:24 WEST" duration-ms="7055" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Yassine]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[Essalhi]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[Ingenieur QA]]>
+              </value>
+            </param>
+            <param index="3">
+              <value>
+                <![CDATA[3]]>
+              </value>
+            </param>
+            <param index="4">
+              <value>
+                <![CDATA[1]]>
+              </value>
+            </param>
+            <param index="5">
+              <value>
+                <![CDATA[2-4]]>
+              </value>
+            </param>
+            <param index="6">
+              <value>
+                <![CDATA[10/05/2026]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- inscriptionValide -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:ma.fsac.qa.tests.ui.FormTests@13047d7d]" started-at="2026-10-07T23:38:24 WEST" name="tearDown" finished-at="2026-10-07T23:38:24 WEST" duration-ms="185" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method is-config="true" signature="setUp()[pri:0, instance:ma.fsac.qa.tests.ui.FormTests@13047d7d]" started-at="2026-10-07T23:38:24 WEST" name="setUp" finished-at="2026-10-07T23:38:25 WEST" duration-ms="750" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method signature="inscriptionValide(java.lang.String,java.lang.String,java.lang.String,int,int,java.lang.String,java.lang.String)[pri:0, instance:ma.fsac.qa.tests.ui.FormTests@13047d7d]" started-at="2026-10-07T23:38:25 WEST" name="inscriptionValide" description="UI-01 : inscription valide" data-provider="inscriptionsValides" finished-at="2026-10-07T23:38:28 WEST" duration-ms="3266" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Salma]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[Benani]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[Developpeuse Java]]>
+              </value>
+            </param>
+            <param index="3">
+              <value>
+                <![CDATA[2]]>
+              </value>
+            </param>
+            <param index="4">
+              <value>
+                <![CDATA[2]]>
+              </value>
+            </param>
+            <param index="5">
+              <value>
+                <![CDATA[0-1]]>
+              </value>
+            </param>
+            <param index="6">
+              <value>
+                <![CDATA[01/09/2025]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- inscriptionValide -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:ma.fsac.qa.tests.ui.FormTests@13047d7d]" started-at="2026-10-07T23:38:28 WEST" name="tearDown" finished-at="2026-10-07T23:38:28 WEST" duration-ms="139" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method is-config="true" signature="setUp()[pri:0, instance:ma.fsac.qa.tests.ui.FormTests@13047d7d]" started-at="2026-10-07T23:38:28 WEST" name="setUp" finished-at="2026-10-07T23:38:29 WEST" duration-ms="972" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method signature="inscriptionValide(java.lang.String,java.lang.String,java.lang.String,int,int,java.lang.String,java.lang.String)[pri:0, instance:ma.fsac.qa.tests.ui.FormTests@13047d7d]" started-at="2026-10-07T23:38:29 WEST" name="inscriptionValide" description="UI-01 : inscription valide" data-provider="inscriptionsValides" finished-at="2026-10-07T23:38:33 WEST" duration-ms="3988" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Omar]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[El Idrissi]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[Testeur logiciel]]>
+              </value>
+            </param>
+            <param index="3">
+              <value>
+                <![CDATA[1]]>
+              </value>
+            </param>
+            <param index="4">
+              <value>
+                <![CDATA[3]]>
+              </value>
+            </param>
+            <param index="5">
+              <value>
+                <![CDATA[10+]]>
+              </value>
+            </param>
+            <param index="6">
+              <value>
+                <![CDATA[15/12/2024]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- inscriptionValide -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:ma.fsac.qa.tests.ui.FormTests@13047d7d]" started-at="2026-10-07T23:38:33 WEST" name="tearDown" finished-at="2026-10-07T23:38:33 WEST" duration-ms="173" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method is-config="true" signature="setUp()[pri:0, instance:ma.fsac.qa.tests.ui.FormTests@13047d7d]" started-at="2026-10-07T23:38:33 WEST" name="setUp" finished-at="2026-10-07T23:38:34 WEST" duration-ms="1037" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method signature="listeDeroulanteExperience(java.lang.String)[pri:0, instance:ma.fsac.qa.tests.ui.FormTests@13047d7d]" started-at="2026-10-07T23:38:34 WEST" name="listeDeroulanteExperience" description="UI-03 : liste deroulante des annees d&#039;experience" data-provider="experiences" finished-at="2026-10-07T23:38:36 WEST" duration-ms="1694" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[0-1]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- listeDeroulanteExperience -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:ma.fsac.qa.tests.ui.FormTests@13047d7d]" started-at="2026-10-07T23:38:36 WEST" name="tearDown" finished-at="2026-10-07T23:38:36 WEST" duration-ms="157" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method is-config="true" signature="setUp()[pri:0, instance:ma.fsac.qa.tests.ui.FormTests@13047d7d]" started-at="2026-10-07T23:38:36 WEST" name="setUp" finished-at="2026-10-07T23:38:37 WEST" duration-ms="1018" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method signature="listeDeroulanteExperience(java.lang.String)[pri:0, instance:ma.fsac.qa.tests.ui.FormTests@13047d7d]" started-at="2026-10-07T23:38:37 WEST" name="listeDeroulanteExperience" description="UI-03 : liste deroulante des annees d&#039;experience" data-provider="experiences" finished-at="2026-10-07T23:38:38 WEST" duration-ms="1344" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[2-4]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- listeDeroulanteExperience -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:ma.fsac.qa.tests.ui.FormTests@13047d7d]" started-at="2026-10-07T23:38:38 WEST" name="tearDown" finished-at="2026-10-07T23:38:39 WEST" duration-ms="180" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method is-config="true" signature="setUp()[pri:0, instance:ma.fsac.qa.tests.ui.FormTests@13047d7d]" started-at="2026-10-07T23:38:39 WEST" name="setUp" finished-at="2026-10-07T23:38:39 WEST" duration-ms="868" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method signature="listeDeroulanteExperience(java.lang.String)[pri:0, instance:ma.fsac.qa.tests.ui.FormTests@13047d7d]" started-at="2026-10-07T23:38:39 WEST" name="listeDeroulanteExperience" description="UI-03 : liste deroulante des annees d&#039;experience" data-provider="experiences" finished-at="2026-10-07T23:38:41 WEST" duration-ms="1552" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[5-9]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- listeDeroulanteExperience -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:ma.fsac.qa.tests.ui.FormTests@13047d7d]" started-at="2026-10-07T23:38:41 WEST" name="tearDown" finished-at="2026-10-07T23:38:41 WEST" duration-ms="246" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method is-config="true" signature="setUp()[pri:0, instance:ma.fsac.qa.tests.ui.FormTests@13047d7d]" started-at="2026-10-07T23:38:41 WEST" name="setUp" finished-at="2026-10-07T23:38:42 WEST" duration-ms="879" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method signature="listeDeroulanteExperience(java.lang.String)[pri:0, instance:ma.fsac.qa.tests.ui.FormTests@13047d7d]" started-at="2026-10-07T23:38:42 WEST" name="listeDeroulanteExperience" description="UI-03 : liste deroulante des annees d&#039;experience" data-provider="experiences" finished-at="2026-10-07T23:38:43 WEST" duration-ms="1264" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[10+]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- listeDeroulanteExperience -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:ma.fsac.qa.tests.ui.FormTests@13047d7d]" started-at="2026-10-07T23:38:43 WEST" name="tearDown" finished-at="2026-10-07T23:38:43 WEST" duration-ms="140" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method is-config="true" signature="setUp()[pri:0, instance:ma.fsac.qa.tests.ui.FormTests@13047d7d]" started-at="2026-10-07T23:38:43 WEST" name="setUp" finished-at="2026-10-07T23:38:44 WEST" duration-ms="938" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method signature="soumissionFormulaireVide()[pri:0, instance:ma.fsac.qa.tests.ui.FormTests@13047d7d]" started-at="2026-10-07T23:38:44 WEST" name="soumissionFormulaireVide" description="UI-02 : soumission avec champs vides" finished-at="2026-10-07T23:38:47 WEST" duration-ms="2152" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- soumissionFormulaireVide -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:ma.fsac.qa.tests.ui.FormTests@13047d7d]" started-at="2026-10-07T23:38:47 WEST" name="tearDown" finished-at="2026-10-07T23:38:47 WEST" duration-ms="261" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+      </class> <!-- ma.fsac.qa.tests.ui.FormTests -->
+      <class name="ma.fsac.qa.tests.ui.ModalTests">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:ma.fsac.qa.tests.ui.ModalTests@65bb9029]" started-at="2026-10-07T23:38:18 WEST" name="setUp" finished-at="2026-10-07T23:38:19 WEST" duration-ms="1021" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method signature="boutonOkSansEffetDeFermeture()[pri:0, instance:ma.fsac.qa.tests.ui.ModalTests@65bb9029]" started-at="2026-10-07T23:38:19 WEST" name="boutonOkSansEffetDeFermeture" description="UI-05 : le bouton OK du modal ne ferme pas le pop-up" finished-at="2026-10-07T23:38:23 WEST" duration-ms="3424" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- boutonOkSansEffetDeFermeture -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:ma.fsac.qa.tests.ui.ModalTests@65bb9029]" started-at="2026-10-07T23:38:23 WEST" name="tearDown" finished-at="2026-10-07T23:38:25 WEST" duration-ms="2088" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method is-config="true" signature="setUp()[pri:0, instance:ma.fsac.qa.tests.ui.ModalTests@65bb9029]" started-at="2026-10-07T23:38:25 WEST" name="setUp" finished-at="2026-10-07T23:38:26 WEST" duration-ms="1130" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method signature="ouvrirPuisFermerLeModal()[pri:0, instance:ma.fsac.qa.tests.ui.ModalTests@65bb9029]" started-at="2026-10-07T23:38:26 WEST" name="ouvrirPuisFermerLeModal" description="UI-04 : ouverture et fermeture du modal (bouton Close)" finished-at="2026-10-07T23:38:29 WEST" duration-ms="3112" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- ouvrirPuisFermerLeModal -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:ma.fsac.qa.tests.ui.ModalTests@65bb9029]" started-at="2026-10-07T23:38:29 WEST" name="tearDown" finished-at="2026-10-07T23:38:29 WEST" duration-ms="284" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+      </class> <!-- ma.fsac.qa.tests.ui.ModalTests -->
+      <class name="ma.fsac.qa.tests.ui.FramesTests">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:ma.fsac.qa.tests.ui.FramesTests@3c7cfcbb]" started-at="2026-10-07T23:38:14 WEST" name="setUp" finished-at="2026-10-07T23:38:16 WEST" duration-ms="2125" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method signature="lireIframesLocaux()[pri:0, instance:ma.fsac.qa.tests.ui.FramesTests@3c7cfcbb]" started-at="2026-10-07T23:38:17 WEST" name="lireIframesLocaux" description="UI-15 : iFrame et iFrame imbrique (page locale deterministe)" finished-at="2026-10-07T23:38:18 WEST" duration-ms="1456" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- lireIframesLocaux -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:ma.fsac.qa.tests.ui.FramesTests@3c7cfcbb]" started-at="2026-10-07T23:38:18 WEST" name="tearDown" finished-at="2026-10-07T23:38:18 WEST" duration-ms="166" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+      </class> <!-- ma.fsac.qa.tests.ui.FramesTests -->
+    </test> <!-- UI - Formy et iFrame local -->
+  </suite> <!-- Tests UI Formy -->
+</testng-results>
