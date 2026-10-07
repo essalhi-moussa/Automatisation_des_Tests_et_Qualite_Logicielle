@@ -1,0 +1,33 @@
+# Plan ZAP Automation Framework equivalent a zap-baseline.py : spider + analyse passive.
+# Les marqueurs __TARGET__ et __OUT__ sont remplaces par scripts/zap-scan.sh.
+env:
+  contexts:
+    - name: formy
+      urls:
+        - "__TARGET__"
+      includePaths:
+        - "__TARGET__.*"
+  parameters:
+    failOnError: true
+    progressToStdout: true
+jobs:
+  - type: spider
+    parameters:
+      context: formy
+      maxDuration: 3
+      maxDepth: 5
+  - type: passiveScan-wait
+    parameters:
+      maxDuration: 5
+  - type: report
+    parameters:
+      template: traditional-html
+      reportDir: "__OUT__"
+      reportFile: zap-baseline
+      reportTitle: "Formy - ZAP baseline (passif)"
+  - type: report
+    parameters:
+      template: traditional-json
+      reportDir: "__OUT__"
+      reportFile: zap-baseline
+      reportTitle: "Formy - ZAP baseline (passif)"
