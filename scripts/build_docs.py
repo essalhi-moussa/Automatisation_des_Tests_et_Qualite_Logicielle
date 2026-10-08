@@ -18,14 +18,41 @@ ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 IMG = os.path.join(ROOT, "docs", "img")
 S = json.load(open(os.path.join(ROOT, "reports", "summary.json"), encoding="utf-8"))
 
-AUTEURS = os.environ.get("QA_AUTEURS", "[NOM PRÉNOM / MEMBRES]")
-ENCADRANT = os.environ.get("QA_ENCADRANT", "[NOM DU PROF]")
+AUTEURS = os.environ.get("QA_AUTEURS", "ESSALHI Moussa")
+ENCADRANT = os.environ.get("QA_ENCADRANT", "Ayoub Koddam")
 FILIERE = os.environ.get("QA_FILIERE", "IIIA")
 ANNEE = "2025-2026"
 REPO = "github.com/essalhi-moussa/Automatisation_des_Tests_et_Qualite_Logicielle"
 
 
 SEP = chr(10) * 2  # ligne vide entre deux extraits
+
+# Captures du pipeline : deposer ces fichiers dans docs/img/ci/ puis regenerer le rapport
+CI_SHOTS = [
+    ("1-pipeline.png", "pipeline réussi (graphe des stages)"),
+    ("2-tests-junit.png", "onglet Tests (rapport JUnit)"),
+    ("3-allure.png", "rapport Allure publié (GitLab Pages ou Jenkins)"),
+    ("4-notification.png", "notification de fin de pipeline (e-mail ou Slack/Discord)"),
+]
+
+
+def ci_composite(shots):
+    """Assemble les captures du pipeline (1 a 4) en une planche docs/img/ci-captures.png."""
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    from PIL import Image
+    n = len(shots)
+    rows, cols = (1, n) if n <= 2 else (2, 2)
+    fig, axes = plt.subplots(rows, cols, figsize=(7.0, 2.4 * rows), squeeze=False)
+    for ax in axes.flat:
+        ax.axis("off")
+    for ax, (f, title) in zip(axes.flat, shots):
+        ax.imshow(Image.open(os.path.join(IMG, "ci", f)).convert("RGB"))
+        ax.set_title(title[0].upper() + title[1:], fontsize=8)
+    fig.tight_layout(pad=0.4)
+    fig.savefig(os.path.join(IMG, "ci-captures.png"), dpi=170, bbox_inches="tight", facecolor="white")
+    plt.close(fig)
 
 
 def fr(x, nd=0):
@@ -354,14 +381,18 @@ def build_report():
         "**Notifications** : e-mails de statut de pipeline (Settings > Integrations > Pipeline status emails) et webhook Slack/Discord via les variables CI `SLACK_WEBHOOK_URL` / `DISCORD_WEBHOOK_URL`.",
         "**Jenkinsfile** équivalent : étapes parallèles API, Allure Plugin, JUnit, `emailext`.",
     ])
-    d.note("**Statut de vérification.** Les fichiers `.gitlab-ci.yml` et `Jenkinsfile` ont été validés syntaxiquement et chacune de leurs commandes a été exécutée "
-           "localement (Maven, Newman, JMeter, ZAP, génération Allure). Le pipeline n'a pas encore tourné sur un runner GitLab : les captures ci-dessous sont à insérer après le premier push.")
-    d.table(["Capture à insérer", "Où la prendre"], [
-        ["[Capture 1 - Pipeline réussi : graphe des 6 stages]", "GitLab > CI/CD > Pipelines"],
-        ["[Capture 2 - Rapport Allure publié sur GitLab Pages]", "Settings > Pages (URL du projet)"],
-        ["[Capture 3 - Onglet Tests (rapport JUnit) d'un pipeline]", "Pipeline > Tests"],
-        ["[Capture 4 - E-mail ou message Slack de fin de pipeline]", "Boîte de réception / canal"],
-    ], widths=[3.4, 2.6], font=8.5, caption="Tableau 6 - Captures GitLab à ajouter")
+    shots = [(f, t) for f, t in CI_SHOTS if os.path.exists(os.path.join(IMG, "ci", f))]
+    if shots:
+        ci_composite(shots)
+        d.p("Le pipeline a été exécuté sur la plateforme CI. Les captures suivantes en apportent la preuve "
+            "(fichiers d'origine dans `docs/img/ci/`).", "justify")
+        d.image(os.path.join(IMG, "ci-captures.png"), 14.0, "Figure 7 - Exécution réelle du pipeline : " + " ; ".join(t for _, t in shots))
+    else:
+        d.note("**Statut de vérification.** Les fichiers `.gitlab-ci.yml` et `Jenkinsfile` ont été validés syntaxiquement et chacune de leurs commandes a été exécutée "
+               "localement (Maven, Newman, JMeter, ZAP, génération Allure). Les captures du pipeline sont à déposer dans `docs/img/ci/` "
+               "(noms ci-dessous) puis le rapport est régénéré avec `python scripts/build_docs.py rapport`.")
+        d.table(["Fichier à déposer dans docs/img/ci/", "Contenu"], [[f, t] for f, t in CI_SHOTS],
+                widths=[2.4, 3.6], font=8.5, caption="Tableau 6 - Captures du pipeline à ajouter")
 
     # ---------------------------------------------------------------- 7
     d.h1("7. Difficultés rencontrées et solutions")
@@ -464,8 +495,10 @@ def CONCLUSION(ui_p):
     parts.append("Le principal enseignement est que la qualité des résultats dépend autant de la cible que des scripts : les limites de Reqres "
                  "(429) et l'instabilité de certains sites de démonstration imposent de séparer les tests déterministes (mock, page locale) "
                  "des tests sur services tiers, et de rapporter honnêtement les écarts plutôt que de les masquer. "
-                 "Il reste à exécuter le pipeline sur un runner GitLab, à y insérer les captures prévues et à enrichir le plan "
-                 "selon les recommandations du chapitre 8.")
+                 + ("La suite logique est d'enrichir le dispositif selon les recommandations du chapitre 8."
+                    if any(os.path.exists(os.path.join(IMG, "ci", f)) for f, _ in CI_SHOTS) else
+                    "Il reste à exécuter le pipeline sur la plateforme CI, à y joindre les captures prévues et à enrichir le plan "
+                    "selon les recommandations du chapitre 8."))
     return "".join(parts)
 
 
