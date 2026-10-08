@@ -1,0 +1,85 @@
+{
+  "pipeline_id": 2924651734,
+  "status": "success",
+  "sha": "429d335",
+  "ref": "main",
+  "created_at": "2026-10-08T01:36:37.039Z",
+  "duration_s": 287,
+  "web_url": "https://gitlab.com/essalhi-moussa-group/automatisation_des_tests_et_qualite_logicielle/-/pipelines/2924651734",
+  "jobs": [
+    {
+      "name": "pages",
+      "stage": "report",
+      "status": "success",
+      "duration_s": 22
+    },
+    {
+      "name": "allure-report",
+      "stage": "report",
+      "status": "success",
+      "duration_s": 27
+    },
+    {
+      "name": "security-zap",
+      "stage": "security",
+      "status": "success",
+      "duration_s": 99
+    },
+    {
+      "name": "perf-jmeter",
+      "stage": "performance",
+      "status": "manual",
+      "duration_s": 0
+    },
+    {
+      "name": "ui-selenium",
+      "stage": "ui-tests",
+      "status": "success",
+      "duration_s": 107
+    },
+    {
+      "name": "api-newman",
+      "stage": "api-tests",
+      "status": "success",
+      "duration_s": 46
+    },
+    {
+      "name": "api-restassured",
+      "stage": "api-tests",
+      "status": "success",
+      "duration_s": 44
+    },
+    {
+      "name": "compile",
+      "stage": "build",
+      "status": "success",
+      "duration_s": 35
+    }
+  ],
+  "zap": {
+    "fail_new": 0,
+    "fail_inprog": 0,
+    "warn_new": 17,
+    "warn_inprog": 0,
+    "info": 0,
+    "ignore": 0,
+    "pass": 50
+  },
+  "selenium": {
+    "run": 21,
+    "failures": 0,
+    "errors": 0
+  },
+  "newman": {
+    "assertions": 37,
+    "failed": 0,
+    "target": "https://reqres.in (controle HTTP 200, quota restant 39)"
+  },
+  "restassured": {
+    "run": 9,
+    "failures": 0,
+    "errors": 0,
+    "target": "https://reqres.in (controle HTTP 200, quota restant 39)"
+  },
+  "pages_url": "https://automatisation-des-tests-et-qualite-logicielle-5d7828.gitlab.io/"
+}
