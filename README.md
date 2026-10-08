@@ -3,6 +3,7 @@
 [![pipeline status](https://gitlab.com/GROUPE/PROJET/badges/main/pipeline.svg)](https://gitlab.com/GROUPE/PROJET/-/pipelines)
 
 Projet de fin de module - Université Hassan II de Casablanca, Faculté des Sciences Aïn Chock, filière IIIA, année 2025-2026.
+Réalisé par **ESSALHI Moussa**, encadré par **Ayoub Koddam**.
 
 Ce dépôt contient l'automatisation des tests d'une application web de gestion d'étudiants, vue par l'équipe QA :
 
@@ -140,4 +141,23 @@ Notifications :
 
 - `docs/Plan_de_tests.docx` / `.pdf` : objectifs, périmètre, stratégie, environnements, critères, risques, scénarios, matrice de traçabilité.
 - `docs/Rapport_final.docx` / `.pdf` : architecture, scénarios, résultats (UI, API, performance, sécurité), CI/CD, difficultés, recommandations.
-- Régénération : `python scripts/summarize_results.py && python scripts/build_figures.py && python scripts/build_docs.py all`. Renseigner l'équipe avec `QA_AUTEURS`, `QA_ENCADRANT` et `QA_FILIERE`.
+- Régénération : `python scripts/summarize_results.py && python scripts/build_figures.py && python scripts/build_docs.py all`. Les noms peuvent être surchargés avec `QA_AUTEURS`, `QA_ENCADRANT` et `QA_FILIERE`.
+
+## Rendu
+
+**Captures du pipeline.** Après une exécution réussie du pipeline, déposer les captures dans `docs/img/ci/` sous ces noms (une partie suffit, elles sont insérées automatiquement au chapitre 6 du rapport) :
+
+| Fichier | Contenu |
+|---|---|
+| `1-pipeline.png` | Pipeline réussi : graphe des stages (GitLab > Build > Pipelines, ou Stage View Jenkins) |
+| `2-tests-junit.png` | Onglet « Tests » du pipeline (rapport JUnit) |
+| `3-allure.png` | Rapport Allure publié (GitLab Pages ou page Allure de Jenkins) |
+| `4-notification.png` | E-mail de statut du pipeline ou message Slack/Discord |
+
+Puis : `python scripts/build_docs.py rapport`.
+
+**Archive ZIP** (fichiers suivis par Git uniquement : ni `target/`, ni `.git`) :
+
+```bash
+git archive --format=zip --prefix=M11_QAOps_ESSALHI_Moussa/ -o ../M11_QAOps_ESSALHI_Moussa_IIIA.zip HEAD -- . ':(exclude)docs/enonce'
+```
