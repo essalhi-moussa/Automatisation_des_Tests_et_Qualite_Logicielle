@@ -1,5 +1,6 @@
 // Pipeline Jenkins declaratif equivalent a .gitlab-ci.yml (alternative locale).
-// Prerequis Jenkins : plugins Pipeline, Allure Jenkins Plugin, JUnit, Email Extension (emailext), NodeJS (optionnel).
+// Prerequis Jenkins : plugins Pipeline, Allure Jenkins Plugin, JUnit, HTML Publisher, Email Extension (emailext).
+// Agent Linux (etapes sh) ; sous Windows, remplacer sh par bat.
 // Outils attendus : Maven 3.9 et JDK 17 declares dans "Global Tool Configuration" (noms ci-dessous),
 // Chrome installe sur l agent, newman et newman-reporter-htmlextra disponibles (npm i -g ...).
 pipeline {
