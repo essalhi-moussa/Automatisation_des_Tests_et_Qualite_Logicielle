@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Reqres - Tests API (M11)" tests="8" time="0.104">
+  <testsuite name="API-01 GET liste des utilisateurs (page 2)" id="b2805a5e-863b-4480-b793-0d05729abd77" timestamp="2026-10-07T22:44:11.175Z" tests="6" failures="0" errors="0" time="0.035">
+    <testcase name="Statut HTTP 200" time="0.035" classname="Api01GetListeDesUtilisateursPage2"/>
+    <testcase name="Temps de reponse &lt; 3000 ms" time="0.035" classname="Api01GetListeDesUtilisateursPage2"/>
+    <testcase name="Content-Type JSON" time="0.035" classname="Api01GetListeDesUtilisateursPage2"/>
+    <testcase name="Schema JSON valide" time="0.035" classname="Api01GetListeDesUtilisateursPage2"/>
+    <testcase name="Pagination coherente (page 2, 6 par page)" time="0.035" classname="Api01GetListeDesUtilisateursPage2"/>
+    <testcase name="Chaque email contient @" time="0.035" classname="Api01GetListeDesUtilisateursPage2"/>
+  </testsuite>
+  <testsuite name="API-02 GET un utilisateur (id 2)" id="daf8f4af-5843-4fbe-b22b-eb5e0fd8c475" timestamp="2026-10-07T22:44:11.175Z" tests="5" failures="0" errors="0" time="0.005">
+    <testcase name="Statut HTTP 200" time="0.005" classname="Api02GetUnUtilisateurId2"/>
+    <testcase name="Temps de reponse &lt; 3000 ms" time="0.005" classname="Api02GetUnUtilisateurId2"/>
+    <testcase name="Content-Type JSON" time="0.005" classname="Api02GetUnUtilisateurId2"/>
+    <testcase name="Schema JSON valide" time="0.005" classname="Api02GetUnUtilisateurId2"/>
+    <testcase name="Utilisateur Janet Weaver" time="0.005" classname="Api02GetUnUtilisateurId2"/>
+  </testsuite>
+  <testsuite name="API-03 GET utilisateur inexistant (id 23)" id="e236e1c6-7683-47e8-ab1c-3ec6cd6145b7" timestamp="2026-10-07T22:44:11.175Z" tests="3" failures="0" errors="0" time="0.005">
+    <testcase name="Statut HTTP 404" time="0.005" classname="Api03GetUtilisateurInexistantId23"/>
+    <testcase name="Corps vide {}" time="0.005" classname="Api03GetUtilisateurInexistantId23"/>
+    <testcase name="Temps de reponse &lt; seuil" time="0.005" classname="Api03GetUtilisateurInexistantId23"/>
+  </testsuite>
+  <testsuite name="API-04 POST creation d'un utilisateur" id="6a5c7685-2f17-4f70-86cc-6d185cb4e44b" timestamp="2026-10-07T22:44:11.175Z" tests="5" failures="0" errors="0" time="0.009">
+    <testcase name="Statut HTTP 201" time="0.009" classname="Api04PostCreationDunUtilisateur"/>
+    <testcase name="Temps de reponse &lt; 3000 ms" time="0.009" classname="Api04PostCreationDunUtilisateur"/>
+    <testcase name="Content-Type JSON" time="0.009" classname="Api04PostCreationDunUtilisateur"/>
+    <testcase name="Schema JSON valide" time="0.009" classname="Api04PostCreationDunUtilisateur"/>
+    <testcase name="Les donnees envoyees sont renvoyees" time="0.009" classname="Api04PostCreationDunUtilisateur"/>
+  </testsuite>
+  <testsuite name="API-05 PUT mise a jour d'un utilisateur" id="4c8ee5ed-9368-40d2-9233-9e314a6f3c00" timestamp="2026-10-07T22:44:11.175Z" tests="5" failures="0" errors="0" time="0.032">
+    <testcase name="Statut HTTP 200" time="0.032" classname="Api05PutMiseAJourDunUtilisateur"/>
+    <testcase name="Temps de reponse &lt; 3000 ms" time="0.032" classname="Api05PutMiseAJourDunUtilisateur"/>
+    <testcase name="Content-Type JSON" time="0.032" classname="Api05PutMiseAJourDunUtilisateur"/>
+    <testcase name="Schema JSON valide" time="0.032" classname="Api05PutMiseAJourDunUtilisateur"/>
+    <testcase name="Valeurs mises a jour" time="0.032" classname="Api05PutMiseAJourDunUtilisateur"/>
+  </testsuite>
+  <testsuite name="API-06 DELETE suppression d'un utilisateur" id="351ef6df-1af9-4948-8fce-8c23e97bbce6" timestamp="2026-10-07T22:44:11.175Z" tests="3" failures="0" errors="0" time="0.004">
+    <testcase name="Statut HTTP 204" time="0.004" classname="Api06DeleteSuppressionDunUtilisateur"/>
+    <testcase name="Temps de reponse &lt; 3000 ms" time="0.004" classname="Api06DeleteSuppressionDunUtilisateur"/>
+    <testcase name="Corps vide" time="0.004" classname="Api06DeleteSuppressionDunUtilisateur"/>
+  </testsuite>
+  <testsuite name="API-07 POST connexion valide" id="6cf0b7a0-95e5-465e-90c3-708fc4257c51" timestamp="2026-10-07T22:44:11.175Z" tests="5" failures="0" errors="0" time="0.007">
+    <testcase name="Statut HTTP 200" time="0.007" classname="Api07PostConnexionValide"/>
+    <testcase name="Temps de reponse &lt; 3000 ms" time="0.007" classname="Api07PostConnexionValide"/>
+    <testcase name="Content-Type JSON" time="0.007" classname="Api07PostConnexionValide"/>
+    <testcase name="Schema JSON valide" time="0.007" classname="Api07PostConnexionValide"/>
+    <testcase name="Token non vide" time="0.007" classname="Api07PostConnexionValide"/>
+  </testsuite>
+  <testsuite name="API-08 POST connexion sans mot de passe" id="77b2dadf-734e-4e9c-ad12-17e7dc83818d" timestamp="2026-10-07T22:44:11.175Z" tests="5" failures="0" errors="0" time="0.007">
+    <testcase name="Statut HTTP 400" time="0.007" classname="Api08PostConnexionSansMotDePasse"/>
+    <testcase name="Temps de reponse &lt; 3000 ms" time="0.007" classname="Api08PostConnexionSansMotDePasse"/>
+    <testcase name="Content-Type JSON" time="0.007" classname="Api08PostConnexionSansMotDePasse"/>
+    <testcase name="Schema JSON valide" time="0.007" classname="Api08PostConnexionSansMotDePasse"/>
+    <testcase name="Message d erreur attendu" time="0.007" classname="Api08PostConnexionSansMotDePasse"/>
+  </testsuite>
+</testsuites>

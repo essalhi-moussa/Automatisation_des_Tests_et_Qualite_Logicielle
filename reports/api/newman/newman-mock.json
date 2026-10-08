@@ -1,0 +1,3585 @@
+{
+  "collection": {
+    "_": {
+      "postman_id": "6cd35598-189b-55b5-93ce-e12ebbbd4f26"
+    },
+    "item": [
+      {
+        "id": "b2805a5e-863b-4480-b793-0d05729abd77",
+        "name": "API-01 GET liste des utilisateurs (page 2)",
+        "request": {
+          "description": {
+            "content": "Liste paginee : 6 utilisateurs sur la page 2.",
+            "type": "text/plain"
+          },
+          "url": {
+            "path": [
+              "api",
+              "users"
+            ],
+            "host": [
+              "{{baseUrl}}"
+            ],
+            "query": [
+              {
+                "key": "page",
+                "value": "2"
+              }
+            ],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "x-api-key",
+              "value": "{{apiKey}}"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Accept",
+              "value": "application/json"
+            }
+          ],
+          "method": "GET"
+        },
+        "response": [],
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "id": "1adb1cb5-9e21-4b91-9e1c-cf01bf3193c8",
+              "type": "text/javascript",
+              "exec": [
+                "pm.test('Statut HTTP 200', function () { pm.response.to.have.status(200); });",
+                "pm.test('Temps de reponse < ' + pm.environment.get('maxResponseTime') + ' ms', function () {",
+                "    pm.expect(pm.response.responseTime).to.be.below(Number(pm.environment.get('maxResponseTime')));",
+                "});",
+                "pm.test('Content-Type JSON', function () { pm.expect(pm.response.headers.get('Content-Type')).to.include('json'); });",
+                "const schema = {\"type\": \"object\", \"required\": [\"page\", \"per_page\", \"total\", \"total_pages\", \"data\"], \"properties\": {\"page\": {\"type\": \"integer\"}, \"per_page\": {\"type\": \"integer\"}, \"total\": {\"type\": \"integer\"}, \"total_pages\": {\"type\": \"integer\"}, \"data\": {\"type\": \"array\", \"items\": {\"type\": \"object\", \"required\": [\"id\", \"email\", \"first_name\", \"last_name\", \"avatar\"], \"properties\": {\"id\": {\"type\": \"integer\"}, \"email\": {\"type\": \"string\"}, \"first_name\": {\"type\": \"string\"}, \"last_name\": {\"type\": \"string\"}, \"avatar\": {\"type\": \"string\"}}}}}};",
+                "pm.test('Schema JSON valide', function () { pm.response.to.have.jsonSchema(schema); });",
+                "const body = pm.response.json();",
+                "pm.test('Pagination coherente (page 2, 6 par page)', function () {",
+                "    pm.expect(body.page).to.eql(2);",
+                "    pm.expect(body.per_page).to.eql(6);",
+                "    pm.expect(body.data).to.have.lengthOf(6);",
+                "});",
+                "pm.test('Chaque email contient @', function () {",
+                "    body.data.forEach(function (u) { pm.expect(u.email).to.include('@'); });",
+                "});",
+                "pm.collectionVariables.set('firstUserId', body.data[0].id);"
+              ],
+              "_lastExecutionId": "cd97ceac-04d1-40e2-9ba5-41ab1e0e5a0c"
+            }
+          }
+        ]
+      },
+      {
+        "id": "daf8f4af-5843-4fbe-b22b-eb5e0fd8c475",
+        "name": "API-02 GET un utilisateur (id 2)",
+        "request": {
+          "description": {
+            "content": "",
+            "type": "text/plain"
+          },
+          "url": {
+            "path": [
+              "api",
+              "users",
+              "2"
+            ],
+            "host": [
+              "{{baseUrl}}"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "x-api-key",
+              "value": "{{apiKey}}"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Accept",
+              "value": "application/json"
+            }
+          ],
+          "method": "GET"
+        },
+        "response": [],
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "id": "1b7592a6-d99c-4512-87c0-15967e733821",
+              "type": "text/javascript",
+              "exec": [
+                "pm.test('Statut HTTP 200', function () { pm.response.to.have.status(200); });",
+                "pm.test('Temps de reponse < ' + pm.environment.get('maxResponseTime') + ' ms', function () {",
+                "    pm.expect(pm.response.responseTime).to.be.below(Number(pm.environment.get('maxResponseTime')));",
+                "});",
+                "pm.test('Content-Type JSON', function () { pm.expect(pm.response.headers.get('Content-Type')).to.include('json'); });",
+                "const schema = {\"type\": \"object\", \"required\": [\"data\"], \"properties\": {\"data\": {\"type\": \"object\", \"required\": [\"id\", \"email\", \"first_name\", \"last_name\", \"avatar\"]}}};",
+                "pm.test('Schema JSON valide', function () { pm.response.to.have.jsonSchema(schema); });",
+                "const u = pm.response.json().data;",
+                "pm.test('Utilisateur Janet Weaver', function () {",
+                "    pm.expect(u.id).to.eql(2);",
+                "    pm.expect(u.first_name).to.eql('Janet');",
+                "    pm.expect(u.last_name).to.eql('Weaver');",
+                "});"
+              ],
+              "_lastExecutionId": "1067e87d-c224-4633-a5cd-5d27daae2c2f"
+            }
+          }
+        ]
+      },
+      {
+        "id": "e236e1c6-7683-47e8-ab1c-3ec6cd6145b7",
+        "name": "API-03 GET utilisateur inexistant (id 23)",
+        "request": {
+          "description": {
+            "content": "Cas negatif : 404 et corps JSON vide.",
+            "type": "text/plain"
+          },
+          "url": {
+            "path": [
+              "api",
+              "users",
+              "23"
+            ],
+            "host": [
+              "{{baseUrl}}"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "x-api-key",
+              "value": "{{apiKey}}"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Accept",
+              "value": "application/json"
+            }
+          ],
+          "method": "GET"
+        },
+        "response": [],
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "id": "45b5df57-3a38-4da4-9adf-d847b5c07dc2",
+              "type": "text/javascript",
+              "exec": [
+                "pm.test('Statut HTTP 404', function () { pm.response.to.have.status(404); });",
+                "pm.test('Corps vide {}', function () { pm.expect(pm.response.json()).to.eql({}); });",
+                "pm.test('Temps de reponse < seuil', function () {",
+                "    pm.expect(pm.response.responseTime).to.be.below(Number(pm.environment.get('maxResponseTime')));",
+                "});"
+              ],
+              "_lastExecutionId": "1ebe1ce1-2eb0-48f5-a71f-4005b592dc09"
+            }
+          }
+        ]
+      },
+      {
+        "id": "6a5c7685-2f17-4f70-86cc-6d185cb4e44b",
+        "name": "API-04 POST creation d'un utilisateur",
+        "request": {
+          "description": {
+            "content": "Les donnees ne sont pas persistees par Reqres : seul l'echo est verifiable.",
+            "type": "text/plain"
+          },
+          "url": {
+            "path": [
+              "api",
+              "users"
+            ],
+            "host": [
+              "{{baseUrl}}"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "x-api-key",
+              "value": "{{apiKey}}"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Accept",
+              "value": "application/json"
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"name\": \"{{userName}}\",\n  \"job\": \"{{userJob}}\"\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": [],
+        "event": [
+          {
+            "listen": "prerequest",
+            "script": {
+              "id": "6abe9dc9-6979-4ba4-94ec-033ee087d153",
+              "type": "text/javascript",
+              "exec": [
+                "// Jeu de donnees dynamique : nom unique a chaque execution",
+                "const suffix = Math.floor(Math.random() * 100000);",
+                "pm.variables.set('userName', 'testeur-' + suffix);",
+                "pm.variables.set('userJob', 'QA automation');"
+              ],
+              "_lastExecutionId": "15135f63-18bf-4628-b7ec-2d870e60fbff"
+            }
+          },
+          {
+            "listen": "test",
+            "script": {
+              "id": "296f13b4-d0d2-45cc-b4c5-4bba7f9070e4",
+              "type": "text/javascript",
+              "exec": [
+                "pm.test('Statut HTTP 201', function () { pm.response.to.have.status(201); });",
+                "pm.test('Temps de reponse < ' + pm.environment.get('maxResponseTime') + ' ms', function () {",
+                "    pm.expect(pm.response.responseTime).to.be.below(Number(pm.environment.get('maxResponseTime')));",
+                "});",
+                "pm.test('Content-Type JSON', function () { pm.expect(pm.response.headers.get('Content-Type')).to.include('json'); });",
+                "const schema = {\"type\": \"object\", \"required\": [\"name\", \"job\", \"id\", \"createdAt\"], \"properties\": {\"name\": {\"type\": \"string\"}, \"job\": {\"type\": \"string\"}, \"id\": {\"type\": [\"string\", \"integer\"]}, \"createdAt\": {\"type\": \"string\"}}};",
+                "pm.test('Schema JSON valide', function () { pm.response.to.have.jsonSchema(schema); });",
+                "const b = pm.response.json();",
+                "pm.test('Les donnees envoyees sont renvoyees', function () {",
+                "    pm.expect(b.name).to.eql(pm.variables.get('userName'));",
+                "    pm.expect(b.job).to.eql('QA automation');",
+                "});",
+                "pm.collectionVariables.set('createdUserId', b.id);"
+              ],
+              "_lastExecutionId": "d5f959dc-9c0a-4022-870a-a0dadd7acdc4"
+            }
+          }
+        ]
+      },
+      {
+        "id": "4c8ee5ed-9368-40d2-9233-9e314a6f3c00",
+        "name": "API-05 PUT mise a jour d'un utilisateur",
+        "request": {
+          "description": {
+            "content": "",
+            "type": "text/plain"
+          },
+          "url": {
+            "path": [
+              "api",
+              "users",
+              "2"
+            ],
+            "host": [
+              "{{baseUrl}}"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "x-api-key",
+              "value": "{{apiKey}}"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Accept",
+              "value": "application/json"
+            }
+          ],
+          "method": "PUT",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"name\": \"morpheus\",\n  \"job\": \"zion resident\"\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": [],
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "id": "5a02d4d3-cfa8-4cd3-9004-65b684e3032e",
+              "type": "text/javascript",
+              "exec": [
+                "pm.test('Statut HTTP 200', function () { pm.response.to.have.status(200); });",
+                "pm.test('Temps de reponse < ' + pm.environment.get('maxResponseTime') + ' ms', function () {",
+                "    pm.expect(pm.response.responseTime).to.be.below(Number(pm.environment.get('maxResponseTime')));",
+                "});",
+                "pm.test('Content-Type JSON', function () { pm.expect(pm.response.headers.get('Content-Type')).to.include('json'); });",
+                "const schema = {\"type\": \"object\", \"required\": [\"name\", \"job\", \"updatedAt\"], \"properties\": {\"name\": {\"type\": \"string\"}, \"job\": {\"type\": \"string\"}, \"updatedAt\": {\"type\": \"string\"}}};",
+                "pm.test('Schema JSON valide', function () { pm.response.to.have.jsonSchema(schema); });",
+                "const b = pm.response.json();",
+                "pm.test('Valeurs mises a jour', function () {",
+                "    pm.expect(b.name).to.eql('morpheus');",
+                "    pm.expect(b.job).to.eql('zion resident');",
+                "});"
+              ],
+              "_lastExecutionId": "cb6425bb-69d6-4d48-a4b6-c5d653aaade0"
+            }
+          }
+        ]
+      },
+      {
+        "id": "351ef6df-1af9-4948-8fce-8c23e97bbce6",
+        "name": "API-06 DELETE suppression d'un utilisateur",
+        "request": {
+          "description": {
+            "content": "",
+            "type": "text/plain"
+          },
+          "url": {
+            "path": [
+              "api",
+              "users",
+              "2"
+            ],
+            "host": [
+              "{{baseUrl}}"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "x-api-key",
+              "value": "{{apiKey}}"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Accept",
+              "value": "application/json"
+            }
+          ],
+          "method": "DELETE"
+        },
+        "response": [],
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "id": "93572344-0c5b-4a4a-a28e-2a9724d5028a",
+              "type": "text/javascript",
+              "exec": [
+                "pm.test('Statut HTTP 204', function () { pm.response.to.have.status(204); });",
+                "pm.test('Temps de reponse < ' + pm.environment.get('maxResponseTime') + ' ms', function () {",
+                "    pm.expect(pm.response.responseTime).to.be.below(Number(pm.environment.get('maxResponseTime')));",
+                "});",
+                "pm.test('Corps vide', function () { pm.expect(pm.response.text()).to.eql(''); });"
+              ],
+              "_lastExecutionId": "0b7556c2-72ea-493b-870f-afe53e3a6fe6"
+            }
+          }
+        ]
+      },
+      {
+        "id": "6cf0b7a0-95e5-465e-90c3-708fc4257c51",
+        "name": "API-07 POST connexion valide",
+        "request": {
+          "description": {
+            "content": "",
+            "type": "text/plain"
+          },
+          "url": {
+            "path": [
+              "api",
+              "login"
+            ],
+            "host": [
+              "{{baseUrl}}"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "x-api-key",
+              "value": "{{apiKey}}"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Accept",
+              "value": "application/json"
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"email\": \"eve.holt@reqres.in\",\n  \"password\": \"cityslicka\"\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": [],
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "id": "0b3e4f78-ec92-4027-a1d4-f1d89643e12a",
+              "type": "text/javascript",
+              "exec": [
+                "pm.test('Statut HTTP 200', function () { pm.response.to.have.status(200); });",
+                "pm.test('Temps de reponse < ' + pm.environment.get('maxResponseTime') + ' ms', function () {",
+                "    pm.expect(pm.response.responseTime).to.be.below(Number(pm.environment.get('maxResponseTime')));",
+                "});",
+                "pm.test('Content-Type JSON', function () { pm.expect(pm.response.headers.get('Content-Type')).to.include('json'); });",
+                "const schema = {\"type\": \"object\", \"required\": [\"token\"], \"properties\": {\"token\": {\"type\": \"string\"}}};",
+                "pm.test('Schema JSON valide', function () { pm.response.to.have.jsonSchema(schema); });",
+                "pm.collectionVariables.set('token', pm.response.json().token);",
+                "pm.test('Token non vide', function () { pm.expect(pm.collectionVariables.get('token')).to.be.a('string').and.not.empty; });"
+              ],
+              "_lastExecutionId": "f65f0cfe-2ad4-4d0f-af28-95a6dd7ea79b"
+            }
+          }
+        ]
+      },
+      {
+        "id": "77b2dadf-734e-4e9c-ad12-17e7dc83818d",
+        "name": "API-08 POST connexion sans mot de passe",
+        "request": {
+          "description": {
+            "content": "Cas negatif : 400 'Missing password'.",
+            "type": "text/plain"
+          },
+          "url": {
+            "path": [
+              "api",
+              "login"
+            ],
+            "host": [
+              "{{baseUrl}}"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "x-api-key",
+              "value": "{{apiKey}}"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Accept",
+              "value": "application/json"
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"email\": \"peter@klaven\"\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": [],
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "id": "0a785df0-36fd-4317-ab18-ccb8cf786eb4",
+              "type": "text/javascript",
+              "exec": [
+                "pm.test('Statut HTTP 400', function () { pm.response.to.have.status(400); });",
+                "pm.test('Temps de reponse < ' + pm.environment.get('maxResponseTime') + ' ms', function () {",
+                "    pm.expect(pm.response.responseTime).to.be.below(Number(pm.environment.get('maxResponseTime')));",
+                "});",
+                "pm.test('Content-Type JSON', function () { pm.expect(pm.response.headers.get('Content-Type')).to.include('json'); });",
+                "const schema = {\"type\": \"object\", \"required\": [\"error\"], \"properties\": {\"error\": {\"type\": \"string\"}}};",
+                "pm.test('Schema JSON valide', function () { pm.response.to.have.jsonSchema(schema); });",
+                "pm.test('Message d erreur attendu', function () {",
+                "    pm.expect(pm.response.json().error).to.eql('Missing password');",
+                "});"
+              ],
+              "_lastExecutionId": "adee24b7-50b3-4634-b9bc-0ed792029cbe"
+            }
+          }
+        ]
+      }
+    ],
+    "event": [],
+    "variable": [
+      {
+        "type": "any",
+        "value": "",
+        "key": "token"
+      },
+      {
+        "type": "any",
+        "value": "",
+        "key": "createdUserId"
+      },
+      {
+        "type": "any",
+        "value": "",
+        "key": "firstUserId"
+      }
+    ],
+    "info": {
+      "_postman_id": "6cd35598-189b-55b5-93ce-e12ebbbd4f26",
+      "name": "Reqres - Tests API (M11)",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+      "description": {
+        "content": "Collection v2.1 : GET/POST/PUT/DELETE sur /api/users et /api/login. Variables d'environnement : baseUrl, apiKey, maxResponseTime.",
+        "type": "text/plain"
+      }
+    }
+  },
+  "environment": {
+    "_": {
+      "postman_variable_scope": "environment"
+    },
+    "id": "ce9afa2d-6d8a-537d-bbfc-11f447572567",
+    "name": "Reqres - mock local",
+    "values": [
+      {
+        "type": "any",
+        "value": "http://localhost:3999",
+        "key": "baseUrl"
+      },
+      {
+        "type": "any",
+        "value": "reqres-free-v1",
+        "key": "apiKey"
+      },
+      {
+        "type": "any",
+        "value": "3000",
+        "key": "maxResponseTime"
+      }
+    ]
+  },
+  "globals": {
+    "id": "932e3c73-e896-4690-ac22-1c8e88e20844",
+    "values": []
+  },
+  "run": {
+    "stats": {
+      "iterations": {
+        "total": 1,
+        "pending": 0,
+        "failed": 0
+      },
+      "items": {
+        "total": 8,
+        "pending": 0,
+        "failed": 0
+      },
+      "scripts": {
+        "total": 9,
+        "pending": 0,
+        "failed": 0
+      },
+      "prerequests": {
+        "total": 8,
+        "pending": 0,
+        "failed": 0
+      },
+      "requests": {
+        "total": 8,
+        "pending": 0,
+        "failed": 0
+      },
+      "tests": {
+        "total": 8,
+        "pending": 0,
+        "failed": 0
+      },
+      "assertions": {
+        "total": 37,
+        "pending": 0,
+        "failed": 0
+      },
+      "testScripts": {
+        "total": 8,
+        "pending": 0,
+        "failed": 0
+      },
+      "prerequestScripts": {
+        "total": 1,
+        "pending": 0,
+        "failed": 0
+      }
+    },
+    "timings": {
+      "responseAverage": 13,
+      "responseMin": 4,
+      "responseMax": 35,
+      "responseSd": 11.947803145348521,
+      "dnsAverage": 0,
+      "dnsMin": 0,
+      "dnsMax": 0,
+      "dnsSd": 0,
+      "firstByteAverage": 0,
+      "firstByteMin": 0,
+      "firstByteMax": 0,
+      "firstByteSd": 0,
+      "started": 1791413051175,
+      "completed": 1791413052121
+    },
+    "executions": [
+      {
+        "cursor": {
+          "position": 0,
+          "iteration": 0,
+          "length": 8,
+          "cycles": 1,
+          "empty": false,
+          "eof": false,
+          "bof": true,
+          "cr": false,
+          "ref": "961d1c0e-a9e7-447d-bd09-91ec1c9dbe5f",
+          "httpRequestId": "cc9e7ac9-f9e8-427f-9472-08df34da585b"
+        },
+        "item": {
+          "id": "b2805a5e-863b-4480-b793-0d05729abd77",
+          "name": "API-01 GET liste des utilisateurs (page 2)",
+          "request": {
+            "description": {
+              "content": "Liste paginee : 6 utilisateurs sur la page 2.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "users"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "2"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{apiKey}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "1adb1cb5-9e21-4b91-9e1c-cf01bf3193c8",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Statut HTTP 200', function () { pm.response.to.have.status(200); });",
+                  "pm.test('Temps de reponse < ' + pm.environment.get('maxResponseTime') + ' ms', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(Number(pm.environment.get('maxResponseTime')));",
+                  "});",
+                  "pm.test('Content-Type JSON', function () { pm.expect(pm.response.headers.get('Content-Type')).to.include('json'); });",
+                  "const schema = {\"type\": \"object\", \"required\": [\"page\", \"per_page\", \"total\", \"total_pages\", \"data\"], \"properties\": {\"page\": {\"type\": \"integer\"}, \"per_page\": {\"type\": \"integer\"}, \"total\": {\"type\": \"integer\"}, \"total_pages\": {\"type\": \"integer\"}, \"data\": {\"type\": \"array\", \"items\": {\"type\": \"object\", \"required\": [\"id\", \"email\", \"first_name\", \"last_name\", \"avatar\"], \"properties\": {\"id\": {\"type\": \"integer\"}, \"email\": {\"type\": \"string\"}, \"first_name\": {\"type\": \"string\"}, \"last_name\": {\"type\": \"string\"}, \"avatar\": {\"type\": \"string\"}}}}}};",
+                  "pm.test('Schema JSON valide', function () { pm.response.to.have.jsonSchema(schema); });",
+                  "const body = pm.response.json();",
+                  "pm.test('Pagination coherente (page 2, 6 par page)', function () {",
+                  "    pm.expect(body.page).to.eql(2);",
+                  "    pm.expect(body.per_page).to.eql(6);",
+                  "    pm.expect(body.data).to.have.lengthOf(6);",
+                  "});",
+                  "pm.test('Chaque email contient @', function () {",
+                  "    body.data.forEach(function (u) { pm.expect(u.email).to.include('@'); });",
+                  "});",
+                  "pm.collectionVariables.set('firstUserId', body.data[0].id);"
+                ],
+                "_lastExecutionId": "cd97ceac-04d1-40e2-9ba5-41ab1e0e5a0c"
+              }
+            }
+          ]
+        },
+        "request": {
+          "description": {
+            "content": "Liste paginee : 6 utilisateurs sur la page 2.",
+            "type": "text/plain"
+          },
+          "url": {
+            "protocol": "http",
+            "port": "3999",
+            "path": [
+              "api",
+              "users"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [
+              {
+                "key": "page",
+                "value": "2"
+              }
+            ],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "x-api-key",
+              "value": "reqres-free-v1"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Accept",
+              "value": "application/json"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "4123ed6c-30ad-4e3b-be9c-d49492855246",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3999",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            }
+          ],
+          "method": "GET"
+        },
+        "response": {
+          "id": "8018284b-829e-4f95-8c8d-8857555cd408",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Date",
+              "value": "Wed, 07 Oct 2026 22:44:11 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              112,
+              97,
+              103,
+              101,
+              34,
+              58,
+              50,
+              44,
+              34,
+              112,
+              101,
+              114,
+              95,
+              112,
+              97,
+              103,
+              101,
+              34,
+              58,
+              54,
+              44,
+              34,
+              116,
+              111,
+              116,
+              97,
+              108,
+              34,
+              58,
+              49,
+              50,
+              44,
+              34,
+              116,
+              111,
+              116,
+              97,
+              108,
+              95,
+              112,
+              97,
+              103,
+              101,
+              115,
+              34,
+              58,
+              50,
+              44,
+              34,
+              100,
+              97,
+              116,
+              97,
+              34,
+              58,
+              91,
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              55,
+              44,
+              34,
+              101,
+              109,
+              97,
+              105,
+              108,
+              34,
+              58,
+              34,
+              109,
+              105,
+              99,
+              104,
+              97,
+              101,
+              108,
+              46,
+              108,
+              97,
+              119,
+              115,
+              111,
+              110,
+              64,
+              114,
+              101,
+              113,
+              114,
+              101,
+              115,
+              46,
+              105,
+              110,
+              34,
+              44,
+              34,
+              102,
+              105,
+              114,
+              115,
+              116,
+              95,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              77,
+              105,
+              99,
+              104,
+              97,
+              101,
+              108,
+              34,
+              44,
+              34,
+              108,
+              97,
+              115,
+              116,
+              95,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              76,
+              97,
+              119,
+              115,
+              111,
+              110,
+              34,
+              44,
+              34,
+              97,
+              118,
+              97,
+              116,
+              97,
+              114,
+              34,
+              58,
+              34,
+              104,
+              116,
+              116,
+              112,
+              115,
+              58,
+              47,
+              47,
+              114,
+              101,
+              113,
+              114,
+              101,
+              115,
+              46,
+              105,
+              110,
+              47,
+              105,
+              109,
+              103,
+              47,
+              102,
+              97,
+              99,
+              101,
+              115,
+              47,
+              55,
+              45,
+              105,
+              109,
+              97,
+              103,
+              101,
+              46,
+              106,
+              112,
+              103,
+              34,
+              125,
+              44,
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              56,
+              44,
+              34,
+              101,
+              109,
+              97,
+              105,
+              108,
+              34,
+              58,
+              34,
+              108,
+              105,
+              110,
+              100,
+              115,
+              97,
+              121,
+              46,
+              102,
+              101,
+              114,
+              103,
+              117,
+              115,
+              111,
+              110,
+              64,
+              114,
+              101,
+              113,
+              114,
+              101,
+              115,
+              46,
+              105,
+              110,
+              34,
+              44,
+              34,
+              102,
+              105,
+              114,
+              115,
+              116,
+              95,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              76,
+              105,
+              110,
+              100,
+              115,
+              97,
+              121,
+              34,
+              44,
+              34,
+              108,
+              97,
+              115,
+              116,
+              95,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              70,
+              101,
+              114,
+              103,
+              117,
+              115,
+              111,
+              110,
+              34,
+              44,
+              34,
+              97,
+              118,
+              97,
+              116,
+              97,
+              114,
+              34,
+              58,
+              34,
+              104,
+              116,
+              116,
+              112,
+              115,
+              58,
+              47,
+              47,
+              114,
+              101,
+              113,
+              114,
+              101,
+              115,
+              46,
+              105,
+              110,
+              47,
+              105,
+              109,
+              103,
+              47,
+              102,
+              97,
+              99,
+              101,
+              115,
+              47,
+              56,
+              45,
+              105,
+              109,
+              97,
+              103,
+              101,
+              46,
+              106,
+              112,
+              103,
+              34,
+              125,
+              44,
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              57,
+              44,
+              34,
+              101,
+              109,
+              97,
+              105,
+              108,
+              34,
+              58,
+              34,
+              116,
+              111,
+              98,
+              105,
+              97,
+              115,
+              46,
+              102,
+              117,
+              110,
+              107,
+              101,
+              64,
+              114,
+              101,
+              113,
+              114,
+              101,
+              115,
+              46,
+              105,
+              110,
+              34,
+              44,
+              34,
+              102,
+              105,
+              114,
+              115,
+              116,
+              95,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              84,
+              111,
+              98,
+              105,
+              97,
+              115,
+              34,
+              44,
+              34,
+              108,
+              97,
+              115,
+              116,
+              95,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              70,
+              117,
+              110,
+              107,
+              101,
+              34,
+              44,
+              34,
+              97,
+              118,
+              97,
+              116,
+              97,
+              114,
+              34,
+              58,
+              34,
+              104,
+              116,
+              116,
+              112,
+              115,
+              58,
+              47,
+              47,
+              114,
+              101,
+              113,
+              114,
+              101,
+              115,
+              46,
+              105,
+              110,
+              47,
+              105,
+              109,
+              103,
+              47,
+              102,
+              97,
+              99,
+              101,
+              115,
+              47,
+              57,
+              45,
+              105,
+              109,
+              97,
+              103,
+              101,
+              46,
+              106,
+              112,
+              103,
+              34,
+              125,
+              44,
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              49,
+              48,
+              44,
+              34,
+              101,
+              109,
+              97,
+              105,
+              108,
+              34,
+              58,
+              34,
+              98,
+              121,
+              114,
+              111,
+              110,
+              46,
+              102,
+              105,
+              101,
+              108,
+              100,
+              115,
+              64,
+              114,
+              101,
+              113,
+              114,
+              101,
+              115,
+              46,
+              105,
+              110,
+              34,
+              44,
+              34,
+              102,
+              105,
+              114,
+              115,
+              116,
+              95,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              66,
+              121,
+              114,
+              111,
+              110,
+              34,
+              44,
+              34,
+              108,
+              97,
+              115,
+              116,
+              95,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              70,
+              105,
+              101,
+              108,
+              100,
+              115,
+              34,
+              44,
+              34,
+              97,
+              118,
+              97,
+              116,
+              97,
+              114,
+              34,
+              58,
+              34,
+              104,
+              116,
+              116,
+              112,
+              115,
+              58,
+              47,
+              47,
+              114,
+              101,
+              113,
+              114,
+              101,
+              115,
+              46,
+              105,
+              110,
+              47,
+              105,
+              109,
+              103,
+              47,
+              102,
+              97,
+              99,
+              101,
+              115,
+              47,
+              49,
+              48,
+              45,
+              105,
+              109,
+              97,
+              103,
+              101,
+              46,
+              106,
+              112,
+              103,
+              34,
+              125,
+              44,
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              49,
+              49,
+              44,
+              34,
+              101,
+              109,
+              97,
+              105,
+              108,
+              34,
+              58,
+              34,
+              103,
+              101,
+              111,
+              114,
+              103,
+              101,
+              46,
+              101,
+              100,
+              119,
+              97,
+              114,
+              100,
+              115,
+              64,
+              114,
+              101,
+              113,
+              114,
+              101,
+              115,
+              46,
+              105,
+              110,
+              34,
+              44,
+              34,
+              102,
+              105,
+              114,
+              115,
+              116,
+              95,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              71,
+              101,
+              111,
+              114,
+              103,
+              101,
+              34,
+              44,
+              34,
+              108,
+              97,
+              115,
+              116,
+              95,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              69,
+              100,
+              119,
+              97,
+              114,
+              100,
+              115,
+              34,
+              44,
+              34,
+              97,
+              118,
+              97,
+              116,
+              97,
+              114,
+              34,
+              58,
+              34,
+              104,
+              116,
+              116,
+              112,
+              115,
+              58,
+              47,
+              47,
+              114,
+              101,
+              113,
+              114,
+              101,
+              115,
+              46,
+              105,
+              110,
+              47,
+              105,
+              109,
+              103,
+              47,
+              102,
+              97,
+              99,
+              101,
+              115,
+              47,
+              49,
+              49,
+              45,
+              105,
+              109,
+              97,
+              103,
+              101,
+              46,
+              106,
+              112,
+              103,
+              34,
+              125,
+              44,
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              49,
+              50,
+              44,
+              34,
+              101,
+              109,
+              97,
+              105,
+              108,
+              34,
+              58,
+              34,
+              114,
+              97,
+              99,
+              104,
+              101,
+              108,
+              46,
+              104,
+              111,
+              119,
+              101,
+              108,
+              108,
+              64,
+              114,
+              101,
+              113,
+              114,
+              101,
+              115,
+              46,
+              105,
+              110,
+              34,
+              44,
+              34,
+              102,
+              105,
+              114,
+              115,
+              116,
+              95,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              82,
+              97,
+              99,
+              104,
+              101,
+              108,
+              34,
+              44,
+              34,
+              108,
+              97,
+              115,
+              116,
+              95,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              72,
+              111,
+              119,
+              101,
+              108,
+              108,
+              34,
+              44,
+              34,
+              97,
+              118,
+              97,
+              116,
+              97,
+              114,
+              34,
+              58,
+              34,
+              104,
+              116,
+              116,
+              112,
+              115,
+              58,
+              47,
+              47,
+              114,
+              101,
+              113,
+              114,
+              101,
+              115,
+              46,
+              105,
+              110,
+              47,
+              105,
+              109,
+              103,
+              47,
+              102,
+              97,
+              99,
+              101,
+              115,
+              47,
+              49,
+              50,
+              45,
+              105,
+              109,
+              97,
+              103,
+              101,
+              46,
+              106,
+              112,
+              103,
+              34,
+              125,
+              93,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 35,
+          "responseSize": 893
+        },
+        "id": "b2805a5e-863b-4480-b793-0d05729abd77",
+        "assertions": [
+          {
+            "assertion": "Statut HTTP 200",
+            "skipped": false
+          },
+          {
+            "assertion": "Temps de reponse < 3000 ms",
+            "skipped": false
+          },
+          {
+            "assertion": "Content-Type JSON",
+            "skipped": false
+          },
+          {
+            "assertion": "Schema JSON valide",
+            "skipped": false
+          },
+          {
+            "assertion": "Pagination coherente (page 2, 6 par page)",
+            "skipped": false
+          },
+          {
+            "assertion": "Chaque email contient @",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "8828e485-dc2f-4405-90fe-41bf01be067c",
+          "length": 8,
+          "cycles": 1,
+          "position": 1,
+          "iteration": 0,
+          "httpRequestId": "d97cfe6b-45b7-4f51-8587-7867b9cdaa6d"
+        },
+        "item": {
+          "id": "daf8f4af-5843-4fbe-b22b-eb5e0fd8c475",
+          "name": "API-02 GET un utilisateur (id 2)",
+          "request": {
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "users",
+                "2"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{apiKey}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "1b7592a6-d99c-4512-87c0-15967e733821",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Statut HTTP 200', function () { pm.response.to.have.status(200); });",
+                  "pm.test('Temps de reponse < ' + pm.environment.get('maxResponseTime') + ' ms', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(Number(pm.environment.get('maxResponseTime')));",
+                  "});",
+                  "pm.test('Content-Type JSON', function () { pm.expect(pm.response.headers.get('Content-Type')).to.include('json'); });",
+                  "const schema = {\"type\": \"object\", \"required\": [\"data\"], \"properties\": {\"data\": {\"type\": \"object\", \"required\": [\"id\", \"email\", \"first_name\", \"last_name\", \"avatar\"]}}};",
+                  "pm.test('Schema JSON valide', function () { pm.response.to.have.jsonSchema(schema); });",
+                  "const u = pm.response.json().data;",
+                  "pm.test('Utilisateur Janet Weaver', function () {",
+                  "    pm.expect(u.id).to.eql(2);",
+                  "    pm.expect(u.first_name).to.eql('Janet');",
+                  "    pm.expect(u.last_name).to.eql('Weaver');",
+                  "});"
+                ],
+                "_lastExecutionId": "1067e87d-c224-4633-a5cd-5d27daae2c2f"
+              }
+            }
+          ]
+        },
+        "request": {
+          "description": {
+            "content": "",
+            "type": "text/plain"
+          },
+          "url": {
+            "protocol": "http",
+            "port": "3999",
+            "path": [
+              "api",
+              "users",
+              "2"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "x-api-key",
+              "value": "reqres-free-v1"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Accept",
+              "value": "application/json"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "63f3e45c-328b-4e93-85a6-ea95d6e6ef46",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3999",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            }
+          ],
+          "method": "GET"
+        },
+        "response": {
+          "id": "97f0850f-ea68-4aa1-82f0-84152c9eef16",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Date",
+              "value": "Wed, 07 Oct 2026 22:44:11 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              100,
+              97,
+              116,
+              97,
+              34,
+              58,
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              50,
+              44,
+              34,
+              101,
+              109,
+              97,
+              105,
+              108,
+              34,
+              58,
+              34,
+              106,
+              97,
+              110,
+              101,
+              116,
+              46,
+              119,
+              101,
+              97,
+              118,
+              101,
+              114,
+              64,
+              114,
+              101,
+              113,
+              114,
+              101,
+              115,
+              46,
+              105,
+              110,
+              34,
+              44,
+              34,
+              102,
+              105,
+              114,
+              115,
+              116,
+              95,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              74,
+              97,
+              110,
+              101,
+              116,
+              34,
+              44,
+              34,
+              108,
+              97,
+              115,
+              116,
+              95,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              87,
+              101,
+              97,
+              118,
+              101,
+              114,
+              34,
+              44,
+              34,
+              97,
+              118,
+              97,
+              116,
+              97,
+              114,
+              34,
+              58,
+              34,
+              104,
+              116,
+              116,
+              112,
+              115,
+              58,
+              47,
+              47,
+              114,
+              101,
+              113,
+              114,
+              101,
+              115,
+              46,
+              105,
+              110,
+              47,
+              105,
+              109,
+              103,
+              47,
+              102,
+              97,
+              99,
+              101,
+              115,
+              47,
+              50,
+              45,
+              105,
+              109,
+              97,
+              103,
+              101,
+              46,
+              106,
+              112,
+              103,
+              34,
+              125,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 5,
+          "responseSize": 143
+        },
+        "id": "daf8f4af-5843-4fbe-b22b-eb5e0fd8c475",
+        "assertions": [
+          {
+            "assertion": "Statut HTTP 200",
+            "skipped": false
+          },
+          {
+            "assertion": "Temps de reponse < 3000 ms",
+            "skipped": false
+          },
+          {
+            "assertion": "Content-Type JSON",
+            "skipped": false
+          },
+          {
+            "assertion": "Schema JSON valide",
+            "skipped": false
+          },
+          {
+            "assertion": "Utilisateur Janet Weaver",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "017beb91-6c4c-4e82-9966-4a1aeb03c572",
+          "length": 8,
+          "cycles": 1,
+          "position": 2,
+          "iteration": 0,
+          "httpRequestId": "18f2fa14-b771-4a7b-bcca-090f7594e528"
+        },
+        "item": {
+          "id": "e236e1c6-7683-47e8-ab1c-3ec6cd6145b7",
+          "name": "API-03 GET utilisateur inexistant (id 23)",
+          "request": {
+            "description": {
+              "content": "Cas negatif : 404 et corps JSON vide.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "users",
+                "23"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{apiKey}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "45b5df57-3a38-4da4-9adf-d847b5c07dc2",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Statut HTTP 404', function () { pm.response.to.have.status(404); });",
+                  "pm.test('Corps vide {}', function () { pm.expect(pm.response.json()).to.eql({}); });",
+                  "pm.test('Temps de reponse < seuil', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(Number(pm.environment.get('maxResponseTime')));",
+                  "});"
+                ],
+                "_lastExecutionId": "1ebe1ce1-2eb0-48f5-a71f-4005b592dc09"
+              }
+            }
+          ]
+        },
+        "request": {
+          "description": {
+            "content": "Cas negatif : 404 et corps JSON vide.",
+            "type": "text/plain"
+          },
+          "url": {
+            "protocol": "http",
+            "port": "3999",
+            "path": [
+              "api",
+              "users",
+              "23"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "x-api-key",
+              "value": "reqres-free-v1"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Accept",
+              "value": "application/json"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "d9e9bf3b-9cc7-4022-ab69-3f2a92829de0",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3999",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            }
+          ],
+          "method": "GET"
+        },
+        "response": {
+          "id": "2342514d-5879-462c-9cde-aa8d9b38eff0",
+          "status": "Not Found",
+          "code": 404,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Date",
+              "value": "Wed, 07 Oct 2026 22:44:11 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 5,
+          "responseSize": 2
+        },
+        "id": "e236e1c6-7683-47e8-ab1c-3ec6cd6145b7",
+        "assertions": [
+          {
+            "assertion": "Statut HTTP 404",
+            "skipped": false
+          },
+          {
+            "assertion": "Corps vide {}",
+            "skipped": false
+          },
+          {
+            "assertion": "Temps de reponse < seuil",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "fa0f0fe7-d0ef-449d-9bc8-a0e8d90b64e1",
+          "length": 8,
+          "cycles": 1,
+          "position": 3,
+          "iteration": 0,
+          "httpRequestId": "59b9acf5-6ee6-4d40-b989-f8091847a72b"
+        },
+        "item": {
+          "id": "6a5c7685-2f17-4f70-86cc-6d185cb4e44b",
+          "name": "API-04 POST creation d'un utilisateur",
+          "request": {
+            "description": {
+              "content": "Les donnees ne sont pas persistees par Reqres : seul l'echo est verifiable.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "users"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{apiKey}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"{{userName}}\",\n  \"job\": \"{{userJob}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "6abe9dc9-6979-4ba4-94ec-033ee087d153",
+                "type": "text/javascript",
+                "exec": [
+                  "// Jeu de donnees dynamique : nom unique a chaque execution",
+                  "const suffix = Math.floor(Math.random() * 100000);",
+                  "pm.variables.set('userName', 'testeur-' + suffix);",
+                  "pm.variables.set('userJob', 'QA automation');"
+                ],
+                "_lastExecutionId": "15135f63-18bf-4628-b7ec-2d870e60fbff"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "296f13b4-d0d2-45cc-b4c5-4bba7f9070e4",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Statut HTTP 201', function () { pm.response.to.have.status(201); });",
+                  "pm.test('Temps de reponse < ' + pm.environment.get('maxResponseTime') + ' ms', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(Number(pm.environment.get('maxResponseTime')));",
+                  "});",
+                  "pm.test('Content-Type JSON', function () { pm.expect(pm.response.headers.get('Content-Type')).to.include('json'); });",
+                  "const schema = {\"type\": \"object\", \"required\": [\"name\", \"job\", \"id\", \"createdAt\"], \"properties\": {\"name\": {\"type\": \"string\"}, \"job\": {\"type\": \"string\"}, \"id\": {\"type\": [\"string\", \"integer\"]}, \"createdAt\": {\"type\": \"string\"}}};",
+                  "pm.test('Schema JSON valide', function () { pm.response.to.have.jsonSchema(schema); });",
+                  "const b = pm.response.json();",
+                  "pm.test('Les donnees envoyees sont renvoyees', function () {",
+                  "    pm.expect(b.name).to.eql(pm.variables.get('userName'));",
+                  "    pm.expect(b.job).to.eql('QA automation');",
+                  "});",
+                  "pm.collectionVariables.set('createdUserId', b.id);"
+                ],
+                "_lastExecutionId": "d5f959dc-9c0a-4022-870a-a0dadd7acdc4"
+              }
+            }
+          ]
+        },
+        "request": {
+          "description": {
+            "content": "Les donnees ne sont pas persistees par Reqres : seul l'echo est verifiable.",
+            "type": "text/plain"
+          },
+          "url": {
+            "protocol": "http",
+            "port": "3999",
+            "path": [
+              "api",
+              "users"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "x-api-key",
+              "value": "reqres-free-v1"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Accept",
+              "value": "application/json"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "06845483-18ab-416f-831b-6fb6f089378a",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3999",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "55",
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"name\": \"testeur-17545\",\n  \"job\": \"QA automation\"\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": {
+          "id": "73993db1-97fd-427e-9fae-047194145781",
+          "status": "Created",
+          "code": 201,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Date",
+              "value": "Wed, 07 Oct 2026 22:44:11 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              116,
+              101,
+              115,
+              116,
+              101,
+              117,
+              114,
+              45,
+              49,
+              55,
+              53,
+              52,
+              53,
+              34,
+              44,
+              34,
+              106,
+              111,
+              98,
+              34,
+              58,
+              34,
+              81,
+              65,
+              32,
+              97,
+              117,
+              116,
+              111,
+              109,
+              97,
+              116,
+              105,
+              111,
+              110,
+              34,
+              44,
+              34,
+              105,
+              100,
+              34,
+              58,
+              34,
+              54,
+              48,
+              55,
+              34,
+              44,
+              34,
+              99,
+              114,
+              101,
+              97,
+              116,
+              101,
+              100,
+              65,
+              116,
+              34,
+              58,
+              34,
+              50,
+              48,
+              50,
+              54,
+              45,
+              49,
+              48,
+              45,
+              48,
+              55,
+              84,
+              50,
+              50,
+              58,
+              52,
+              52,
+              58,
+              49,
+              49,
+              46,
+              53,
+              57,
+              55,
+              90,
+              34,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 9,
+          "responseSize": 96
+        },
+        "id": "6a5c7685-2f17-4f70-86cc-6d185cb4e44b",
+        "assertions": [
+          {
+            "assertion": "Statut HTTP 201",
+            "skipped": false
+          },
+          {
+            "assertion": "Temps de reponse < 3000 ms",
+            "skipped": false
+          },
+          {
+            "assertion": "Content-Type JSON",
+            "skipped": false
+          },
+          {
+            "assertion": "Schema JSON valide",
+            "skipped": false
+          },
+          {
+            "assertion": "Les donnees envoyees sont renvoyees",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "ed6617bc-2934-47b7-a5c2-8e4e922841e5",
+          "length": 8,
+          "cycles": 1,
+          "position": 4,
+          "iteration": 0,
+          "httpRequestId": "507172a4-872b-4cd4-9818-d7a34d5fe286"
+        },
+        "item": {
+          "id": "4c8ee5ed-9368-40d2-9233-9e314a6f3c00",
+          "name": "API-05 PUT mise a jour d'un utilisateur",
+          "request": {
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "users",
+                "2"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{apiKey}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"morpheus\",\n  \"job\": \"zion resident\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "5a02d4d3-cfa8-4cd3-9004-65b684e3032e",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Statut HTTP 200', function () { pm.response.to.have.status(200); });",
+                  "pm.test('Temps de reponse < ' + pm.environment.get('maxResponseTime') + ' ms', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(Number(pm.environment.get('maxResponseTime')));",
+                  "});",
+                  "pm.test('Content-Type JSON', function () { pm.expect(pm.response.headers.get('Content-Type')).to.include('json'); });",
+                  "const schema = {\"type\": \"object\", \"required\": [\"name\", \"job\", \"updatedAt\"], \"properties\": {\"name\": {\"type\": \"string\"}, \"job\": {\"type\": \"string\"}, \"updatedAt\": {\"type\": \"string\"}}};",
+                  "pm.test('Schema JSON valide', function () { pm.response.to.have.jsonSchema(schema); });",
+                  "const b = pm.response.json();",
+                  "pm.test('Valeurs mises a jour', function () {",
+                  "    pm.expect(b.name).to.eql('morpheus');",
+                  "    pm.expect(b.job).to.eql('zion resident');",
+                  "});"
+                ],
+                "_lastExecutionId": "cb6425bb-69d6-4d48-a4b6-c5d653aaade0"
+              }
+            }
+          ]
+        },
+        "request": {
+          "description": {
+            "content": "",
+            "type": "text/plain"
+          },
+          "url": {
+            "protocol": "http",
+            "port": "3999",
+            "path": [
+              "api",
+              "users",
+              "2"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "x-api-key",
+              "value": "reqres-free-v1"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Accept",
+              "value": "application/json"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "758faa88-67cd-409f-94b3-2aa691330940",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3999",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "50",
+              "system": true
+            }
+          ],
+          "method": "PUT",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"name\": \"morpheus\",\n  \"job\": \"zion resident\"\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": {
+          "id": "d89594f4-fbce-4bad-b610-7e6bafc701ef",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Date",
+              "value": "Wed, 07 Oct 2026 22:44:11 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              109,
+              111,
+              114,
+              112,
+              104,
+              101,
+              117,
+              115,
+              34,
+              44,
+              34,
+              106,
+              111,
+              98,
+              34,
+              58,
+              34,
+              122,
+              105,
+              111,
+              110,
+              32,
+              114,
+              101,
+              115,
+              105,
+              100,
+              101,
+              110,
+              116,
+              34,
+              44,
+              34,
+              117,
+              112,
+              100,
+              97,
+              116,
+              101,
+              100,
+              65,
+              116,
+              34,
+              58,
+              34,
+              50,
+              48,
+              50,
+              54,
+              45,
+              49,
+              48,
+              45,
+              48,
+              55,
+              84,
+              50,
+              50,
+              58,
+              52,
+              52,
+              58,
+              49,
+              49,
+              46,
+              55,
+              48,
+              52,
+              90,
+              34,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 32,
+          "responseSize": 80
+        },
+        "id": "4c8ee5ed-9368-40d2-9233-9e314a6f3c00",
+        "assertions": [
+          {
+            "assertion": "Statut HTTP 200",
+            "skipped": false
+          },
+          {
+            "assertion": "Temps de reponse < 3000 ms",
+            "skipped": false
+          },
+          {
+            "assertion": "Content-Type JSON",
+            "skipped": false
+          },
+          {
+            "assertion": "Schema JSON valide",
+            "skipped": false
+          },
+          {
+            "assertion": "Valeurs mises a jour",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "ccc2024a-c94a-40d8-8c9b-2174742cbaf2",
+          "length": 8,
+          "cycles": 1,
+          "position": 5,
+          "iteration": 0,
+          "httpRequestId": "3350cb1b-9d1c-4ee3-8067-bef4ae89f8e6"
+        },
+        "item": {
+          "id": "351ef6df-1af9-4948-8fce-8c23e97bbce6",
+          "name": "API-06 DELETE suppression d'un utilisateur",
+          "request": {
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "users",
+                "2"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{apiKey}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "93572344-0c5b-4a4a-a28e-2a9724d5028a",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Statut HTTP 204', function () { pm.response.to.have.status(204); });",
+                  "pm.test('Temps de reponse < ' + pm.environment.get('maxResponseTime') + ' ms', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(Number(pm.environment.get('maxResponseTime')));",
+                  "});",
+                  "pm.test('Corps vide', function () { pm.expect(pm.response.text()).to.eql(''); });"
+                ],
+                "_lastExecutionId": "0b7556c2-72ea-493b-870f-afe53e3a6fe6"
+              }
+            }
+          ]
+        },
+        "request": {
+          "description": {
+            "content": "",
+            "type": "text/plain"
+          },
+          "url": {
+            "protocol": "http",
+            "port": "3999",
+            "path": [
+              "api",
+              "users",
+              "2"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "x-api-key",
+              "value": "reqres-free-v1"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Accept",
+              "value": "application/json"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "3c654b5d-1e3e-4bee-b223-bb7e664fdefd",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3999",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            }
+          ],
+          "method": "DELETE"
+        },
+        "response": {
+          "id": "ea13fff3-aa3f-46a6-8728-48c9c1119aa6",
+          "status": "No Content",
+          "code": 204,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Date",
+              "value": "Wed, 07 Oct 2026 22:44:11 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": []
+          },
+          "cookie": [],
+          "responseTime": 4,
+          "responseSize": 0
+        },
+        "id": "351ef6df-1af9-4948-8fce-8c23e97bbce6",
+        "assertions": [
+          {
+            "assertion": "Statut HTTP 204",
+            "skipped": false
+          },
+          {
+            "assertion": "Temps de reponse < 3000 ms",
+            "skipped": false
+          },
+          {
+            "assertion": "Corps vide",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "d85c9606-f4bd-4494-b0ee-59551db03758",
+          "length": 8,
+          "cycles": 1,
+          "position": 6,
+          "iteration": 0,
+          "httpRequestId": "3ba30a29-5ec2-4e3f-ae62-9312560beb60"
+        },
+        "item": {
+          "id": "6cf0b7a0-95e5-465e-90c3-708fc4257c51",
+          "name": "API-07 POST connexion valide",
+          "request": {
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "login"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{apiKey}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"eve.holt@reqres.in\",\n  \"password\": \"cityslicka\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "0b3e4f78-ec92-4027-a1d4-f1d89643e12a",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Statut HTTP 200', function () { pm.response.to.have.status(200); });",
+                  "pm.test('Temps de reponse < ' + pm.environment.get('maxResponseTime') + ' ms', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(Number(pm.environment.get('maxResponseTime')));",
+                  "});",
+                  "pm.test('Content-Type JSON', function () { pm.expect(pm.response.headers.get('Content-Type')).to.include('json'); });",
+                  "const schema = {\"type\": \"object\", \"required\": [\"token\"], \"properties\": {\"token\": {\"type\": \"string\"}}};",
+                  "pm.test('Schema JSON valide', function () { pm.response.to.have.jsonSchema(schema); });",
+                  "pm.collectionVariables.set('token', pm.response.json().token);",
+                  "pm.test('Token non vide', function () { pm.expect(pm.collectionVariables.get('token')).to.be.a('string').and.not.empty; });"
+                ],
+                "_lastExecutionId": "f65f0cfe-2ad4-4d0f-af28-95a6dd7ea79b"
+              }
+            }
+          ]
+        },
+        "request": {
+          "description": {
+            "content": "",
+            "type": "text/plain"
+          },
+          "url": {
+            "protocol": "http",
+            "port": "3999",
+            "path": [
+              "api",
+              "login"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "x-api-key",
+              "value": "reqres-free-v1"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Accept",
+              "value": "application/json"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "b9ed9150-4fad-4b59-9433-640226222951",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3999",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "63",
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"email\": \"eve.holt@reqres.in\",\n  \"password\": \"cityslicka\"\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": {
+          "id": "ebe9b2ed-43d6-4683-8352-742527a1b6e2",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Date",
+              "value": "Wed, 07 Oct 2026 22:44:11 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              116,
+              111,
+              107,
+              101,
+              110,
+              34,
+              58,
+              34,
+              81,
+              112,
+              119,
+              76,
+              53,
+              116,
+              107,
+              101,
+              52,
+              80,
+              110,
+              112,
+              106,
+              97,
+              55,
+              88,
+              52,
+              34,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 7,
+          "responseSize": 29
+        },
+        "id": "6cf0b7a0-95e5-465e-90c3-708fc4257c51",
+        "assertions": [
+          {
+            "assertion": "Statut HTTP 200",
+            "skipped": false
+          },
+          {
+            "assertion": "Temps de reponse < 3000 ms",
+            "skipped": false
+          },
+          {
+            "assertion": "Content-Type JSON",
+            "skipped": false
+          },
+          {
+            "assertion": "Schema JSON valide",
+            "skipped": false
+          },
+          {
+            "assertion": "Token non vide",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "ddc36473-0f1a-468a-bb52-0ee251bba521",
+          "length": 8,
+          "cycles": 1,
+          "position": 7,
+          "iteration": 0,
+          "httpRequestId": "d530a5e2-ce4d-42fa-8905-823401818162"
+        },
+        "item": {
+          "id": "77b2dadf-734e-4e9c-ad12-17e7dc83818d",
+          "name": "API-08 POST connexion sans mot de passe",
+          "request": {
+            "description": {
+              "content": "Cas negatif : 400 'Missing password'.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "login"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{apiKey}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"peter@klaven\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "0a785df0-36fd-4317-ab18-ccb8cf786eb4",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Statut HTTP 400', function () { pm.response.to.have.status(400); });",
+                  "pm.test('Temps de reponse < ' + pm.environment.get('maxResponseTime') + ' ms', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(Number(pm.environment.get('maxResponseTime')));",
+                  "});",
+                  "pm.test('Content-Type JSON', function () { pm.expect(pm.response.headers.get('Content-Type')).to.include('json'); });",
+                  "const schema = {\"type\": \"object\", \"required\": [\"error\"], \"properties\": {\"error\": {\"type\": \"string\"}}};",
+                  "pm.test('Schema JSON valide', function () { pm.response.to.have.jsonSchema(schema); });",
+                  "pm.test('Message d erreur attendu', function () {",
+                  "    pm.expect(pm.response.json().error).to.eql('Missing password');",
+                  "});"
+                ],
+                "_lastExecutionId": "adee24b7-50b3-4634-b9bc-0ed792029cbe"
+              }
+            }
+          ]
+        },
+        "request": {
+          "description": {
+            "content": "Cas negatif : 400 'Missing password'.",
+            "type": "text/plain"
+          },
+          "url": {
+            "protocol": "http",
+            "port": "3999",
+            "path": [
+              "api",
+              "login"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "x-api-key",
+              "value": "reqres-free-v1"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Accept",
+              "value": "application/json"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "d52b8fc3-01a2-45c9-ac09-9345d9026a94",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3999",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "29",
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"email\": \"peter@klaven\"\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": {
+          "id": "aa8ce416-eb7b-4cde-a7f0-0bb97a7078e6",
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Date",
+              "value": "Wed, 07 Oct 2026 22:44:12 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              101,
+              114,
+              114,
+              111,
+              114,
+              34,
+              58,
+              34,
+              77,
+              105,
+              115,
+              115,
+              105,
+              110,
+              103,
+              32,
+              112,
+              97,
+              115,
+              115,
+              119,
+              111,
+              114,
+              100,
+              34,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 7,
+          "responseSize": 28
+        },
+        "id": "77b2dadf-734e-4e9c-ad12-17e7dc83818d",
+        "assertions": [
+          {
+            "assertion": "Statut HTTP 400",
+            "skipped": false
+          },
+          {
+            "assertion": "Temps de reponse < 3000 ms",
+            "skipped": false
+          },
+          {
+            "assertion": "Content-Type JSON",
+            "skipped": false
+          },
+          {
+            "assertion": "Schema JSON valide",
+            "skipped": false
+          },
+          {
+            "assertion": "Message d erreur attendu",
+            "skipped": false
+          }
+        ]
+      }
+    ],
+    "transfers": {
+      "responseTotal": 1271
+    },
+    "failures": [],
+    "error": null
+  }
+}

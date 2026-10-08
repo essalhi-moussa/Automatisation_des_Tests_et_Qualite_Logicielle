@@ -12,9 +12,9 @@ target/
 .classpath
 
 # Rapports temporaires (les rapports de référence sont dans reports/)
-allure-results/
-allure-report/
-newman/
+/allure-results/
+/allure-report/
+/newman/
 node_modules/
 tmp/
 
@@ -26,3 +26,5 @@ tmp/
 # Système
 Thumbs.db
 .DS_Store
+__pycache__/
+*.pyc
