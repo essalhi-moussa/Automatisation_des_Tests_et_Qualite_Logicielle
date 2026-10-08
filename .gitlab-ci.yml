@@ -99,7 +99,11 @@ ui-selenium:
   before_script:
     - command -v curl >/dev/null || (apt-get update -qq && apt-get install -y -qq curl >/dev/null)
     # attendre que le service Selenium soit pret avant de lancer les tests
-    - for i in $(seq 1 60); do curl -sf "$REMOTE_URL/status" | grep -Eq '"ready": ?true' && break; sleep 2; done
+    - |
+      for i in $(seq 1 60); do
+        curl -sf "$REMOTE_URL/status" | grep -Eq '"ready": ?true' && break
+        sleep 2
+      done
   script:
     - mvn $MAVEN_CLI_OPTS -P ui test -Dremote.url=$REMOTE_URL -Dheadless=true
   artifacts:
