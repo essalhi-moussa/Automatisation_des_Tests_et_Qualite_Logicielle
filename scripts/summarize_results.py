@@ -72,10 +72,17 @@ def jmeter(run_dir):
     jtl = os.path.join(run_dir, "resultats.jtl")
     if os.path.exists(jtl):
         import csv
+        start, first429 = None, None
         with open(jtl, encoding="utf-8") as f:
             for row in csv.DictReader(f):
                 key = "%s %s" % (row["label"], row["responseCode"])
                 codes[key] = codes.get(key, 0) + 1
+                ts = int(row["timeStamp"])
+                start = ts if start is None else min(start, ts)
+                if row["responseCode"] == "429":
+                    first429 = ts if first429 is None else min(first429, ts)
+        if first429 is not None:
+            out["_first_429_s"] = round((first429 - start) / 1000, 1)
     out["_codes"] = codes
     return out
 
