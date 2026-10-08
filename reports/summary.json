@@ -1,0 +1,643 @@
+{
+  "ui": {
+    "local": {
+      "total": 21,
+      "passed": 21,
+      "failed": 0,
+      "skipped": 0,
+      "duration_s": 32.9,
+      "started": "2026-10-07T23:38:14 WEST",
+      "methods": [
+        {
+          "name": "alerteJavaScriptAcceptee",
+          "description": "UI-06 : alerte JavaScript acceptee",
+          "status": "PASS",
+          "duration_ms": 2316
+        },
+        {
+          "name": "nouvelOnglet",
+          "description": "UI-07 : ouverture d'un nouvel onglet et retour",
+          "status": "PASS",
+          "duration_ms": 1656
+        },
+        {
+          "name": "boutons",
+          "description": "UI-11 : boutons actifs et groupe de boutons avec menu",
+          "status": "PASS",
+          "duration_ms": 4871
+        },
+        {
+          "name": "boutonsRadioExclusifs",
+          "description": "UI-09 : boutons radio mutuellement exclusifs",
+          "status": "PASS",
+          "duration_ms": 1256
+        },
+        {
+          "name": "casesACocher",
+          "description": "UI-10 : cases a cocher independantes",
+          "status": "PASS",
+          "duration_ms": 2206
+        },
+        {
+          "name": "champsActifEtDesactive",
+          "description": "UI-12 : champ actif et champ desactive",
+          "status": "PASS",
+          "duration_ms": 1916
+        },
+        {
+          "name": "menuDeroulantNavigation",
+          "description": "UI-08 : navigation via le menu deroulant",
+          "status": "PASS",
+          "duration_ms": 2037
+        },
+        {
+          "name": "menuDeroulantNavigation",
+          "description": "UI-08 : navigation via le menu deroulant",
+          "status": "PASS",
+          "duration_ms": 1599
+        },
+        {
+          "name": "menuDeroulantNavigation",
+          "description": "UI-08 : navigation via le menu deroulant",
+          "status": "PASS",
+          "duration_ms": 1234
+        },
+        {
+          "name": "menuDeroulantNavigation",
+          "description": "UI-08 : navigation via le menu deroulant",
+          "status": "PASS",
+          "duration_ms": 1798
+        },
+        {
+          "name": "inscriptionValide",
+          "description": "UI-01 : inscription valide",
+          "status": "PASS",
+          "duration_ms": 7055
+        },
+        {
+          "name": "inscriptionValide",
+          "description": "UI-01 : inscription valide",
+          "status": "PASS",
+          "duration_ms": 3266
+        },
+        {
+          "name": "inscriptionValide",
+          "description": "UI-01 : inscription valide",
+          "status": "PASS",
+          "duration_ms": 3988
+        },
+        {
+          "name": "listeDeroulanteExperience",
+          "description": "UI-03 : liste deroulante des annees d'experience",
+          "status": "PASS",
+          "duration_ms": 1694
+        },
+        {
+          "name": "listeDeroulanteExperience",
+          "description": "UI-03 : liste deroulante des annees d'experience",
+          "status": "PASS",
+          "duration_ms": 1344
+        },
+        {
+          "name": "listeDeroulanteExperience",
+          "description": "UI-03 : liste deroulante des annees d'experience",
+          "status": "PASS",
+          "duration_ms": 1552
+        },
+        {
+          "name": "listeDeroulanteExperience",
+          "description": "UI-03 : liste deroulante des annees d'experience",
+          "status": "PASS",
+          "duration_ms": 1264
+        },
+        {
+          "name": "soumissionFormulaireVide",
+          "description": "UI-02 : soumission avec champs vides",
+          "status": "PASS",
+          "duration_ms": 2152
+        },
+        {
+          "name": "boutonOkSansEffetDeFermeture",
+          "description": "UI-05 : le bouton OK du modal ne ferme pas le pop-up",
+          "status": "PASS",
+          "duration_ms": 3424
+        },
+        {
+          "name": "ouvrirPuisFermerLeModal",
+          "description": "UI-04 : ouverture et fermeture du modal (bouton Close)",
+          "status": "PASS",
+          "duration_ms": 3112
+        },
+        {
+          "name": "lireIframesLocaux",
+          "description": "UI-15 : iFrame et iFrame imbrique (page locale deterministe)",
+          "status": "PASS",
+          "duration_ms": 1456
+        }
+      ]
+    },
+    "thetinternet": {
+      "total": 12,
+      "passed": 3,
+      "failed": 1,
+      "skipped": 0,
+      "duration_s": 253.5,
+      "started": "2026-10-07T23:39:23 WEST",
+      "methods": [
+        {
+          "name": "lireFrameDuBas",
+          "description": "UI-14 : frame du bas puis retour au contenu principal (site externe)",
+          "status": "SKIP",
+          "duration_ms": 49333
+        },
+        {
+          "name": "lireFrameDuBas",
+          "description": "UI-14 : frame du bas puis retour au contenu principal (site externe)",
+          "status": "PASS",
+          "duration_ms": 1148
+        },
+        {
+          "name": "lireFramesDuHaut",
+          "description": "UI-13 : lecture du contenu des frames imbriques (site externe)",
+          "status": "PASS",
+          "duration_ms": 4359
+        },
+        {
+          "name": "lireFramesDuHaut",
+          "description": "UI-13 : lecture du contenu des frames imbriques (site externe)",
+          "status": "SKIP",
+          "duration_ms": 46188
+        },
+        {
+          "name": "lireFramesDuHaut",
+          "description": "UI-13 : lecture du contenu des frames imbriques (site externe)",
+          "status": "PASS",
+          "duration_ms": 4438
+        },
+        {
+          "name": "lireFramesDuHaut",
+          "description": "UI-13 : lecture du contenu des frames imbriques (site externe)",
+          "status": "SKIP",
+          "duration_ms": 46581
+        },
+        {
+          "name": "lireFramesDuHaut",
+          "description": "UI-13 : lecture du contenu des frames imbriques (site externe)",
+          "status": "SKIP",
+          "duration_ms": 46602
+        },
+        {
+          "name": "lireFramesDuHaut",
+          "description": "UI-13 : lecture du contenu des frames imbriques (site externe)",
+          "status": "FAIL",
+          "duration_ms": 45035
+        }
+      ]
+    }
+  },
+  "api": {
+    "mock": {
+      "total": 9,
+      "passed": 9,
+      "failed": 0,
+      "skipped": 0,
+      "duration_s": 9.4,
+      "started": "2026-10-07T23:38:58 WEST",
+      "methods": [
+        {
+          "name": "connexionSansMotDePasse",
+          "description": "API-08 : POST /api/login sans mot de passe",
+          "status": "PASS",
+          "duration_ms": 7091
+        },
+        {
+          "name": "connexionValide",
+          "description": "API-07 : POST /api/login valide",
+          "status": "PASS",
+          "duration_ms": 96
+        },
+        {
+          "name": "consulterUnUtilisateur",
+          "description": "API-02 : GET /api/users/2",
+          "status": "PASS",
+          "duration_ms": 201
+        },
+        {
+          "name": "creerUnUtilisateur",
+          "description": "API-04 : POST /api/users",
+          "status": "PASS",
+          "duration_ms": 498
+        },
+        {
+          "name": "creerUnUtilisateur",
+          "description": "API-04 : POST /api/users",
+          "status": "PASS",
+          "duration_ms": 176
+        },
+        {
+          "name": "listerLesUtilisateurs",
+          "description": "API-01 : GET /api/users?page=2",
+          "status": "PASS",
+          "duration_ms": 410
+        },
+        {
+          "name": "modifierUnUtilisateur",
+          "description": "API-05 : PUT /api/users/2",
+          "status": "PASS",
+          "duration_ms": 88
+        },
+        {
+          "name": "supprimerUnUtilisateur",
+          "description": "API-06 : DELETE /api/users/2",
+          "status": "PASS",
+          "duration_ms": 428
+        },
+        {
+          "name": "utilisateurInexistant",
+          "description": "API-03 : GET /api/users/23 (utilisateur inexistant)",
+          "status": "PASS",
+          "duration_ms": 138
+        }
+      ]
+    },
+    "reqres": {
+      "total": 9,
+      "passed": 9,
+      "failed": 0,
+      "skipped": 0,
+      "duration_s": 10.1,
+      "started": "2026-10-08T01:00:53 WEST",
+      "methods": [
+        {
+          "name": "connexionSansMotDePasse",
+          "description": "API-08 : POST /api/login sans mot de passe",
+          "status": "PASS",
+          "duration_ms": 6769
+        },
+        {
+          "name": "connexionValide",
+          "description": "API-07 : POST /api/login valide",
+          "status": "PASS",
+          "duration_ms": 262
+        },
+        {
+          "name": "consulterUnUtilisateur",
+          "description": "API-02 : GET /api/users/2",
+          "status": "PASS",
+          "duration_ms": 470
+        },
+        {
+          "name": "creerUnUtilisateur",
+          "description": "API-04 : POST /api/users",
+          "status": "PASS",
+          "duration_ms": 568
+        },
+        {
+          "name": "creerUnUtilisateur",
+          "description": "API-04 : POST /api/users",
+          "status": "PASS",
+          "duration_ms": 374
+        },
+        {
+          "name": "listerLesUtilisateurs",
+          "description": "API-01 : GET /api/users?page=2",
+          "status": "PASS",
+          "duration_ms": 491
+        },
+        {
+          "name": "modifierUnUtilisateur",
+          "description": "API-05 : PUT /api/users/2",
+          "status": "PASS",
+          "duration_ms": 238
+        },
+        {
+          "name": "supprimerUnUtilisateur",
+          "description": "API-06 : DELETE /api/users/2",
+          "status": "PASS",
+          "duration_ms": 407
+        },
+        {
+          "name": "utilisateurInexistant",
+          "description": "API-03 : GET /api/users/23 (utilisateur inexistant)",
+          "status": "PASS",
+          "duration_ms": 286
+        }
+      ]
+    }
+  },
+  "newman": {
+    "mock": {
+      "requests": 8,
+      "requests_failed": 0,
+      "assertions": 37,
+      "assertions_failed": 0,
+      "avg_response_ms": 13.0,
+      "max_response_ms": 35,
+      "status_codes": [
+        200,
+        200,
+        404,
+        201,
+        200,
+        204,
+        200,
+        400
+      ],
+      "duration_ms": 946
+    },
+    "public": {
+      "requests": 8,
+      "requests_failed": 0,
+      "assertions": 37,
+      "assertions_failed": 0,
+      "avg_response_ms": 150.6,
+      "max_response_ms": 387,
+      "status_codes": [
+        200,
+        200,
+        404,
+        201,
+        200,
+        204,
+        200,
+        400
+      ],
+      "duration_ms": 2037
+    }
+  },
+  "perf": {
+    "mock": {
+      "POST /api/users": {
+        "samples": 500,
+        "error_pct": 0.0,
+        "avg_ms": 2.6,
+        "median_ms": 2.0,
+        "min_ms": 1.0,
+        "max_ms": 42.0,
+        "p90_ms": 4.0,
+        "p95_ms": 4.0,
+        "p99_ms": 5.0,
+        "throughput_rps": 10.59
+      },
+      "Total": {
+        "samples": 1000,
+        "error_pct": 0.0,
+        "avg_ms": 2.5,
+        "median_ms": 2.0,
+        "min_ms": 0.0,
+        "max_ms": 45.0,
+        "p90_ms": 4.0,
+        "p95_ms": 4.0,
+        "p99_ms": 7.0,
+        "throughput_rps": 20.25
+      },
+      "GET /api/users?page=2": {
+        "samples": 500,
+        "error_pct": 0.0,
+        "avg_ms": 2.5,
+        "median_ms": 2.0,
+        "min_ms": 0.0,
+        "max_ms": 45.0,
+        "p90_ms": 4.0,
+        "p95_ms": 6.0,
+        "p99_ms": 7.0,
+        "throughput_rps": 10.65
+      },
+      "_codes": {
+        "GET /api/users?page=2 200": 500,
+        "POST /api/users 201": 500
+      }
+    },
+    "reqres": {
+      "POST /api/users": {
+        "samples": 500,
+        "error_pct": 95.8,
+        "avg_ms": 84.3,
+        "median_ms": 82.0,
+        "min_ms": 75.0,
+        "max_ms": 153.0,
+        "p90_ms": 92.0,
+        "p95_ms": 97.94999999999999,
+        "p99_ms": 119.99000000000001,
+        "throughput_rps": 10.53
+      },
+      "Total": {
+        "samples": 1000,
+        "error_pct": 47.9,
+        "avg_ms": 70.7,
+        "median_ms": 78.0,
+        "min_ms": 39.0,
+        "max_ms": 581.0,
+        "p90_ms": 92.0,
+        "p95_ms": 124.8499999999998,
+        "p99_ms": 160.92000000000007,
+        "throughput_rps": 20.07
+      },
+      "GET /api/users?page=2": {
+        "samples": 500,
+        "error_pct": 0.0,
+        "avg_ms": 57.2,
+        "median_ms": 45.0,
+        "min_ms": 39.0,
+        "max_ms": 581.0,
+        "p90_ms": 114.3000000000016,
+        "p95_ms": 137.95,
+        "p99_ms": 211.80000000000018,
+        "throughput_rps": 10.56
+      },
+      "_first_429_s": 6.0,
+      "_codes": {
+        "GET /api/users?page=2 200": 500,
+        "POST /api/users 201": 21,
+        "POST /api/users 429": 479
+      }
+    }
+  },
+  "security": {
+    "version": "2.17.0",
+    "generated": "Wed, 7 Oct 2026 23:37:06",
+    "alerts": [
+      {
+        "name": "Absence of Anti-CSRF Tokens",
+        "risk": "Medium",
+        "riskdesc": "Medium (Low)",
+        "cwe": "352",
+        "count": 1,
+        "pluginid": "10202",
+        "uris": [
+          "https://formy-project.herokuapp.com/fileupload"
+        ]
+      },
+      {
+        "name": "Content Security Policy (CSP) Header Not Set",
+        "risk": "Medium",
+        "riskdesc": "Medium (High)",
+        "cwe": "693",
+        "count": 5,
+        "pluginid": "10038",
+        "uris": [
+          "https://formy-project.herokuapp.com",
+          "https://formy-project.herokuapp.com/",
+          "https://formy-project.herokuapp.com/checkbox"
+        ]
+      },
+      {
+        "name": "Sub Resource Integrity Attribute Missing",
+        "risk": "Medium",
+        "riskdesc": "Medium (High)",
+        "cwe": "345",
+        "count": 4,
+        "pluginid": "90003",
+        "uris": [
+          "https://formy-project.herokuapp.com/autocomplete",
+          "https://formy-project.herokuapp.com/dragdrop"
+        ]
+      },
+      {
+        "name": "Vulnerable JS Library",
+        "risk": "Medium",
+        "riskdesc": "Medium (Medium)",
+        "cwe": "1395",
+        "count": 1,
+        "pluginid": "10003",
+        "uris": [
+          "https://formy-project.herokuapp.com/assets/application-467e0b1fae66618f98c39666f913d6e0b0827e15ee6f480150fb92acfe0a8ff4.js"
+        ]
+      },
+      {
+        "name": "Cookie Without Secure Flag",
+        "risk": "Low",
+        "riskdesc": "Low (Medium)",
+        "cwe": "614",
+        "count": 5,
+        "pluginid": "10011",
+        "uris": [
+          "https://formy-project.herokuapp.com",
+          "https://formy-project.herokuapp.com/",
+          "https://formy-project.herokuapp.com/form"
+        ]
+      },
+      {
+        "name": "Cookie without SameSite Attribute",
+        "risk": "Low",
+        "riskdesc": "Low (Medium)",
+        "cwe": "1275",
+        "count": 5,
+        "pluginid": "10054",
+        "uris": [
+          "https://formy-project.herokuapp.com",
+          "https://formy-project.herokuapp.com/",
+          "https://formy-project.herokuapp.com/form"
+        ]
+      },
+      {
+        "name": "Cross-Domain JavaScript Source File Inclusion",
+        "risk": "Low",
+        "riskdesc": "Low (Medium)",
+        "cwe": "829",
+        "count": 3,
+        "pluginid": "10017",
+        "uris": [
+          "https://formy-project.herokuapp.com/autocomplete",
+          "https://formy-project.herokuapp.com/dragdrop"
+        ]
+      },
+      {
+        "name": "Strict-Transport-Security Header Not Set",
+        "risk": "Low",
+        "riskdesc": "Low (High)",
+        "cwe": "319",
+        "count": 5,
+        "pluginid": "10035",
+        "uris": [
+          "https://formy-project.herokuapp.com",
+          "https://formy-project.herokuapp.com/assets/favicon-05ae272716c4133e0ba741678db1eeaf0867542d5a185910b558596b1752792a.ico",
+          "https://formy-project.herokuapp.com/robots.txt"
+        ]
+      },
+      {
+        "name": "Timestamp Disclosure - Unix",
+        "risk": "Low",
+        "riskdesc": "Low (Low)",
+        "cwe": "497",
+        "count": 5,
+        "pluginid": "10096",
+        "uris": [
+          "https://formy-project.herokuapp.com",
+          "https://formy-project.herokuapp.com/assets/favicon-05ae272716c4133e0ba741678db1eeaf0867542d5a185910b558596b1752792a.ico",
+          "https://formy-project.herokuapp.com/robots.txt"
+        ]
+      },
+      {
+        "name": "X-Content-Type-Options Header Missing",
+        "risk": "Low",
+        "riskdesc": "Low (Medium)",
+        "cwe": "693",
+        "count": 5,
+        "pluginid": "10021",
+        "uris": [
+          "https://formy-project.herokuapp.com/assets/application-467e0b1fae66618f98c39666f913d6e0b0827e15ee6f480150fb92acfe0a8ff4.js",
+          "https://formy-project.herokuapp.com/assets/application-4f3b4f08cd1f03905031efc552ebd06c532a62089d81d1cbff175de50df958a3.css",
+          "https://formy-project.herokuapp.com/assets/favicon-05ae272716c4133e0ba741678db1eeaf0867542d5a185910b558596b1752792a.ico"
+        ]
+      },
+      {
+        "name": "Information Disclosure - Suspicious Comments",
+        "risk": "Informational",
+        "riskdesc": "Informational (Medium)",
+        "cwe": "615",
+        "count": 13,
+        "pluginid": "10027",
+        "uris": [
+          "https://formy-project.herokuapp.com/assets/application-467e0b1fae66618f98c39666f913d6e0b0827e15ee6f480150fb92acfe0a8ff4.js",
+          "https://formy-project.herokuapp.com/autocomplete",
+          "https://formy-project.herokuapp.com/form"
+        ]
+      },
+      {
+        "name": "Modern Web Application",
+        "risk": "Informational",
+        "riskdesc": "Informational (Medium)",
+        "cwe": "-1",
+        "count": 5,
+        "pluginid": "10109",
+        "uris": [
+          "https://formy-project.herokuapp.com",
+          "https://formy-project.herokuapp.com/",
+          "https://formy-project.herokuapp.com/checkbox"
+        ]
+      },
+      {
+        "name": "Re-examine Cache-control Directives",
+        "risk": "Informational",
+        "riskdesc": "Informational (Low)",
+        "cwe": "525",
+        "count": 4,
+        "pluginid": "10015",
+        "uris": [
+          "https://formy-project.herokuapp.com",
+          "https://formy-project.herokuapp.com/",
+          "https://formy-project.herokuapp.com/form"
+        ]
+      },
+      {
+        "name": "Session Management Response Identified",
+        "risk": "Informational",
+        "riskdesc": "Informational (Medium)",
+        "cwe": "-1",
+        "count": 16,
+        "pluginid": "10112",
+        "uris": [
+          "https://formy-project.herokuapp.com",
+          "https://formy-project.herokuapp.com/",
+          "https://formy-project.herokuapp.com/autocomplete"
+        ]
+      }
+    ],
+    "by_risk": {
+      "Medium": 4,
+      "Low": 6,
+      "Informational": 4
+    }
+  }
+}

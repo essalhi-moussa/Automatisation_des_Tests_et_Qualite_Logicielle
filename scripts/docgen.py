@@ -413,7 +413,7 @@ class Doc:
     h2 { font-size: 12pt; color: #1f4e79; margin: 9pt 0 3pt; break-after: avoid; }
     p { margin: 0 0 5pt; } p.center { text-align: center; } p.justify { text-align: justify; } p.small { font-size: 9pt; }
     ul { margin: 0 0 6pt; padding-left: 18pt; } li { margin-bottom: 2pt; }
-    code { font-family: Consolas, 'Courier New', monospace; font-size: 9.2pt; background: #f3f4f6; padding: 0 2px; }
+    code { font-family: Consolas, 'Courier New', monospace; font-size: 0.9em; background: #f3f4f6; padding: 0 2px; }
     table { border-collapse: collapse; width: 100%%; margin: 2pt 0 8pt; }
     th { background: #1f4e79; color: #fff; text-align: left; font-weight: bold; }
     th, td { border: 0.6pt solid #9aa3ad; padding: 2.5pt 4pt; vertical-align: top; }

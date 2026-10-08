@@ -42,10 +42,10 @@ def architecture():
     arrow(ax, 5, 4.5, 5, 4.05)
     box(ax, 0.2, 3.2, 9.6, 0.8, "Pipeline CI/CD  (.gitlab-ci.yml  /  Jenkinsfile)\nbuild  >  api-tests  >  ui-tests  >  performance  >  security  >  report", BLUE)
     cols = [
-        (0.2, "Tests UI\nSelenium 4 + TestNG\nPage Object Model", "Formy\n+ page locale (iFrame)"),
-        (2.7, "Tests API\nRestAssured + schémas\nPostman + Newman", "Reqres.in\n(ou mock local)"),
+        (0.2, "Tests UI\nSelenium 4, TestNG\nPage Object Model", "Formy\n+ page locale (iFrame)"),
+        (2.7, "Tests API\nRestAssured, schémas\nPostman, Newman", "Reqres.in\n(ou mock local)"),
         (5.2, "Performance\nJMeter 5.6\n50 utilisateurs", "Reqres.in\n(ou mock local)"),
-        (7.7, "Securite\nOWASP ZAP\nbaseline passif", "Formy"),
+        (7.7, "Sécurité\nOWASP ZAP\nbaseline (passif)", "Formy"),
     ]
     for x, top, target in cols:
         arrow(ax, x + 1.05, 3.2, x + 1.05, 2.75)
@@ -134,7 +134,7 @@ def perf():
     runs = SUMMARY["perf"]
     fig, axes = plt.subplots(1, len(runs), figsize=(7.4, 2.7), squeeze=False)
     titles = {"mock": "Mock local (validation du plan)", "reqres": "Reqres.in (API réelle)"}
-    for ax, (name, data) in zip(axes[0], sorted(runs.items())):
+    for ax, (name, data) in zip(axes[0], sorted(runs.items(), key=lambda kv: kv[0] != "reqres")):
         labels = sorted(k for k in data if not k.startswith("_") and k != "Total")
         keys = [("avg_ms", "Moyenne", "#2f6f9f"), ("p90_ms", "P90", ORANGE), ("p95_ms", "P95", RED)]
         width = 0.26
@@ -143,7 +143,7 @@ def perf():
             xs = [i + (j - 1) * width for i in range(len(labels))]
             ax.bar(xs, vals, width, label=lab, color=c)
             for x, v in zip(xs, vals):
-                ax.text(x, v, "%g" % v, ha="center", va="bottom", fontsize=7)
+                ax.text(x, v, "%d" % round(v), ha="center", va="bottom", fontsize=7)
         ax.set_xticks(range(len(labels)))
         ax.set_xticklabels([l.replace(" /api/users", "\n/api/users") for l in labels], fontsize=7.5)
         ax.set_ylabel("ms")
@@ -174,6 +174,23 @@ def zap():
     save(fig, "zap-risques.png")
 
 
-for fn in (architecture, pyramide, pipeline, resultats, perf, zap):
+def captures():
+    """Planche de trois captures reelles : Newman, JMeter, ZAP (fichiers docs/img/shot-*.png)."""
+    from PIL import Image
+    items = [("shot-newman.png", "Newman (htmlextra)", (70, 0, 1180, 830)),
+             ("shot-jmeter.png", "JMeter (tableau de bord)", (250, 60, 1300, 850)),
+             ("shot-zap.png", "OWASP ZAP (rapport HTML)", (0, 0, 1050, 790))]
+    fig, axes = plt.subplots(1, 3, figsize=(7.6, 2.1))
+    for ax, (f, title, box_) in zip(axes, items):
+        p = os.path.join(IMG, f)
+        if os.path.exists(p):
+            ax.imshow(Image.open(p).crop(box_))
+        ax.set_title(title, fontsize=8)
+        ax.axis("off")
+    fig.tight_layout(pad=0.4)
+    save(fig, "captures.png")
+
+
+for fn in (architecture, pyramide, pipeline, resultats, perf, zap, captures):
     fn()
 print("Figures generees dans", IMG)

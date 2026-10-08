@@ -316,7 +316,7 @@ def build_report():
     for name, data, lab in (("reqres", PERF_REAL, "API publique Reqres"), ("mock", PERF_MOCK, "Mock local")):
         if not data:
             continue
-        for label, v in data.items():
+        for label, v in sorted(data.items(), key=lambda kv: (kv[0] == "Total", kv[0])):
             if label.startswith("_"):
                 continue
             prow.append([lab, label, v["samples"], fr(v["error_pct"], 2) + " %", fr(v["avg_ms"], 0), fr(v["p90_ms"], 0),
@@ -339,9 +339,11 @@ def build_report():
         "Points positifs relevés sur les en-têtes : `X-Frame-Options: SAMEORIGIN`, `X-Content-Type-Options: nosniff` sur les pages, cookie de session HttpOnly. "
         "Une clé d'API Google Maps est visible dans le code source de /autocomplete : elle doit être restreinte par référent HTTP.", "justify")
 
+    d.image(os.path.join(IMG, "captures.png"), 15.5, "Figure 5 - Captures réelles des rapports Newman, JMeter et ZAP (fichiers complets dans reports/)")
+
     # ---------------------------------------------------------------- 6
     d.h1("6. Pipeline CI/CD")
-    d.image(os.path.join(IMG, "pipeline.png"), 15.5, "Figure 5 - Étapes du pipeline GitLab CI")
+    d.image(os.path.join(IMG, "pipeline.png"), 15.5, "Figure 6 - Étapes du pipeline GitLab CI")
     d.bullets([
         "**build** : compilation Maven ; cache du dépôt Maven (clé = hash du pom.xml).",
         "**api-tests** : RestAssured (rapport JUnit exposé à GitLab) et Newman (HTML htmlextra + JUnit).",
@@ -378,7 +380,7 @@ def build_report():
     d.bullets([
         "**Qualité des tests** : ajouter l'historique Allure (tendances), exécuter Firefox et Edge en matrice, paralléliser sur un Selenium Grid.",
         "**API** : tests de contrat (Pact), virtualisation de Reqres (WireMock) pour la CI afin de ne dépendre d'aucun quota, clé API personnelle stockée en variable CI masquée.",
-        "**Performance** : définir des seuils bloquants (P95, taux d'erreur) dans le pipeline, tester sur un environnement dédié et non sur une API publique limitée.",
+        "**Performance** : définir des seuils bloquants (P95, taux d'erreur) dans le pipeline, tester sur un environnement dédié et non sur une API publique limitée, enregistrer les en-têtes de réponse (dont `cf-cache-status`) pour distinguer les réponses servies par le cache.",
         "**Sécurité** : appliquer les en-têtes CSP, HSTS, cookies Secure et SameSite, mettre à jour jQuery, ajouter SRI ; ajouter un scan de dépendances et un scan ZAP authentifié sur l'application réelle.",
         "**Processus** : exécuter le pipeline à chaque merge request, notifier uniquement les échecs, tenir la matrice de traçabilité à jour.",
     ])
@@ -394,28 +396,35 @@ def build_report():
 
 
 def PERF_ANALYSIS():
-    """Analyse textuelle construite a partir des chiffres reels."""
+    """Analyse textuelle construite a partir des chiffres reels (reports/summary.json)."""
     parts = []
     if PERF_REAL:
-        tot = PERF_REAL.get("Total")
+        tot = PERF_REAL["Total"]
         codes = PERF_REAL.get("_codes", {})
-        n429 = sum(v for k, v in codes.items() if k.endswith(" 429"))
-        ok = sum(v for k, v in codes.items() if k.endswith(" 200") or k.endswith(" 201"))
-        total = sum(codes.values())
-        if total:
-            parts.append(
-                "**API publique.** Sur %d échantillons, %d ont reçu un code de succès (200/201) et %d un **HTTP 429** (%s %%). "
-                "Le taux d'erreur global JMeter est de %s %%. La limite de 20 requêtes par minute et le quota journalier "
-                "sont atteints en quelques secondes avec 50 utilisateurs : l'API publique ne permet pas de mesurer une capacité "
-                "réelle, elle mesure sa propre limitation. Les temps de réponse des seules requêtes réussies ne sont donc pas représentatifs "
-                "d'une charge soutenue." % (total, ok, n429, fr(100.0 * n429 / total, 1), fr(tot["error_pct"], 2) if tot else "n/d"))
+        get_lab, post_lab = "GET /api/users?page=2", "POST /api/users"
+        g = PERF_REAL.get(get_lab)
+        p = PERF_REAL.get(post_lab)
+        g200 = codes.get(get_lab + " 200", 0)
+        p201 = codes.get(post_lab + " 201", 0)
+        p429 = codes.get(post_lab + " 429", 0)
+        parts.append(
+            "**API publique.** Les %d échantillons donnent %s %% d'erreurs au total, mais la répartition est très contrastée. "
+            "Les %d GET ont tous réussi (200 : %d), avec une moyenne de %s ms, un P90 de %s ms et un P95 de %s ms. "
+            "Côté POST, seules %d requêtes ont abouti (201) ; les %d suivantes ont reçu un **HTTP 429**, le premier %s s après le démarrage. "
+            "Ce chiffre correspond au reliquat du quota journalier de 40 requêtes, déjà entamé par nos tests fonctionnels. "
+            "Les GET portent des en-têtes de cache public (`Cache-Control: public, s-maxage=60`, servis par Cloudflare) : un service depuis le cache "
+            "du CDN est l'explication la plus probable de leur succès, mais elle n'est pas démontrée (les en-têtes de réponse n'ont pas été enregistrés). "
+            "Conclusion : l'API publique ne permet pas de mesurer une capacité ; le débit global de %s req/s est imposé par les temps de réflexion "
+            "et les 429 mesurent la politique de limitation, pas une saturation du serveur."
+            % (tot["samples"], fr(tot["error_pct"], 1), g["samples"], g200, fr(g["avg_ms"], 0), fr(g["p90_ms"], 0), fr(g["p95_ms"], 0),
+               p201, p429, fr(PERF_REAL.get("_first_429_s"), 0), fr(tot["throughput_rps"], 1)))
     if PERF_MOCK:
         tot = PERF_MOCK["Total"]
         parts.append(
-            "**Mock local.** Le même plan, sans limitation de débit, valide le script : %d échantillons, %s %% d'erreurs, "
-            "moyenne %s ms, P90 %s ms, P95 %s ms, débit %s req/s. Le débit est borné par les temps de réflexion (50 utilisateurs, "
-            "environ 1 s de pause par requête), pas par le serveur. Ces valeurs valident l'outillage et ne préjugent pas des performances de Reqres."
-            % (tot["samples"], fr(tot["error_pct"], 2), fr(tot["avg_ms"], 1), fr(tot["p90_ms"], 0), fr(tot["p95_ms"], 0),
+            "**Mock local.** Le même plan, sans limitation de débit, s'exécute sans erreur : %d échantillons, %s %% d'erreurs, "
+            "moyenne %s ms, P90 %s ms, P95 %s ms, débit %s req/s. Ces valeurs valident le script et l'outillage ; elles ne disent rien des "
+            "performances de Reqres puisque le serveur est local."
+            % (tot["samples"], fr(tot["error_pct"], 1), fr(tot["avg_ms"], 1), fr(tot["p90_ms"], 0), fr(tot["p95_ms"], 0),
                fr(tot["throughput_rps"], 1)))
     return " ".join(parts)
 
@@ -437,7 +446,10 @@ def SEC_ROWS():
     for a in ZAP["alerts"]:
         if a["name"] in top10:
             o, rec = top10[a["name"]]
-            rows.append([a["name"], a["riskdesc"].replace("Informational", "Info"), o, a["cwe"], rec])
+            risk, conf = re.match(r"(\w+) \((\w+)\)", a["riskdesc"]).groups()
+            fr_risk = {"High": "Élevé", "Medium": "Moyen", "Low": "Faible", "Informational": "Info"}[risk]
+            fr_conf = {"High": "forte", "Medium": "moyenne", "Low": "faible"}[conf]
+            rows.append([a["name"], "%s (confiance %s)" % (fr_risk, fr_conf), o, a["cwe"], rec])
     return rows
 
 
