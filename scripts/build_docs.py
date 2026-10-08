@@ -53,8 +53,12 @@ def ci_composite(shots):
             img = img.crop((245, 90, img.width - 10, min(img.height, 720)))
         elif f == "3-allure.png":
             img = img.crop((0, 0, min(img.width, 840), min(img.height, 420)))
+        elif f == "4-notification.png":  # retire les menus de la messagerie
+            img = img.crop((int(img.width * 0.15), int(img.height * 0.12), int(img.width * 0.96), int(img.height * 0.9)))
         ax.imshow(img)
-        ax.set_title(title[0].upper() + title[1:], fontsize=8)
+        short = {"2-tests-junit.png": "Onglet Tests (JUnit)", "3-allure.png": "Allure sur GitLab Pages",
+                 "4-notification.png": "E-mail de fin de pipeline"}
+        ax.set_title(short.get(f, title), fontsize=8)
         ax.axis("off")
     fig.tight_layout(pad=0.4)
     fig.savefig(os.path.join(IMG, "ci-captures.png"), dpi=170, bbox_inches="tight", facecolor="white")

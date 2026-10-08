@@ -1,29 +1,29 @@
 {
-  "pipeline_id": 2924651734,
+  "pipeline_id": 2924665070,
   "status": "success",
-  "sha": "429d335",
+  "sha": "1159e98",
   "ref": "main",
-  "created_at": "2026-10-08T01:36:37.039Z",
-  "duration_s": 287,
-  "web_url": "https://gitlab.com/essalhi-moussa-group/automatisation_des_tests_et_qualite_logicielle/-/pipelines/2924651734",
+  "created_at": "2026-10-08T01:46:50.956Z",
+  "duration_s": 295,
+  "web_url": "https://gitlab.com/essalhi-moussa-group/automatisation_des_tests_et_qualite_logicielle/-/pipelines/2924665070",
   "jobs": [
     {
       "name": "pages",
       "stage": "report",
       "status": "success",
-      "duration_s": 22
+      "duration_s": 23
     },
     {
       "name": "allure-report",
       "stage": "report",
       "status": "success",
-      "duration_s": 27
+      "duration_s": 28
     },
     {
       "name": "security-zap",
       "stage": "security",
       "status": "success",
-      "duration_s": 99
+      "duration_s": 103
     },
     {
       "name": "perf-jmeter",
@@ -35,25 +35,25 @@
       "name": "ui-selenium",
       "stage": "ui-tests",
       "status": "success",
-      "duration_s": 107
+      "duration_s": 109
     },
     {
       "name": "api-newman",
       "stage": "api-tests",
       "status": "success",
-      "duration_s": 46
+      "duration_s": 53
     },
     {
       "name": "api-restassured",
       "stage": "api-tests",
       "status": "success",
-      "duration_s": 44
+      "duration_s": 48
     },
     {
       "name": "compile",
       "stage": "build",
       "status": "success",
-      "duration_s": 35
+      "duration_s": 29
     }
   ],
   "zap": {

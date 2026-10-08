@@ -1,8 +1,8 @@
 {
 	"@programName": "ZAP",
 	"@version": "2.17.0",
-	"@generated": "Thu, 8 Oct 2026 01:41:20",
-	"created": "2026-10-08T01:41:20.584269397Z",
+	"@generated": "Thu, 8 Oct 2026 01:51:42",
+	"created": "2026-10-08T01:51:42.049031906Z",
 	"insights":[
 		{
 			"level": "Low",
@@ -114,7 +114,7 @@
 			"site": "https://formy-project.herokuapp.com",
 			"key": "insight.response.slow",
 			"description": "Percentage of slow responses",
-			"statistic": "7"
+			"statistic": "11"
 		}
 	],
 	"site":[ 
@@ -135,7 +135,7 @@
 					"desc": "<p>No Anti-CSRF tokens were found in a HTML submission form.</p><p>A cross-site request forgery is an attack that involves forcing a victim to send an HTTP request to a target destination without their knowledge or intent in order to perform an action as the victim. The underlying cause is application functionality using predictable URL/form actions in a repeatable way. The nature of the attack is that CSRF exploits the trust that a web site has for a user. By contrast, cross-site scripting (XSS) exploits the trust that a user has for a web site. Like XSS, CSRF attacks are not necessarily cross-site, but they can be. Cross-site request forgery is also known as CSRF, XSRF, one-click attack, session riding, confused deputy, and sea surf.</p><p></p><p>CSRF attacks are effective in a number of situations, including:</p><p>    * The victim has an active session on the target site.</p><p>    * The victim is authenticated via HTTP auth on the target site.</p><p>    * The victim is on the same local network as the target site.</p><p></p><p>CSRF has primarily been used to perform an action against a target site using the victim's privileges, but recent techniques have been discovered to disclose information by gaining access to the response. The risk of information disclosure is dramatically increased when the target site is vulnerable to XSS, because XSS can be used as a platform for CSRF, allowing the attack to operate within the bounds of the same-origin policy.</p>",
 					"instances":[ 
 						{
-							"id": "143",
+							"id": "141",
 							"uri": "https://formy-project.herokuapp.com/fileupload",
 							"nodeName": "https:\/\/formy-project.herokuapp.com\/fileupload",
 							"method": "GET",
@@ -152,7 +152,7 @@
 					"reference": "<p>https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html</p><p>https://cwe.mitre.org/data/definitions/352.html</p>",
 					"cweid": "352",
 					"wascid": "9",
-					"sourceid": "39"
+					"sourceid": "37"
 				},
 				{
 					"pluginid": "10038",
@@ -185,7 +185,7 @@
 							"otherinfo": ""
 						},
 						{
-							"id": "60",
+							"id": "56",
 							"uri": "https://formy-project.herokuapp.com/autocomplete",
 							"nodeName": "https:\/\/formy-project.herokuapp.com\/autocomplete",
 							"method": "GET",
@@ -195,7 +195,7 @@
 							"otherinfo": ""
 						},
 						{
-							"id": "56",
+							"id": "61",
 							"uri": "https://formy-project.herokuapp.com/buttons",
 							"nodeName": "https:\/\/formy-project.herokuapp.com\/buttons",
 							"method": "GET",
@@ -222,7 +222,7 @@
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP</p><p>https://cheatsheetseries.owasp.org/cheatsheets/Content_Security_Policy_Cheat_Sheet.html</p><p>https://www.w3.org/TR/CSP/</p><p>https://w3c.github.io/webappsec-csp/</p><p>https://web.dev/articles/csp</p><p>https://caniuse.com/#feat=contentsecuritypolicy</p><p>https://content-security-policy.com/</p>",
 					"cweid": "693",
 					"wascid": "15",
-					"sourceid": "6"
+					"sourceid": "1"
 				},
 				{
 					"pluginid": "90003",
@@ -235,7 +235,7 @@
 					"desc": "<p>The integrity attribute is missing on a script or link tag served by an external server. The integrity tag prevents an attacker who have gained access to this server from injecting a malicious content.</p>",
 					"instances":[ 
 						{
-							"id": "105",
+							"id": "97",
 							"uri": "https://formy-project.herokuapp.com/autocomplete",
 							"nodeName": "https:\/\/formy-project.herokuapp.com\/autocomplete",
 							"method": "GET",
@@ -245,7 +245,7 @@
 							"otherinfo": ""
 						},
 						{
-							"id": "106",
+							"id": "98",
 							"uri": "https://formy-project.herokuapp.com/autocomplete",
 							"nodeName": "https:\/\/formy-project.herokuapp.com\/autocomplete",
 							"method": "GET",
@@ -255,7 +255,7 @@
 							"otherinfo": ""
 						},
 						{
-							"id": "132",
+							"id": "126",
 							"uri": "https://formy-project.herokuapp.com/dragdrop",
 							"nodeName": "https:\/\/formy-project.herokuapp.com\/dragdrop",
 							"method": "GET",
@@ -265,7 +265,7 @@
 							"otherinfo": ""
 						},
 						{
-							"id": "133",
+							"id": "127",
 							"uri": "https://formy-project.herokuapp.com/dragdrop",
 							"nodeName": "https:\/\/formy-project.herokuapp.com\/dragdrop",
 							"method": "GET",
@@ -295,7 +295,7 @@
 					"desc": "<p>The identified library appears to be vulnerable.</p>",
 					"instances":[ 
 						{
-							"id": "148",
+							"id": "147",
 							"uri": "https://formy-project.herokuapp.com/assets/application-467e0b1fae66618f98c39666f913d6e0b0827e15ee6f480150fb92acfe0a8ff4.js",
 							"nodeName": "https:\/\/formy-project.herokuapp.com\/assets\/application-467e0b1fae66618f98c39666f913d6e0b0827e15ee6f480150fb92acfe0a8ff4.js",
 							"method": "GET",
@@ -325,7 +325,7 @@
 					"desc": "<p>A cookie has been set without the secure flag, which means that the cookie can be accessed via unencrypted connections.</p>",
 					"instances":[ 
 						{
-							"id": "15",
+							"id": "17",
 							"uri": "https://formy-project.herokuapp.com",
 							"nodeName": "https:\/\/formy-project.herokuapp.com",
 							"method": "GET",
@@ -345,7 +345,7 @@
 							"otherinfo": ""
 						},
 						{
-							"id": "62",
+							"id": "58",
 							"uri": "https://formy-project.herokuapp.com/autocomplete",
 							"nodeName": "https:\/\/formy-project.herokuapp.com\/autocomplete",
 							"method": "GET",
@@ -355,7 +355,7 @@
 							"otherinfo": ""
 						},
 						{
-							"id": "59",
+							"id": "63",
 							"uri": "https://formy-project.herokuapp.com/buttons",
 							"nodeName": "https:\/\/formy-project.herokuapp.com\/buttons",
 							"method": "GET",
@@ -395,7 +395,7 @@
 					"desc": "<p>A cookie has been set without the SameSite attribute, which means that the cookie can be sent as a result of a 'cross-site' request. The SameSite attribute is an effective counter measure to cross-site request forgery, cross-site script inclusion, and timing attacks.</p>",
 					"instances":[ 
 						{
-							"id": "14",
+							"id": "15",
 							"uri": "https://formy-project.herokuapp.com",
 							"nodeName": "https:\/\/formy-project.herokuapp.com",
 							"method": "GET",
@@ -415,7 +415,7 @@
 							"otherinfo": ""
 						},
 						{
-							"id": "61",
+							"id": "57",
 							"uri": "https://formy-project.herokuapp.com/autocomplete",
 							"nodeName": "https:\/\/formy-project.herokuapp.com\/autocomplete",
 							"method": "GET",
@@ -425,7 +425,7 @@
 							"otherinfo": ""
 						},
 						{
-							"id": "57",
+							"id": "62",
 							"uri": "https://formy-project.herokuapp.com/buttons",
 							"nodeName": "https:\/\/formy-project.herokuapp.com\/buttons",
 							"method": "GET",
@@ -452,7 +452,7 @@
 					"reference": "<p>https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-cookie-same-site</p>",
 					"cweid": "1275",
 					"wascid": "13",
-					"sourceid": "1"
+					"sourceid": "6"
 				},
 				{
 					"pluginid": "10017",
@@ -465,7 +465,7 @@
 					"desc": "<p>The page includes one or more script files from a third-party domain.</p>",
 					"instances":[ 
 						{
-							"id": "63",
+							"id": "59",
 							"uri": "https://formy-project.herokuapp.com/autocomplete",
 							"nodeName": "https:\/\/formy-project.herokuapp.com\/autocomplete",
 							"method": "GET",
@@ -475,7 +475,7 @@
 							"otherinfo": ""
 						},
 						{
-							"id": "123",
+							"id": "119",
 							"uri": "https://formy-project.herokuapp.com/dragdrop",
 							"nodeName": "https:\/\/formy-project.herokuapp.com\/dragdrop",
 							"method": "GET",
@@ -485,7 +485,7 @@
 							"otherinfo": ""
 						},
 						{
-							"id": "125",
+							"id": "120",
 							"uri": "https://formy-project.herokuapp.com/dragdrop",
 							"nodeName": "https:\/\/formy-project.herokuapp.com\/dragdrop",
 							"method": "GET",
@@ -515,7 +515,7 @@
 					"desc": "<p>Cross-Origin-Embedder-Policy header is a response header that prevents a document from loading any cross-origin resources that don't explicitly grant the document permission (using CORP or CORS).</p>",
 					"instances":[ 
 						{
-							"id": "6",
+							"id": "5",
 							"uri": "https://formy-project.herokuapp.com",
 							"nodeName": "https:\/\/formy-project.herokuapp.com",
 							"method": "GET",
@@ -565,7 +565,7 @@
 					"desc": "<p>Cross-Origin-Opener-Policy header is a response header that allows a site to control if others included documents share the same browsing context. Sharing the same browsing context with untrusted documents might lead to data leak.</p>",
 					"instances":[ 
 						{
-							"id": "7",
+							"id": "6",
 							"uri": "https://formy-project.herokuapp.com",
 							"nodeName": "https:\/\/formy-project.herokuapp.com",
 							"method": "GET",
@@ -645,7 +645,7 @@
 							"otherinfo": ""
 						},
 						{
-							"id": "39",
+							"id": "42",
 							"uri": "https://formy-project.herokuapp.com/robots.txt",
 							"nodeName": "https:\/\/formy-project.herokuapp.com\/robots.txt",
 							"method": "GET",
@@ -662,7 +662,7 @@
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Cross-Origin-Embedder-Policy</p>",
 					"cweid": "693",
 					"wascid": "14",
-					"sourceid": "6"
+					"sourceid": "1"
 				},
 				{
 					"pluginid": "10063",
@@ -705,7 +705,7 @@
 							"otherinfo": ""
 						},
 						{
-							"id": "54",
+							"id": "55",
 							"uri": "https://formy-project.herokuapp.com/buttons",
 							"nodeName": "https:\/\/formy-project.herokuapp.com\/buttons",
 							"method": "GET",
@@ -732,7 +732,7 @@
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Permissions-Policy</p><p>https://developer.chrome.com/blog/feature-policy/</p><p>https://scotthelme.co.uk/a-new-security-header-feature-policy/</p><p>https://w3c.github.io/webappsec-feature-policy/</p><p>https://www.smashingmagazine.com/2018/12/feature-policy/</p>",
 					"cweid": "693",
 					"wascid": "15",
-					"sourceid": "6"
+					"sourceid": "1"
 				},
 				{
 					"pluginid": "10035",
@@ -775,7 +775,7 @@
 							"otherinfo": ""
 						},
 						{
-							"id": "41",
+							"id": "44",
 							"uri": "https://formy-project.herokuapp.com/robots.txt",
 							"nodeName": "https:\/\/formy-project.herokuapp.com\/robots.txt",
 							"method": "GET",
@@ -785,7 +785,7 @@
 							"otherinfo": ""
 						},
 						{
-							"id": "45",
+							"id": "39",
 							"uri": "https://formy-project.herokuapp.com/sitemap.xml",
 							"nodeName": "https:\/\/formy-project.herokuapp.com\/sitemap.xml",
 							"method": "GET",
@@ -802,7 +802,7 @@
 					"reference": "<p>https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Strict_Transport_Security_Cheat_Sheet.html</p><p>https://owasp.org/www-community/Security_Headers</p><p>https://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security</p><p>https://caniuse.com/stricttransportsecurity</p><p>https://datatracker.ietf.org/doc/html/rfc6797</p>",
 					"cweid": "319",
 					"wascid": "15",
-					"sourceid": "1"
+					"sourceid": "6"
 				},
 				{
 					"pluginid": "10096",
@@ -821,8 +821,8 @@
 							"method": "GET",
 							"param": "Reporting-Endpoints",
 							"attack": "",
-							"evidence": "1791423671",
-							"otherinfo": "1791423671, which evaluates to: 2026-10-08 01:41:11."
+							"evidence": "1791424292",
+							"otherinfo": "1791424292, which evaluates to: 2026-10-08 01:51:32."
 						},
 						{
 							"id": "36",
@@ -831,8 +831,8 @@
 							"method": "GET",
 							"param": "Reporting-Endpoints",
 							"attack": "",
-							"evidence": "1791423671",
-							"otherinfo": "1791423671, which evaluates to: 2026-10-08 01:41:11."
+							"evidence": "1791424292",
+							"otherinfo": "1791424292, which evaluates to: 2026-10-08 01:51:32."
 						},
 						{
 							"id": "66",
@@ -841,38 +841,38 @@
 							"method": "GET",
 							"param": "Reporting-Endpoints",
 							"attack": "",
-							"evidence": "1791423671",
-							"otherinfo": "1791423671, which evaluates to: 2026-10-08 01:41:11."
+							"evidence": "1791424292",
+							"otherinfo": "1791424292, which evaluates to: 2026-10-08 01:51:32."
 						},
 						{
-							"id": "42",
+							"id": "45",
 							"uri": "https://formy-project.herokuapp.com/robots.txt",
 							"nodeName": "https:\/\/formy-project.herokuapp.com\/robots.txt",
 							"method": "GET",
 							"param": "Reporting-Endpoints",
 							"attack": "",
-							"evidence": "1791423671",
-							"otherinfo": "1791423671, which evaluates to: 2026-10-08 01:41:11."
+							"evidence": "1791424292",
+							"otherinfo": "1791424292, which evaluates to: 2026-10-08 01:51:32."
 						},
 						{
-							"id": "46",
+							"id": "40",
 							"uri": "https://formy-project.herokuapp.com/sitemap.xml",
 							"nodeName": "https:\/\/formy-project.herokuapp.com\/sitemap.xml",
 							"method": "GET",
 							"param": "Reporting-Endpoints",
 							"attack": "",
-							"evidence": "1791423671",
-							"otherinfo": "1791423671, which evaluates to: 2026-10-08 01:41:11."
+							"evidence": "1791424292",
+							"otherinfo": "1791424292, which evaluates to: 2026-10-08 01:51:32."
 						}
 					],
 					"count": "5",
 					"systemic": true,
 					"solution": "<p>Manually confirm that the timestamp data is not sensitive, and that the data cannot be aggregated to disclose exploitable patterns.</p>",
-					"otherinfo": "<p>1791423671, which evaluates to: 2026-10-08 01:41:11.</p>",
+					"otherinfo": "<p>1791424292, which evaluates to: 2026-10-08 01:51:32.</p>",
 					"reference": "<p>https://cwe.mitre.org/data/definitions/200.html</p>",
 					"cweid": "497",
 					"wascid": "13",
-					"sourceid": "6"
+					"sourceid": "1"
 				},
 				{
 					"pluginid": "10021",
@@ -885,7 +885,7 @@
 					"desc": "<p>The Anti-MIME-Sniffing header X-Content-Type-Options was not set to 'nosniff'. This allows older versions of Internet Explorer and Chrome to perform MIME-sniffing on the response body, potentially causing the response body to be interpreted and displayed as a content type other than the declared content type. Current (early 2014) and legacy versions of Firefox will use the declared content type (if one is set), rather than performing MIME-sniffing.</p>",
 					"instances":[ 
 						{
-							"id": "160",
+							"id": "159",
 							"uri": "https://formy-project.herokuapp.com/assets/application-467e0b1fae66618f98c39666f913d6e0b0827e15ee6f480150fb92acfe0a8ff4.js",
 							"nodeName": "https:\/\/formy-project.herokuapp.com\/assets\/application-467e0b1fae66618f98c39666f913d6e0b0827e15ee6f480150fb92acfe0a8ff4.js",
 							"method": "GET",
@@ -895,7 +895,7 @@
 							"otherinfo": "This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.\nAt \"High\" threshold this scan rule will not alert on client or server error responses."
 						},
 						{
-							"id": "149",
+							"id": "148",
 							"uri": "https://formy-project.herokuapp.com/assets/application-4f3b4f08cd1f03905031efc552ebd06c532a62089d81d1cbff175de50df958a3.css",
 							"nodeName": "https:\/\/formy-project.herokuapp.com\/assets\/application-4f3b4f08cd1f03905031efc552ebd06c532a62089d81d1cbff175de50df958a3.css",
 							"method": "GET",
@@ -905,7 +905,7 @@
 							"otherinfo": "This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.\nAt \"High\" threshold this scan rule will not alert on client or server error responses."
 						},
 						{
-							"id": "146",
+							"id": "145",
 							"uri": "https://formy-project.herokuapp.com/assets/favicon-05ae272716c4133e0ba741678db1eeaf0867542d5a185910b558596b1752792a.ico",
 							"nodeName": "https:\/\/formy-project.herokuapp.com\/assets\/favicon-05ae272716c4133e0ba741678db1eeaf0867542d5a185910b558596b1752792a.ico",
 							"method": "GET",
@@ -915,7 +915,7 @@
 							"otherinfo": "This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.\nAt \"High\" threshold this scan rule will not alert on client or server error responses."
 						},
 						{
-							"id": "147",
+							"id": "146",
 							"uri": "https://formy-project.herokuapp.com/assets/selenium-logo-c1d6f4654a0c8f8bef745f71b4e22836224aabc2116f405ef511cd79c48f2947.png",
 							"nodeName": "https:\/\/formy-project.herokuapp.com\/assets\/selenium-logo-c1d6f4654a0c8f8bef745f71b4e22836224aabc2116f405ef511cd79c48f2947.png",
 							"method": "GET",
@@ -925,7 +925,7 @@
 							"otherinfo": "This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.\nAt \"High\" threshold this scan rule will not alert on client or server error responses."
 						},
 						{
-							"id": "43",
+							"id": "46",
 							"uri": "https://formy-project.herokuapp.com/robots.txt",
 							"nodeName": "https:\/\/formy-project.herokuapp.com\/robots.txt",
 							"method": "GET",
@@ -955,7 +955,7 @@
 					"desc": "<p>The response appears to contain suspicious comments which may help an attacker.</p>",
 					"instances":[ 
 						{
-							"id": "153",
+							"id": "152",
 							"uri": "https://formy-project.herokuapp.com/assets/application-467e0b1fae66618f98c39666f913d6e0b0827e15ee6f480150fb92acfe0a8ff4.js",
 							"nodeName": "https:\/\/formy-project.herokuapp.com\/assets\/application-467e0b1fae66618f98c39666f913d6e0b0827e15ee6f480150fb92acfe0a8ff4.js",
 							"method": "GET",
@@ -965,7 +965,7 @@
 							"otherinfo": "The following pattern was used: \\bUSERNAME\\b and was detected in likely comment: \"/*\n\t\ttimeout: 0,\n\t\tdata: null,\n\t\tdataType: null,\n\t\tusername: null,\n\t\tpassword: null,\n\t\tcache: null,\n\t\tthrows: false,\n\t\ttradition\", see evidence field for the suspicious comment/snippet."
 						},
 						{
-							"id": "155",
+							"id": "154",
 							"uri": "https://formy-project.herokuapp.com/assets/application-467e0b1fae66618f98c39666f913d6e0b0827e15ee6f480150fb92acfe0a8ff4.js",
 							"nodeName": "https:\/\/formy-project.herokuapp.com\/assets\/application-467e0b1fae66618f98c39666f913d6e0b0827e15ee6f480150fb92acfe0a8ff4.js",
 							"method": "GET",
@@ -975,7 +975,7 @@
 							"otherinfo": "The following pattern was used: \\bUSER\\b and was detected 13 times, the first in likely comment: \"// Can be adjusted by the user\", see evidence field for the suspicious comment/snippet."
 						},
 						{
-							"id": "151",
+							"id": "150",
 							"uri": "https://formy-project.herokuapp.com/assets/application-467e0b1fae66618f98c39666f913d6e0b0827e15ee6f480150fb92acfe0a8ff4.js",
 							"nodeName": "https:\/\/formy-project.herokuapp.com\/assets\/application-467e0b1fae66618f98c39666f913d6e0b0827e15ee6f480150fb92acfe0a8ff4.js",
 							"method": "GET",
@@ -985,7 +985,7 @@
 							"otherinfo": "The following pattern was used: \\bBUGS\\b and was detected 7 times, the first in likely comment: \"// See https://bugs.jquery.com/ticket/13378\", see evidence field for the suspicious comment/snippet."
 						},
 						{
-							"id": "158",
+							"id": "157",
 							"uri": "https://formy-project.herokuapp.com/assets/application-467e0b1fae66618f98c39666f913d6e0b0827e15ee6f480150fb92acfe0a8ff4.js",
 							"nodeName": "https:\/\/formy-project.herokuapp.com\/assets\/application-467e0b1fae66618f98c39666f913d6e0b0827e15ee6f480150fb92acfe0a8ff4.js",
 							"method": "GET",
@@ -995,7 +995,7 @@
 							"otherinfo": "The following pattern was used: \\bTODO\\b and was detected 6 times, the first in likely comment: \"// TODO: identify versions\", see evidence field for the suspicious comment/snippet."
 						},
 						{
-							"id": "154",
+							"id": "153",
 							"uri": "https://formy-project.herokuapp.com/assets/application-467e0b1fae66618f98c39666f913d6e0b0827e15ee6f480150fb92acfe0a8ff4.js",
 							"nodeName": "https:\/\/formy-project.herokuapp.com\/assets\/application-467e0b1fae66618f98c39666f913d6e0b0827e15ee6f480150fb92acfe0a8ff4.js",
 							"method": "GET",
@@ -1005,7 +1005,7 @@
 							"otherinfo": "The following pattern was used: \\bQUERY\\b and was detected 3 times, the first in likely comment: \"// want to query the value if it is a CSS custom property\", see evidence field for the suspicious comment/snippet."
 						},
 						{
-							"id": "159",
+							"id": "158",
 							"uri": "https://formy-project.herokuapp.com/assets/application-467e0b1fae66618f98c39666f913d6e0b0827e15ee6f480150fb92acfe0a8ff4.js",
 							"nodeName": "https:\/\/formy-project.herokuapp.com\/assets\/application-467e0b1fae66618f98c39666f913d6e0b0827e15ee6f480150fb92acfe0a8ff4.js",
 							"method": "GET",
@@ -1015,7 +1015,7 @@
 							"otherinfo": "The following pattern was used: \\bWHERE\\b and was detected 13 times, the first in likely comment: \"// For CommonJS and CommonJS-like environments where a proper `window`\", see evidence field for the suspicious comment/snippet."
 						},
 						{
-							"id": "156",
+							"id": "155",
 							"uri": "https://formy-project.herokuapp.com/assets/application-467e0b1fae66618f98c39666f913d6e0b0827e15ee6f480150fb92acfe0a8ff4.js",
 							"nodeName": "https:\/\/formy-project.herokuapp.com\/assets\/application-467e0b1fae66618f98c39666f913d6e0b0827e15ee6f480150fb92acfe0a8ff4.js",
 							"method": "GET",
@@ -1025,7 +1025,7 @@
 							"otherinfo": "The following pattern was used: \\bSELECT\\b and was detected 4 times, the first in likely comment: \"// We use this for POS matching in `select`\", see evidence field for the suspicious comment/snippet."
 						},
 						{
-							"id": "150",
+							"id": "149",
 							"uri": "https://formy-project.herokuapp.com/assets/application-467e0b1fae66618f98c39666f913d6e0b0827e15ee6f480150fb92acfe0a8ff4.js",
 							"nodeName": "https:\/\/formy-project.herokuapp.com\/assets\/application-467e0b1fae66618f98c39666f913d6e0b0827e15ee6f480150fb92acfe0a8ff4.js",
 							"method": "GET",
@@ -1035,7 +1035,7 @@
 							"otherinfo": "The following pattern was used: \\bLATER\\b and was detected 10 times, the first in likely comment: \"// IE8 throws error here and will not see later tests\", see evidence field for the suspicious comment/snippet."
 						},
 						{
-							"id": "157",
+							"id": "156",
 							"uri": "https://formy-project.herokuapp.com/assets/application-467e0b1fae66618f98c39666f913d6e0b0827e15ee6f480150fb92acfe0a8ff4.js",
 							"nodeName": "https:\/\/formy-project.herokuapp.com\/assets\/application-467e0b1fae66618f98c39666f913d6e0b0827e15ee6f480150fb92acfe0a8ff4.js",
 							"method": "GET",
@@ -1045,7 +1045,7 @@
 							"otherinfo": "The following pattern was used: \\bFROM\\b and was detected 70 times, the first in likely comment: \"// Return just the one element from the set\", see evidence field for the suspicious comment/snippet."
 						},
 						{
-							"id": "152",
+							"id": "151",
 							"uri": "https://formy-project.herokuapp.com/assets/application-467e0b1fae66618f98c39666f913d6e0b0827e15ee6f480150fb92acfe0a8ff4.js",
 							"nodeName": "https:\/\/formy-project.herokuapp.com\/assets\/application-467e0b1fae66618f98c39666f913d6e0b0827e15ee6f480150fb92acfe0a8ff4.js",
 							"method": "GET",
@@ -1055,7 +1055,7 @@
 							"otherinfo": "The following pattern was used: \\bBUG\\b and was detected 8 times, the first in likely comment: \"// We allow this because of a bug in IE8/9 that throws an error\", see evidence field for the suspicious comment/snippet."
 						},
 						{
-							"id": "99",
+							"id": "91",
 							"uri": "https://formy-project.herokuapp.com/autocomplete",
 							"nodeName": "https:\/\/formy-project.herokuapp.com\/autocomplete",
 							"method": "GET",
@@ -1065,7 +1065,7 @@
 							"otherinfo": "The following pattern was used: \\bUSER\\b and was detected in likely comment: \"// When the user selects an address from the dropdown, populate the address\", see evidence field for the suspicious comment/snippet."
 						},
 						{
-							"id": "100",
+							"id": "92",
 							"uri": "https://formy-project.herokuapp.com/autocomplete",
 							"nodeName": "https:\/\/formy-project.herokuapp.com\/autocomplete",
 							"method": "GET",
@@ -1162,7 +1162,7 @@
 					"reference": "",
 					"cweid": "-1",
 					"wascid": "-1",
-					"sourceid": "1"
+					"sourceid": "6"
 				},
 				{
 					"pluginid": "10049",
@@ -1175,7 +1175,7 @@
 					"desc": "<p>The response contents are not storable by caching components such as proxy servers. If the response does not contain sensitive, personal or user-specific information, it may benefit from being stored and cached, to improve performance.</p>",
 					"instances":[ 
 						{
-							"id": "1",
+							"id": "0",
 							"uri": "https://formy-project.herokuapp.com",
 							"nodeName": "https:\/\/formy-project.herokuapp.com",
 							"method": "GET",
@@ -1222,7 +1222,7 @@
 					"reference": "<p>https://datatracker.ietf.org/doc/html/rfc7234</p><p>https://datatracker.ietf.org/doc/html/rfc7231</p><p>https://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html</p>",
 					"cweid": "524",
 					"wascid": "13",
-					"sourceid": "6"
+					"sourceid": "1"
 				},
 				{
 					"pluginid": "10015",
@@ -1255,7 +1255,7 @@
 							"otherinfo": ""
 						},
 						{
-							"id": "58",
+							"id": "54",
 							"uri": "https://formy-project.herokuapp.com/autocomplete",
 							"nodeName": "https:\/\/formy-project.herokuapp.com\/autocomplete",
 							"method": "GET",
@@ -1265,7 +1265,7 @@
 							"otherinfo": ""
 						},
 						{
-							"id": "55",
+							"id": "60",
 							"uri": "https://formy-project.herokuapp.com/buttons",
 							"nodeName": "https:\/\/formy-project.herokuapp.com\/buttons",
 							"method": "GET",
@@ -1275,7 +1275,7 @@
 							"otherinfo": ""
 						},
 						{
-							"id": "40",
+							"id": "43",
 							"uri": "https://formy-project.herokuapp.com/robots.txt",
 							"nodeName": "https:\/\/formy-project.herokuapp.com\/robots.txt",
 							"method": "GET",
@@ -1325,7 +1325,7 @@
 							"otherinfo": "cookie:_formy_session"
 						},
 						{
-							"id": "108",
+							"id": "106",
 							"uri": "https://formy-project.herokuapp.com/autocomplete",
 							"nodeName": "https:\/\/formy-project.herokuapp.com\/autocomplete",
 							"method": "GET",
@@ -1355,7 +1355,7 @@
 							"otherinfo": "cookie:_formy_session"
 						},
 						{
-							"id": "98",
+							"id": "105",
 							"uri": "https://formy-project.herokuapp.com/datepicker",
 							"nodeName": "https:\/\/formy-project.herokuapp.com\/datepicker",
 							"method": "GET",
@@ -1365,7 +1365,7 @@
 							"otherinfo": "cookie:_formy_session"
 						},
 						{
-							"id": "135",
+							"id": "130",
 							"uri": "https://formy-project.herokuapp.com/dragdrop",
 							"nodeName": "https:\/\/formy-project.herokuapp.com\/dragdrop",
 							"method": "GET",
@@ -1375,7 +1375,7 @@
 							"otherinfo": "cookie:_formy_session"
 						},
 						{
-							"id": "118",
+							"id": "128",
 							"uri": "https://formy-project.herokuapp.com/dropdown",
 							"nodeName": "https:\/\/formy-project.herokuapp.com\/dropdown",
 							"method": "GET",
@@ -1385,9 +1385,19 @@
 							"otherinfo": "cookie:_formy_session"
 						},
 						{
-							"id": "137",
+							"id": "142",
 							"uri": "https://formy-project.herokuapp.com/enabled",
 							"nodeName": "https:\/\/formy-project.herokuapp.com\/enabled",
+							"method": "GET",
+							"param": "_formy_session",
+							"attack": "",
+							"evidence": "_formy_session",
+							"otherinfo": "cookie:_formy_session"
+						},
+						{
+							"id": "144",
+							"uri": "https://formy-project.herokuapp.com/fileupload",
+							"nodeName": "https:\/\/formy-project.herokuapp.com\/fileupload",
 							"method": "GET",
 							"param": "_formy_session",
 							"attack": "",
@@ -1403,16 +1413,6 @@
 							"attack": "",
 							"evidence": "_formy_session",
 							"otherinfo": "cookie:_formy_session"
-						},
-						{
-							"id": "145",
-							"uri": "https://formy-project.herokuapp.com/keypress",
-							"nodeName": "https:\/\/formy-project.herokuapp.com\/keypress",
-							"method": "GET",
-							"param": "_formy_session",
-							"attack": "",
-							"evidence": "_formy_session",
-							"otherinfo": "cookie:_formy_session"
 						}
 					],
 					"count": "11",
@@ -1422,7 +1422,7 @@
 					"reference": "<p>https://www.zaproxy.org/docs/desktop/addons/authentication-helper/session-mgmt-id/</p>",
 					"cweid": "-1",
 					"wascid": "-1",
-					"sourceid": "1"
+					"sourceid": "6"
 				},
 				{
 					"pluginid": "10049",
@@ -1435,7 +1435,7 @@
 					"desc": "<p>The response contents are storable by caching components such as proxy servers, and may be retrieved directly from the cache, rather than from the origin server by the caching servers, in response to similar requests from other users. If the response data is sensitive, personal or user-specific, this may result in sensitive information being leaked. In some cases, this may even result in a user gaining complete control of the session of another user, depending on the configuration of the caching components in use in their environment. This is primarily an issue where \"shared\" caching servers such as \"proxy\" caches are configured on the local network. This configuration is typically found in corporate or educational environments, for instance.</p>",
 					"instances":[ 
 						{
-							"id": "38",
+							"id": "41",
 							"uri": "https://formy-project.herokuapp.com/robots.txt",
 							"nodeName": "https:\/\/formy-project.herokuapp.com\/robots.txt",
 							"method": "GET",
@@ -1445,7 +1445,7 @@
 							"otherinfo": "In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234."
 						},
 						{
-							"id": "44",
+							"id": "38",
 							"uri": "https://formy-project.herokuapp.com/sitemap.xml",
 							"nodeName": "https:\/\/formy-project.herokuapp.com\/sitemap.xml",
 							"method": "GET",
@@ -1462,7 +1462,7 @@
 					"reference": "<p>https://datatracker.ietf.org/doc/html/rfc7234</p><p>https://datatracker.ietf.org/doc/html/rfc7231</p><p>https://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html</p>",
 					"cweid": "524",
 					"wascid": "13",
-					"sourceid": "26"
+					"sourceid": "27"
 				}
 			]
 		}
