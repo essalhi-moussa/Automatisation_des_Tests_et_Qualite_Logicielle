@@ -1,6 +1,6 @@
 # Automatisation des tests et qualité logicielle (Module M11)
 
-[![pipeline status](https://gitlab.com/GROUPE/PROJET/badges/main/pipeline.svg)](https://gitlab.com/GROUPE/PROJET/-/pipelines)
+[![pipeline status](https://gitlab.com/essalhi-moussa-group/automatisation_des_tests_et_qualite_logicielle/badges/main/pipeline.svg)](https://gitlab.com/essalhi-moussa-group/automatisation_des_tests_et_qualite_logicielle/-/pipelines)
 
 Projet de fin de module - Université Hassan II de Casablanca, Faculté des Sciences Aïn Chock, filière IIIA, année 2025-2026.
 Réalisé par **ESSALHI Moussa**, encadré par **Ayoub Koddam**.
@@ -15,7 +15,7 @@ Ce dépôt contient l'automatisation des tests d'une application web de gestion 
 | Sécurité | Formy | OWASP ZAP (baseline passif) |
 | CI/CD | - | GitLab CI (`.gitlab-ci.yml`), Jenkinsfile en alternative |
 
-> Le badge ci-dessus est à adapter : remplacer `GROUPE/PROJET` par le chemin du projet GitLab.
+Dépôts : [GitHub](https://github.com/essalhi-moussa/Automatisation_des_Tests_et_Qualite_Logicielle) (code) et [GitLab](https://gitlab.com/essalhi-moussa-group/automatisation_des_tests_et_qualite_logicielle) (pipeline CI/CD).
 
 ## Choix à connaître avant de lire les tests
 
@@ -128,7 +128,9 @@ Générer un rapport Allure : `bash scripts/run-suite.sh ui local` (ou `api mock
 
 `.gitlab-ci.yml` enchaîne `build`, `api-tests` (RestAssured, Newman), `ui-tests` (Selenium sur le service `selenium/standalone-chrome`), `performance` (manuel ou planifié), `security` (ZAP, `allow_failure`) et `report` (Allure publié avec GitLab Pages). Les artefacts sont conservés 30 jours, les rapports JUnit sont exposés à GitLab et le dépôt Maven est mis en cache.
 
-Variables CI (Settings > CI/CD > Variables) : `REQRES_API_KEY`, `API_BASE_URL`, `SLACK_WEBHOOK_URL`, `DISCORD_WEBHOOK_URL` (les deux dernières masquées, facultatives).
+Variables CI (Settings > CI/CD > Variables) : `REQRES_API_KEY`, `API_BASE_URL`, `API_MODE`, `SLACK_WEBHOOK_URL`, `DISCORD_WEBHOOK_URL` (les deux dernières masquées, facultatives).
+
+`API_MODE` vaut `auto` par défaut : une requête de contrôle mesure le quota Reqres restant et, s'il est insuffisant, les jobs API utilisent le mock local (`scripts/ci-select-api.sh`). La cible retenue est écrite dans `reports/api/cible-api.txt` (artefact du job). `real` force Reqres, `mock` force le mock.
 
 Notifications :
 

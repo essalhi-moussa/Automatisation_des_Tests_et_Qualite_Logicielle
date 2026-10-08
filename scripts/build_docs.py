@@ -23,6 +23,7 @@ ENCADRANT = os.environ.get("QA_ENCADRANT", "Ayoub Koddam")
 FILIERE = os.environ.get("QA_FILIERE", "IIIA")
 ANNEE = "2025-2026"
 REPO = "github.com/essalhi-moussa/Automatisation_des_Tests_et_Qualite_Logicielle"
+REPO_CI = "gitlab.com/essalhi-moussa-group/automatisation_des_tests_et_qualite_logicielle"
 
 
 SEP = chr(10) * 2  # ligne vide entre deux extraits
@@ -70,7 +71,7 @@ def cover(doc_type, title, subtitle):
         program="Module M11 - Automatisation des tests et qualité logicielle",
         doc_type=doc_type, title=title, subtitle=subtitle,
         fields=[("Réalisé par", AUTEURS), ("Filière", FILIERE), ("Encadrant", ENCADRANT),
-                ("Année universitaire", ANNEE), ("Dépôt Git", REPO)],
+                ("Année universitaire", ANNEE), ("Dépôt Git", REPO), ("Pipeline CI/CD", REPO_CI)],
     )
 
 
@@ -373,8 +374,8 @@ def build_report():
     d.image(os.path.join(IMG, "pipeline.png"), 15.5, "Figure 6 - Étapes du pipeline GitLab CI")
     d.bullets([
         "**build** : compilation Maven ; cache du dépôt Maven (clé = hash du pom.xml).",
-        "**api-tests** : RestAssured (rapport JUnit exposé à GitLab) et Newman (HTML htmlextra + JUnit).",
-        "**ui-tests** : Selenium sur le service `selenium/standalone-chrome` (navigateur distant via `remote.url`).",
+        "**api-tests** : RestAssured (rapport JUnit exposé à GitLab) et Newman (HTML htmlextra + JUnit). Une requête de contrôle vérifie le quota Reqres : s'il est épuisé, le job bascule sur le mock local et l'écrit dans `reports/api/cible-api.txt` (variable `API_MODE` = auto, real ou mock).",
+        "**ui-tests** : Selenium sur le service `selenium/standalone-chrome` (navigateur distant via `remote.url`, 3 sessions), après attente de la disponibilité du service. Ce mode a été validé localement avec Selenium Server 4.35 (21/21).",
         "**performance** : JMeter, déclenchement manuel ou planifié (pour ne pas épuiser le quota Reqres à chaque commit).",
         "**security** : ZAP baseline (image officielle), `allow_failure: true`.",
         "**report** : génération du rapport Allure, publié avec GitLab Pages ; artefacts conservés 30 jours.",
