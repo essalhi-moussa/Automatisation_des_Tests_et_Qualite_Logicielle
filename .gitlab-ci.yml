@@ -2,7 +2,9 @@
 #
 # Variables CI a definir dans Settings > CI/CD > Variables (toutes optionnelles) :
 #   REQRES_API_KEY       cle API Reqres (defaut : reqres-free-v1 dans config.properties)
-#   API_BASE_URL         URL de l API (defaut : https://reqres.in ; mettre l URL du mock pour eviter les 429)
+#   API_BASE_URL         URL de l API (defaut : https://reqres.in)
+#   API_MODE             auto (defaut) | real | mock : en auto, bascule sur le mock local si le quota Reqres
+#                        est epuise (429) ; la cible retenue est ecrite dans reports/api/cible-api.txt
 #   SLACK_WEBHOOK_URL    webhook Slack (masquee)    -> notification en fin de pipeline
 #   DISCORD_WEBHOOK_URL  webhook Discord (masquee)
 # Notifications e-mail : Settings > Integrations > Pipeline status emails (voir README).
@@ -23,6 +25,7 @@ variables:
   MAVEN_OPTS: "-Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository"
   MAVEN_CLI_OPTS: "-B -ntp"
   API_BASE_URL: "https://reqres.in"
+  API_MODE: "auto"
 
 cache:
   key:
@@ -45,13 +48,15 @@ compile:
 api-restassured:
   stage: api-tests
   script:
-    - mvn $MAVEN_CLI_OPTS -P api test -Dapi.base.url=$API_BASE_URL
+    - . scripts/ci-select-api.sh 20
+    - mvn $MAVEN_CLI_OPTS -P api test -Dapi.base.url=$API_URL
   artifacts:
     when: always
     expire_in: 30 days
     paths:
       - target/allure-results
       - target/surefire-reports
+      - reports/api/cible-api.txt
     reports:
       junit: target/surefire-reports/TEST-*.xml
 
@@ -62,11 +67,12 @@ api-newman:
   before_script:
     - npm install -g newman newman-reporter-htmlextra
   script:
+    - . scripts/ci-select-api.sh 20
     - mkdir -p reports/api/newman
     - >
       newman run postman/Reqres.postman_collection.json
       -e postman/reqres-public.postman_environment.json
-      --env-var "baseUrl=$API_BASE_URL"
+      --env-var "baseUrl=$API_URL"
       ${REQRES_API_KEY:+--env-var "apiKey=$REQRES_API_KEY"}
       -r cli,htmlextra,junit
       --reporter-htmlextra-export reports/api/newman/rapport-newman.html
@@ -76,6 +82,7 @@ api-newman:
     expire_in: 30 days
     paths:
       - reports/api/newman
+      - reports/api/cible-api.txt
     reports:
       junit: reports/api/newman/newman-junit.xml
 
@@ -86,8 +93,13 @@ ui-selenium:
     - name: selenium/standalone-chrome:latest
       alias: selenium
   variables:
-    REMOTE_URL: "http://selenium:4444/wd/hub"
-    HEADLESS: "true"
+    REMOTE_URL: "http://selenium:4444"
+    SE_NODE_MAX_SESSIONS: "3"
+    SE_NODE_OVERRIDE_MAX_SESSIONS: "true"
+  before_script:
+    - command -v curl >/dev/null || (apt-get update -qq && apt-get install -y -qq curl >/dev/null)
+    # attendre que le service Selenium soit pret avant de lancer les tests
+    - for i in $(seq 1 60); do curl -sf "$REMOTE_URL/status" | grep -Eq '"ready": ?true' && break; sleep 2; done
   script:
     - mvn $MAVEN_CLI_OPTS -P ui test -Dremote.url=$REMOTE_URL -Dheadless=true
   artifacts:
@@ -155,6 +167,7 @@ allure-report:
   variables:
     ALLURE_VERSION: "2.29.0"
   script:
+    - command -v curl >/dev/null || (apt-get update -qq && apt-get install -y -qq curl >/dev/null)
     - curl -sSL -o allure.tgz "https://github.com/allure-framework/allure2/releases/download/${ALLURE_VERSION}/allure-${ALLURE_VERSION}.tgz"
     - tar -xzf allure.tgz
     - ./allure-${ALLURE_VERSION}/bin/allure generate target/allure-results --clean -o allure-report
