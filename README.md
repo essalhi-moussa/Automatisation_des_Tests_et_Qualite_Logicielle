@@ -137,6 +137,8 @@ Notifications :
 - **E-mail** : Settings > Integrations > « Pipeline status emails » (destinataires, envoi sur échec seulement ou toujours).
 - **Webhook** : si `SLACK_WEBHOOK_URL` ou `DISCORD_WEBHOOK_URL` est définie, `scripts/notify-webhook.sh` envoie un message en fin de pipeline.
 
+**Exécution réelle** : pipeline [#2924651734](https://gitlab.com/essalhi-moussa-group/automatisation_des_tests_et_qualite_logicielle/-/pipelines/2924651734) réussi (RestAssured 9/9 et Newman 37/37 sur Reqres, Selenium 21/21, ZAP, Allure). Rapport Allure publié : https://automatisation-des-tests-et-qualite-logicielle-5d7828.gitlab.io/ . Résumé et artefacts : `reports/ci/` (`python scripts/fetch_ci_results.py`).
+
 `Jenkinsfile` fournit l'équivalent (étapes parallèles, plugin Allure, JUnit, `emailext`). Outils Jenkins attendus : `Maven-3.9`, `JDK-17`.
 
 ## Documents

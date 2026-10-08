@@ -38,22 +38,36 @@ CI_SHOTS = [
 
 
 def ci_composite(shots):
-    """Assemble les captures du pipeline (1 a 4) en une planche docs/img/ci-captures.png."""
+    """Assemble les captures annexes du pipeline (hors graphe) cote a cote dans docs/img/ci-captures.png."""
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
     from PIL import Image
-    n = len(shots)
-    rows, cols = (1, n) if n <= 2 else (2, 2)
-    fig, axes = plt.subplots(rows, cols, figsize=(7.0, 2.4 * rows), squeeze=False)
-    for ax in axes.flat:
-        ax.axis("off")
-    for ax, (f, title) in zip(axes.flat, shots):
-        ax.imshow(Image.open(os.path.join(IMG, "ci", f)).convert("RGB"))
+    others = [(f, t) for f, t in shots if f != "1-pipeline.png"]
+    if not others:
+        return False
+    fig, axes = plt.subplots(1, len(others), figsize=(7.4, 2.6), squeeze=False)
+    for ax, (f, title) in zip(axes[0], others):
+        img = Image.open(os.path.join(IMG, "ci", f)).convert("RGB")
+        if f == "2-tests-junit.png":  # zone utile : resume et tableau des jobs
+            img = img.crop((245, 90, img.width - 10, min(img.height, 720)))
+        elif f == "3-allure.png":
+            img = img.crop((0, 0, min(img.width, 840), min(img.height, 420)))
+        ax.imshow(img)
         ax.set_title(title[0].upper() + title[1:], fontsize=8)
+        ax.axis("off")
     fig.tight_layout(pad=0.4)
     fig.savefig(os.path.join(IMG, "ci-captures.png"), dpi=170, bbox_inches="tight", facecolor="white")
     plt.close(fig)
+    return True
+
+
+def ci_pipeline_crop():
+    """Recadre la capture du graphe du pipeline (sans le menu lateral) : docs/img/ci-pipeline.png."""
+    from PIL import Image
+    img = Image.open(os.path.join(IMG, "ci", "1-pipeline.png")).convert("RGB")
+    w, h = img.size
+    img.crop((int(w * 0.09), int(h * 0.09), w - 8, int(h * 0.86))).save(os.path.join(IMG, "ci-pipeline.png"))
 
 
 def fr(x, nd=0):
@@ -98,6 +112,8 @@ NM_MOCK_NAME, NM_MOCK = pick(S["newman"], "mock")
 PERF_REAL = S["perf"].get("reqres")
 PERF_MOCK = S["perf"].get("mock")
 ZAP = S["security"]
+_CI_PATH = os.path.join(ROOT, "reports", "ci", "pipeline-gitlab.json")
+CI = json.load(open(_CI_PATH, encoding="utf-8")) if os.path.exists(_CI_PATH) else None
 
 
 # =============================================================================== PLAN DE TESTS
@@ -371,7 +387,12 @@ def build_report():
 
     # ---------------------------------------------------------------- 6
     d.h1("6. Pipeline CI/CD")
-    d.image(os.path.join(IMG, "pipeline.png"), 15.5, "Figure 6 - Étapes du pipeline GitLab CI")
+    if os.path.exists(os.path.join(IMG, "ci", "1-pipeline.png")):
+        ci_pipeline_crop()
+        d.image(os.path.join(IMG, "ci-pipeline.png"), 16.5, "Figure 6 - Pipeline GitLab réussi : graphe réel des stages (capture du pipeline #%s)"
+                % (CI["pipeline_id"] if CI else ""))
+    else:
+        d.image(os.path.join(IMG, "pipeline.png"), 15.5, "Figure 6 - Étapes du pipeline GitLab CI")
     d.bullets([
         "**build** : compilation Maven ; cache du dépôt Maven (clé = hash du pom.xml).",
         "**api-tests** : RestAssured (rapport JUnit exposé à GitLab) et Newman (HTML htmlextra + JUnit). Une requête de contrôle vérifie le quota Reqres : s'il est épuisé, le job bascule sur le mock local et l'écrit dans `reports/api/cible-api.txt` (variable `API_MODE` = auto, real ou mock).",
@@ -383,12 +404,29 @@ def build_report():
         "**Jenkinsfile** équivalent : étapes parallèles API, Allure Plugin, JUnit, `emailext`.",
     ])
     shots = [(f, t) for f, t in CI_SHOTS if os.path.exists(os.path.join(IMG, "ci", f))]
-    if shots:
-        ci_composite(shots)
-        d.p("Le pipeline a été exécuté sur la plateforme CI. Les captures suivantes en apportent la preuve "
-            "(fichiers d'origine dans `docs/img/ci/`).", "justify")
-        d.image(os.path.join(IMG, "ci-captures.png"), 14.0, "Figure 7 - Exécution réelle du pipeline : " + " ; ".join(t for _, t in shots))
-    else:
+    if CI:
+        ra, nm_ci, se, zp = CI.get("restassured", {}), CI.get("newman", {}), CI.get("selenium", {}), CI.get("zap", {})
+        d.p("Le pipeline a été exécuté sur GitLab.com (runners partagés) : pipeline **#%d**, commit `%s`, statut **%s** en %s min "
+            "(%s). Rapport Allure publié sur GitLab Pages : %s." % (
+                CI["pipeline_id"], CI["sha"], "réussi" if CI["status"] == "success" else CI["status"],
+                fr((CI.get("duration_s") or 0) / 60, 1), CI["web_url"], CI.get("pages_url") or "n/d"), "left")
+        rows = [
+            ["api-restassured", "%d / %d tests réussis" % (ra.get("run", 0) - ra.get("failures", 0) - ra.get("errors", 0), ra.get("run", 0)),
+             (ra.get("target") or "").replace(" (", chr(10) + "(")],
+            ["api-newman", "%d / %d assertions" % (nm_ci.get("assertions", 0) - nm_ci.get("failed", 0), nm_ci.get("assertions", 0)),
+             (nm_ci.get("target") or "").replace(" (", chr(10) + "(")],
+            ["ui-selenium", "%d / %d tests réussis" % (se.get("run", 0) - se.get("failures", 0) - se.get("errors", 0), se.get("run", 0)),
+             "service selenium/standalone-chrome"],
+            ["security-zap", "%d échec, %d avertissements, %d contrôles réussis" % (zp.get("fail_new", 0), zp.get("warn_new", 0), zp.get("pass", 0)),
+             "zap-baseline.py (image officielle)"],
+            ["allure-report, pages", "rapport généré et publié", "GitLab Pages"],
+            ["perf-jmeter", "manuel (non déclenché)", "évite d'épuiser le quota Reqres à chaque commit"],
+        ]
+        d.table(["Job", "Résultat", "Cible / remarque"], rows, widths=[1.6, 2.6, 3.0], font=8,
+                caption="Tableau 6 - Résultats réels du pipeline GitLab (reports/ci/pipeline-gitlab.json)")
+    if shots and ci_composite(shots):
+        d.image(os.path.join(IMG, "ci-captures.png"), 15.5, "Figure 7 - Pipeline réel : " + " ; ".join(t for f, t in shots if f != "1-pipeline.png"))
+    if not CI and not shots:
         d.note("**Statut de vérification.** Les fichiers `.gitlab-ci.yml` et `Jenkinsfile` ont été validés syntaxiquement et chacune de leurs commandes a été exécutée "
                "localement (Maven, Newman, JMeter, ZAP, génération Allure). Les captures du pipeline sont à déposer dans `docs/img/ci/` "
                "(noms ci-dessous) puis le rapport est régénéré avec `python scripts/build_docs.py rapport`.")
@@ -405,6 +443,7 @@ def build_report():
         ["the-internet : chargement > 30 s, éditeur TinyMCE en lecture seule", "Abandon de /iframe, frames imbriqués avec stratégie de chargement NONE, groupe `external` isolé"],
         ["Pas de Docker sur le poste", "ZAP local avec plan Automation Framework équivalent ; image Docker conservée pour la CI"],
         ["Échappements JSON des schémas (shell Windows)", "Expressions régulières simplifiées ([0-9], [.]) et validation JSON de chaque schéma"],
+        ["Premiers pipelines GitLab en échec : YAML invalide (« : » lu comme une clé), compte non vérifié", "Script en bloc multi-ligne et contrôle du type de chaque ligne ; vérification d'identité GitLab, puis pipeline réussi"],
     ], widths=[3.0, 3.8], font=8.5, caption="Tableau 7 - Problèmes et solutions")
 
     # ---------------------------------------------------------------- 8
